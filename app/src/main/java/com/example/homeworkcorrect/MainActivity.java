@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private String demo1;
     private String key;
     private String key1;
+    private String key2;
 
 
     @Override
