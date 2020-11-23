@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<String, TextView> textViewMap = new HashMap<>();
     private String userName;
     private String demo;
+    private String userName1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
