@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private String userName;
     private String demo;
     private String userName1;
+    private String demo1;
     private String userName2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //获取FragmentTabHost的引用
         FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
         //初始化
+
         fragmentTabHost.setup(this,
                 getSupportFragmentManager(),//管理多个Fragment对象的管理器
                 android.R.id.tabcontent);//显示内容页面的控件的id
