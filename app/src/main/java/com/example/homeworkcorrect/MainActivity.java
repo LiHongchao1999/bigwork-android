@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private String userName1;
     private String demo1;
     private String key;
+    private String key1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
