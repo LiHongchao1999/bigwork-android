@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private String key;
     private String key1;
     private String key2;
-    private String k;
 
 
     @Override
