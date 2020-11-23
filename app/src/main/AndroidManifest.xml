@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CircleDetailActivity"/>
+        <activity android:name=".chat.ChatActivity"/>
+        <activity android:name=".InformationActivity"/>
+        <activity android:name=".SearchUserActivity"/>
     </application>
 
 </manifest>
