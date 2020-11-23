@@ -46,7 +46,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/add"/>
         </LinearLayout>
-        <com.example.homeworkcorrecting.MyListView
+        <com.example.homeworkcorrect.MyListView
             android:id="@+id/listview"
             android:background="#F0F0F0"
             android:layout_width="match_parent"

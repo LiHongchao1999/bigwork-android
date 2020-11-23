@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.homeworkcorrecting.R;
+import com.example.homeworkcorrect.R;
 
 import java.util.ArrayList;
 

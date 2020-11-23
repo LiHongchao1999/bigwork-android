@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.homeworkcorrecting.R;
+import com.example.homeworkcorrect.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <com.example.homeworkcorrecting.chat.CircleImageView
+    <com.example.homeworkcorrect.chat.CircleImageView
         android:id="@+id/ic_user"
         android:layout_width="48dp"
         android:layout_height="48dp"

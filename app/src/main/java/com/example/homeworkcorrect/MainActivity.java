@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-
 import com.example.homeworkcorrect.fragment.MyFragment;
 import com.example.homeworkcorrect.fragment.ParentCircleFragment;
-
 import java.util.HashMap;
 import java.util.Map;
 

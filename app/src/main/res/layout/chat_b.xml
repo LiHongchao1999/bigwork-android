@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp">
 
-    <com.example.homeworkcorrecting.chat.CircleImageView
+    <com.example.homeworkcorrect.chat.CircleImageView
         android:id="@+id/ic_user"
         app:border_color="#E0E0E0"
         app:border_width="2dp"
