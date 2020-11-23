@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //获取FragmentTabHost的引用
         FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
-        //初始化
+        //初始化操作
         fragmentTabHost.setup(this,
                 getSupportFragmentManager(),//管理多个Fragment对象的管理器
                 android.R.id.tabcontent);//显示内容页面的控件的id
