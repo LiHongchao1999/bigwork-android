@@ -1,0 +1,78 @@
+Index: app/src/main/java/com/example/homeworkcorrect/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.homeworkcorrect;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.FragmentTabHost;\r\n\r\nimport android.graphics.Color;\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.TabHost;\r\nimport android.widget.TextView;\r\nimport com.example.homeworkcorrect.fragment.MyFragment;\r\nimport com.example.homeworkcorrect.fragment.ParentCircleFragment;\r\nimport java.util.HashMap;\r\nimport java.util.Map;\r\n\r\npublic class MainActivity extends AppCompatActivity {\r\n    private Map<String, ImageView> imageViewMap = new HashMap<>();\r\n    private Map<String, TextView> textViewMap = new HashMap<>();\r\n    private String userName;\r\n    private String demo;\r\n    private String userName1;\r\n    private String demo1;\r\n    private String key;\r\n    private String key1;\r\n\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n        //获取FragmentTabHost的引用\r\n        FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);\r\n        //初始化\r\n\r\n        fragmentTabHost.setup(this,\r\n                getSupportFragmentManager(),//管理多个Fragment对象的管理器\r\n                android.R.id.tabcontent);//显示内容页面的控件的id\r\n\r\n\r\n        //创建内容页面TabSpec对象\r\n        TabHost.TabSpec tab1 = fragmentTabHost.newTabSpec(\"first_tab\")\r\n                .setIndicator(getTabSpecView(\"first_tab\",\"主页\",R.drawable.main1));\r\n        //Class参数：类名.class,对象.getClass()\r\n        fragmentTabHost.addTab(tab1,\r\n                MyFragment.class,//FristFragment类的Class（字节码）对象\r\n                null);//传递数据时使用，不需要传递数据直接传null\r\n\r\n\r\n        //创建内容页面TabSpec对象\r\n        TabHost.TabSpec tab2 = fragmentTabHost.newTabSpec(\"second_tab\")\r\n                .setIndicator(getTabSpecView(\"second_tab\",\"商城\",R.drawable.shop));\r\n        //Class参数：类名.class,对象.getClass()\r\n        fragmentTabHost.addTab(tab2,\r\n                MyFragment.class,//FristFragment类的Class（字节码）对象\r\n                null);//传递数据时使用，不需要传递数据直接传null\r\n\r\n\r\n        //创建内容页面TabSpec对象\r\n        TabHost.TabSpec tab3 = fragmentTabHost.newTabSpec(\"third_tab\")\r\n                .setIndicator(getTabSpecView(\"third_tab\",\"作业\",R.drawable.assignment));\r\n        //Class参数：类名.class,对象.getClass()\r\n        fragmentTabHost.addTab(tab3,\r\n                MyFragment.class,//FristFragment类的Class（字节码）对象\r\n                null);//传递数据时使用，不需要传递数据直接传null\r\n\r\n\r\n        //创建内容页面TabSpec对象\r\n        TabHost.TabSpec tab4 = fragmentTabHost.newTabSpec(\"forth_tab\")\r\n                .setIndicator(getTabSpecView(\"forth_tab\",\"家长圈\",R.drawable.friend));\r\n        //Class参数：类名.class,对象.getClass()\r\n        fragmentTabHost.addTab(tab4,\r\n                ParentCircleFragment.class,//FristFragment类的Class（字节码）对象\r\n                null);//传递数据时使用，不需要传递数据直接传null\r\n\r\n\r\n        //创建内容页面TabSpec对象\r\n        TabHost.TabSpec tab5 = fragmentTabHost.newTabSpec(\"fifth_tab\")\r\n                .setIndicator(getTabSpecView(\"fifth_tab\",\"我的\",R.drawable.my));\r\n        //Class参数：类名.class,对象.getClass()\r\n        fragmentTabHost.addTab(tab5,\r\n                MyFragment.class,//FristFragment类的Class（字节码）对象\r\n                null);//传递数据时使用，不需要传递数据直接传null\r\n\r\n\r\n        //处理fragmentTabHost的选项切换事件\r\n        fragmentTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {\r\n            @Override\r\n            public void onTabChanged(String tabId) {\r\n                //修改图片和文字的颜色\r\n                switch (tabId){\r\n                    case \"first_tab\"://选中了短信\r\n                        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main1);\r\n                        textViewMap.get(\"first_tab\").setTextColor(Color.rgb(240,128,128));\r\n                        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop);\r\n                        textViewMap.get(\"second_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment);\r\n                        textViewMap.get(\"third_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friend);\r\n                        textViewMap.get(\"forth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my);\r\n                        textViewMap.get(\"fifth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        break;\r\n                    case \"second_tab\"://选中了联系人\r\n                        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main);\r\n                        textViewMap.get(\"first_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop1);\r\n                        textViewMap.get(\"second_tab\").setTextColor(Color.rgb(240,128,128));\r\n                        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment);\r\n                        textViewMap.get(\"third_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friend);\r\n                        textViewMap.get(\"forth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my);\r\n                        textViewMap.get(\"fifth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        break;\r\n                    case \"third_tab\"://选中了短信\r\n                        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main);\r\n                        textViewMap.get(\"first_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop);\r\n                        textViewMap.get(\"second_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment1);\r\n                        textViewMap.get(\"third_tab\").setTextColor(Color.rgb(240,128,128));\r\n                        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friend);\r\n                        textViewMap.get(\"forth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my);\r\n                        textViewMap.get(\"fifth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        break;\r\n                    case \"forth_tab\"://选中了联系人\r\n                        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main);\r\n                        textViewMap.get(\"first_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop);\r\n                        textViewMap.get(\"second_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment);\r\n                        textViewMap.get(\"third_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friends1);\r\n                        textViewMap.get(\"forth_tab\").setTextColor(Color.rgb(240,128,128));\r\n                        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my);\r\n                        textViewMap.get(\"fifth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        break;\r\n                    case \"fifth_tab\"://选中了短信\r\n                        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main);\r\n                        textViewMap.get(\"first_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop);\r\n                        textViewMap.get(\"second_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment);\r\n                        textViewMap.get(\"third_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friend);\r\n                        textViewMap.get(\"forth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n                        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my1);\r\n                        textViewMap.get(\"fifth_tab\").setTextColor(Color.rgb(240,128,128));\r\n                        break;\r\n                }\r\n            }\r\n        });\r\n\r\n        //设置默认选中的标签页:参数是下标\r\n        fragmentTabHost.setCurrentTab(0);\r\n        imageViewMap.get(\"first_tab\").setImageResource(R.drawable.main1);\r\n        textViewMap.get(\"first_tab\").setTextColor(Color.rgb(240,128,128));\r\n        imageViewMap.get(\"second_tab\").setImageResource(R.drawable.shop);\r\n        textViewMap.get(\"second_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n        imageViewMap.get(\"third_tab\").setImageResource(R.drawable.assignment);\r\n        textViewMap.get(\"third_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n        imageViewMap.get(\"forth_tab\").setImageResource(R.drawable.friend);\r\n        textViewMap.get(\"forth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n        imageViewMap.get(\"fifth_tab\").setImageResource(R.drawable.my);\r\n        textViewMap.get(\"fifth_tab\").setTextColor(getResources().getColor(android.R.color.black));\r\n    }\r\n    public View getTabSpecView(String tag, String tilte, int drawable){\r\n        View view = getLayoutInflater().inflate(R.layout.tab_spec_layout,null);\r\n\r\n        //获取tab_spec_layout布局当中视图控件的引用\r\n        ImageView icon = view.findViewById(R.id.icon);\r\n        icon.setImageResource(drawable);\r\n\r\n        //将ImageView对象存储到Map中\r\n        imageViewMap.put(tag,icon);\r\n\r\n        TextView tvTitle = view.findViewById(R.id.title);\r\n        tvTitle.setText(tilte);\r\n\r\n        textViewMap.put(tag,tvTitle);\r\n\r\n        return view;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/homeworkcorrect/MainActivity.java	(revision f20f5a04a979ef3865ce32ab5bc0e1d8719b046e)
++++ app/src/main/java/com/example/homeworkcorrect/MainActivity.java	(date 1606120861505)
+@@ -23,6 +23,7 @@
+     private String demo1;
+     private String key;
+     private String key1;
++    private String k;
+ 
+ 
+     @Override
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <compositeConfiguration>\r\n          <compositeBuild compositeDefinitionSource=\"SCRIPT\" />\r\n        </compositeConfiguration>\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision f20f5a04a979ef3865ce32ab5bc0e1d8719b046e)
++++ .idea/gradle.xml	(date 1606120736376)
+@@ -4,9 +4,7 @@
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+-        <compositeConfiguration>
+-          <compositeBuild compositeDefinitionSource="SCRIPT" />
+-        </compositeConfiguration>
++        <option name="testRunner" value="PLATFORM" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="gradleJvm" value="1.8" />
+@@ -17,7 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
+-        <option name="testRunner" value="PLATFORM" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1606120736344)
++++ .idea/compiler.xml	(date 1606120736344)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision f20f5a04a979ef3865ce32ab5bc0e1d8719b046e)
++++ .idea/misc.xml	(date 1606120736324)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
