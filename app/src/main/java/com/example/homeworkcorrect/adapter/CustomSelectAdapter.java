@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.homeworkcorrecting.R;
+import com.example.homeworkcorrect.R;
+
 
 public class CustomSelectAdapter extends BaseAdapter {
     private Context mContext;
