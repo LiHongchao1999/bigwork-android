@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private String userName1;
     private String demo1;
     private String userName2;
+    private String userNam4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
