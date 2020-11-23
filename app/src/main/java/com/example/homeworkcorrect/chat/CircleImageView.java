@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 
-import com.example.homeworkcorrecting.R;
+import com.example.homeworkcorrect.R;
 
 
 /**
