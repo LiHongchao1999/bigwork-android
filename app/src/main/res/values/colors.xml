@@ -5,4 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="backgroundOfMyInformation">#8799a3</color>
     <color name="toolBar">#F4606C</color>
+    <color name="colorCircle">#3598DB</color>
+    <color name="colorFill">#FFFFFF</color>
+    <color name="colorBack">#3598E7</color>
+    <color name="colorEdit">#e3eaf2</color>
 </resources>
