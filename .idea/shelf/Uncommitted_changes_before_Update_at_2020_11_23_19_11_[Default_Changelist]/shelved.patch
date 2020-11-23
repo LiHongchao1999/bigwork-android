@@ -1,0 +1,232 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 98afdcfa5303f53c6f193e99c61fe2965b73e5b4)
++++ .idea/gradle.xml	(date 1606129806563)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java	(date 1606129856747)
++++ app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java	(date 1606129856747)
+@@ -0,0 +1,52 @@
++package com.example.homeworkcorrect.fragment;
++
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.LinearLayout;
++import android.widget.RelativeLayout;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.fragment.app.Fragment;
++
++import com.example.homeworkcorrect.R;
++
++
++public class MyFragmentMainContent extends Fragment {
++    private LinearLayout llcamera;
++    private View view;
++    private LinearLayout llrecommand;
++    private RelativeLayout rlerrors;
++    private RelativeLayout rlperson;
++    @Nullable
++    @Override
++    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
++        view=inflater.inflate(R.layout.fragment_mymaincontent,
++                container,
++                false);
++        getViews();
++        MyListener listener=new MyListener();
++        llcamera.setOnClickListener(listener);
++        llrecommand.setOnClickListener(listener);
++        rlperson.setOnClickListener(listener);
++        rlerrors.setOnClickListener(listener);
++        return view;
++    }
++    public class MyListener implements View.OnClickListener{
++
++        @Override
++        public void onClick(View v) {
++            switch(v.getId()){
++
++            }
++        }
++    }
++    public void getViews(){
++       llcamera=view.findViewById(R.id.ll_camera);
++       llrecommand=view.findViewById(R.id.ll_recommand);
++       rlerrors=view.findViewById(R.id.rl_errors);
++       rlperson=view.findViewById(R.id.rl_person);
++    }
++}
+Index: app/src/main/res/layout/fragment_mymaincontent.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_mymaincontent.xml	(date 1606097898096)
++++ app/src/main/res/layout/fragment_mymaincontent.xml	(date 1606097898096)
+@@ -0,0 +1,146 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    xmlns:android="http://schemas.android.com/apk/res/android">
++    <ImageView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:src="@drawable/ring"
++        android:id="@+id/iv_ring"
++        android:layout_gravity="right"/>
++
++    <LinearLayout
++        android:layout_width="270dp"
++        android:layout_marginBottom="30dp"
++        android:layout_gravity="center"
++        android:background="@drawable/rounded_matrix"
++        android:layout_marginTop="60dp"
++        android:layout_height="270dp"
++        android:orientation="vertical"
++        android:gravity="center"
++        android:id="@+id/ll_camera">
++        <ImageView
++            android:layout_marginTop="15dp"
++            android:layout_marginBottom="40dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:id="@+id/iv_camera"
++            android:src="@drawable/camera"/>
++        <TextView
++            android:textColor="@color/brown"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingLeft="15dp"
++            android:paddingRight="15dp"
++            android:layout_marginBottom="10dp"
++            android:background="@color/orange"
++            android:text="应用题、口算题" />
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:textColor="@color/white"
++            android:layout_marginBottom="20dp"
++            android:text="全批改"/>
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="250dp"
++        android:layout_marginTop="20dp"
++        android:layout_marginBottom="40dp"
++        android:layout_gravity="center"
++        android:id="@+id/ll_recommand"
++        android:layout_height="wrap_content"
++        android:background="@drawable/rounded_matrix"
++        android:gravity="center">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:textColor="@color/white"
++            android:paddingTop="5dp"
++            android:paddingBottom="5dp"
++            android:layout_marginRight="15dp"
++            android:textSize="25sp"
++            android:textFontWeight="300"
++            android:text="推荐作业批"/>
++        <ImageView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:src="@drawable/index"/>
++
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="30dp"
++        android:orientation="horizontal">
++        <RelativeLayout
++            android:layout_width="wrap_content"
++            android:background="@drawable/shadow_linear"
++            android:id="@+id/rl_person"
++            android:layout_marginLeft="20dp"
++            android:layout_height="80dp">
++            <ImageView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="10dp"
++                android:src="@drawable/people"
++                android:layout_centerVertical="true"
++                android:id="@+id/iv_people"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="20dp"
++                android:text="完善学生信息"
++                android:layout_alignTop="@+id/iv_people"
++                android:id="@+id/tv_mes"
++                android:layout_toRightOf="@+id/iv_people"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="学习周报"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="10dp"
++                android:id="@+id/tv_bulletin"
++                android:layout_below="@+id/tv_mes"
++                android:layout_toRightOf="@+id/iv_people"/>
++
++        </RelativeLayout>
++        <RelativeLayout
++            android:layout_width="wrap_content"
++            android:layout_marginLeft="20dp"
++            android:background="@drawable/shadow_linear"
++            android:id="@+id/rl_errors"
++            android:layout_height="80dp">
++            <ImageView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="10dp"
++                android:src="@drawable/book"
++                android:layout_centerVertical="true"
++                android:id="@+id/iv_book"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="20dp"
++                android:text="错题本"
++                android:layout_alignTop="@+id/iv_book"
++                android:id="@+id/tv_mes2"
++                android:layout_toRightOf="@+id/iv_book"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="含同校高频错题集"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="10dp"
++                android:id="@+id/tv_bulletin2"
++                android:layout_below="@+id/tv_mes2"
++                android:layout_toRightOf="@+id/iv_book"/>
++
++        </RelativeLayout>
++
++
++
++    </LinearLayout>
++
++
++</LinearLayout>
+\ No newline at end of file

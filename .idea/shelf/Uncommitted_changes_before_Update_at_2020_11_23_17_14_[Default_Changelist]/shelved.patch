@@ -1,0 +1,745 @@
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#8799a3</color>\r\n    <color name=\"colorPrimaryDark\">#8799a3</color>\r\n    <color name=\"colorAccent\">#03DAC5</color>\r\n    <color name=\"backgroundOfMyInformation\">#8799a3</color>\r\n    <color name=\"toolBar\">#F4606C</color>\r\n    <color name=\"colorCircle\">#3598DB</color>\r\n    <color name=\"colorFill\">#FFFFFF</color>\r\n    <color name=\"colorBack\">#3598E7</color>\r\n    <color name=\"colorEdit\">#e3eaf2</color>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision c2ccd5034b94f4f8059361c1a723fda9ed092280)
++++ app/src/main/res/values/colors.xml	(date 1606122853466)
+@@ -9,4 +9,9 @@
+     <color name="colorFill">#FFFFFF</color>
+     <color name="colorBack">#3598E7</color>
+     <color name="colorEdit">#e3eaf2</color>
++    <color name="blackhao">#FF000000</color>
++    <color name="whitehao">#FFFFFFFF</color>
++    <color name="bluehao">	#FF1E90FF</color>
++    <color name="orangehao">#FFFFA500</color>
++    <color name="brownhao">#FF8B4513</color>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/drawable/drawable/ic_launcher_background.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/drawable/ic_launcher_background.xml	(date 1605860215240)
++++ app/src/main/res/drawable/drawable/ic_launcher_background.xml	(date 1605860215240)
+@@ -0,0 +1,170 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:fillColor="#3DDC84"
++        android:pathData="M0,0h108v108h-108z" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M9,0L9,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,0L19,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M29,0L29,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M39,0L39,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M49,0L49,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M59,0L59,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M69,0L69,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M79,0L79,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M89,0L89,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M99,0L99,108"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,9L108,9"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,19L108,19"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,29L108,29"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,39L108,39"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,49L108,49"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,59L108,59"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,69L108,69"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,79L108,79"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,89L108,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M0,99L108,99"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,29L89,29"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,39L89,39"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,49L89,49"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,59L89,59"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,69L89,69"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M19,79L89,79"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M29,19L29,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M39,19L39,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M49,19L49,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M59,19L59,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M69,19L69,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++    <path
++        android:fillColor="#00000000"
++        android:pathData="M79,19L79,89"
++        android:strokeWidth="0.8"
++        android:strokeColor="#33FFFFFF" />
++</vector>
+Index: app/src/main/res/drawable/drawable/background_shape.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/drawable/background_shape.xml	(date 1605859196511)
++++ app/src/main/res/drawable/drawable/background_shape.xml	(date 1605859196511)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android">
++    <corners android:radius="20dp"/>
++    <solid android:color="@android:color/white"/>
++    <stroke
++        android:width="4dp"
++        android:color="#f5f5f5" />
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/drawable/rounded_matrix.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/drawable/rounded_matrix.xml	(date 1606097128209)
++++ app/src/main/res/drawable/drawable/rounded_matrix.xml	(date 1606097128209)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle" >
++    <padding
++        android:bottom="5dp"
++        android:left="5dp"
++        android:right="5dp"
++        android:top="5dp"
++        />
++    <!-- 设置圆角矩形 -->
++    <corners android:radius="135dp" />
++    <stroke
++        android:width="5px"
++        android:color="#00FFFFFF" />
++    <solid android:color="#FF1E90FF" />
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/drawable/shadow_linear.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/drawable/shadow_linear.xml	(date 1605925928823)
++++ app/src/main/res/drawable/drawable/shadow_linear.xml	(date 1605925928823)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
++    <item>
++        <shape android:shape="rectangle">
++            <solid android:color="#CABBBBBB"/>
++            <corners android:radius="2dp" />
++        </shape>
++    </item>
++
++    <item
++        android:left="0dp"
++        android:right="0dp"
++        android:top="0dp"
++        android:bottom="2dp">
++        <shape android:shape="rectangle">
++            <solid android:color="@android:color/white"/>
++            <corners android:radius="2dp" />
++        </shape>
++    </item></layer-list>
+\ No newline at end of file
+Index: app/src/main/res/drawable/drawable-v24/ic_launcher_foreground.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/drawable-v24/ic_launcher_foreground.xml	(date 1605860215264)
++++ app/src/main/res/drawable/drawable-v24/ic_launcher_foreground.xml	(date 1605860215264)
+@@ -0,0 +1,30 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
++        <aapt:attr name="android:fillColor">
++            <gradient
++                android:endX="85.84757"
++                android:endY="92.4963"
++                android:startX="42.9492"
++                android:startY="49.59793"
++                android:type="linear">
++                <item
++                    android:color="#44000000"
++                    android:offset="0.0" />
++                <item
++                    android:color="#00000000"
++                    android:offset="1.0" />
++            </gradient>
++        </aapt:attr>
++    </path>
++    <path
++        android:fillColor="#FFFFFF"
++        android:fillType="nonZero"
++        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++</vector>
+\ No newline at end of file
+Index: app/src/main/java/com/example/homeworkcorrect/SubmitHomeWorkActivtiy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/homeworkcorrect/SubmitHomeWorkActivtiy.java	(date 1606121943816)
++++ app/src/main/java/com/example/homeworkcorrect/SubmitHomeWorkActivtiy.java	(date 1606121943816)
+@@ -0,0 +1,14 @@
++package com.example.homeworkcorrect;
++
++import android.os.Bundle;
++
++import androidx.appcompat.app.AppCompatActivity;
++
++public class SubmitHomeWorkActivtiy extends AppCompatActivity {
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        setContentView(R.layout.activity_submit_home_work_activtiy);
++    }
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_submit_home_work_activtiy.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_submit_home_work_activtiy.xml	(date 1606122853438)
++++ app/src/main/res/layout/activity_submit_home_work_activtiy.xml	(date 1606122853438)
+@@ -0,0 +1,99 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    xmlns:android="http://schemas.android.com/apk/res/android" >
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal">
++        <ImageView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:src="@drawable/retu"
++            android:layout_centerVertical="true"
++            android:id="@+id/iv_return"/>
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="作业信息"
++            android:layout_centerHorizontal="true"
++            android:textColor="@color/blackhao"
++            android:textSize="30sp"
++            android:layout_gravity="center"/>
++    </RelativeLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++        android:orientation="horizontal">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="作业发布时间："
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="30dp"
++            android:textSize="20dp"/>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++
++        android:orientation="horizontal">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            
++            android:text="作业截止时间："
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="30dp"
++            android:textSize="20dp"/>
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++        android:orientation="horizontal">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="学科："
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="110dp"
++            android:textSize="20dp" />
++        <EditText
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"/>
++    </LinearLayout>
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++        android:text="作业图片："
++        android:textColor="@color/blackhao"
++        android:layout_marginLeft="70dp"
++        android:textSize="20dp" />
++    <ImageView
++        android:layout_width="350dp"
++        android:id="@+id/iv_work"
++        android:layout_marginTop="25dp"
++        android:layout_height="300dp"
++        android:src="@drawable/emptypic"
++        android:layout_marginLeft="30dp"/>
++    <Button
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="提交"
++        android:textSize="20dp"
++        android:id="@+id/btn_submit"
++        android:layout_gravity="center"
++        android:layout_marginTop="20dp"/>
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_launcher_foreground.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_launcher_foreground.xml	(date 1605860215264)
++++ app/src/main/res/drawable/ic_launcher_foreground.xml	(date 1605860215264)
+@@ -0,0 +1,30 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
++        <aapt:attr name="android:fillColor">
++            <gradient
++                android:endX="85.84757"
++                android:endY="92.4963"
++                android:startX="42.9492"
++                android:startY="49.59793"
++                android:type="linear">
++                <item
++                    android:color="#44000000"
++                    android:offset="0.0" />
++                <item
++                    android:color="#00000000"
++                    android:offset="1.0" />
++            </gradient>
++        </aapt:attr>
++    </path>
++    <path
++        android:fillColor="#FFFFFF"
++        android:fillType="nonZero"
++        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
++        android:strokeWidth="1"
++        android:strokeColor="#00000000" />
++</vector>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_mymaincontent.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_mymaincontent.xml	(date 1606122853454)
++++ app/src/main/res/layout/fragment_mymaincontent.xml	(date 1606122853454)
+@@ -0,0 +1,146 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    xmlns:android="http://schemas.android.com/apk/res/android">
++    <ImageView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:src="@drawable/ring"
++        android:id="@+id/iv_ring"
++        android:layout_gravity="right"/>
++
++    <LinearLayout
++        android:layout_width="270dp"
++        android:layout_marginBottom="30dp"
++        android:layout_gravity="center"
++        android:background="@drawable/rounded_matrix"
++        android:layout_marginTop="60dp"
++        android:layout_height="270dp"
++        android:orientation="vertical"
++        android:gravity="center"
++        android:id="@+id/ll_camera">
++        <ImageView
++            android:layout_marginTop="15dp"
++            android:layout_marginBottom="40dp"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:id="@+id/iv_camera"
++            android:src="@drawable/camera"/>
++        <TextView
++            android:textColor="@color/brownhao"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:paddingLeft="15dp"
++            android:paddingRight="15dp"
++            android:layout_marginBottom="10dp"
++            android:background="@color/orangehao"
++            android:text="应用题、口算题" />
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:textColor="@color/whitehao"
++            android:layout_marginBottom="20dp"
++            android:text="全批改"/>
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="250dp"
++        android:layout_marginTop="20dp"
++        android:layout_marginBottom="40dp"
++        android:layout_gravity="center"
++        android:id="@+id/ll_recommand"
++        android:layout_height="wrap_content"
++        android:background="@drawable/rounded_matrix"
++        android:gravity="center">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:textColor="@color/whitehao"
++            android:paddingTop="5dp"
++            android:paddingBottom="5dp"
++            android:layout_marginRight="15dp"
++            android:textSize="25sp"
++            android:textFontWeight="300"
++            android:text="推荐作业批"/>
++        <ImageView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:src="@drawable/index"/>
++
++    </LinearLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="30dp"
++        android:orientation="horizontal">
++        <RelativeLayout
++            android:layout_width="wrap_content"
++            android:background="@drawable/shadow_linear"
++            android:id="@+id/rl_person"
++            android:layout_marginLeft="20dp"
++            android:layout_height="80dp">
++            <ImageView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="10dp"
++                android:src="@drawable/people"
++                android:layout_centerVertical="true"
++                android:id="@+id/iv_people"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="20dp"
++                android:text="完善学生信息"
++                android:layout_alignTop="@+id/iv_people"
++                android:id="@+id/tv_mes"
++                android:layout_toRightOf="@+id/iv_people"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="学习周报"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="10dp"
++                android:id="@+id/tv_bulletin"
++                android:layout_below="@+id/tv_mes"
++                android:layout_toRightOf="@+id/iv_people"/>
++
++        </RelativeLayout>
++        <RelativeLayout
++            android:layout_width="wrap_content"
++            android:layout_marginLeft="20dp"
++            android:background="@drawable/shadow_linear"
++            android:id="@+id/rl_errors"
++            android:layout_height="80dp">
++            <ImageView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="10dp"
++                android:src="@drawable/book"
++                android:layout_centerVertical="true"
++                android:id="@+id/iv_book"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginLeft="20dp"
++                android:text="错题本"
++                android:layout_alignTop="@+id/iv_book"
++                android:id="@+id/tv_mes2"
++                android:layout_toRightOf="@+id/iv_book"/>
++            <TextView
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="含同校高频错题集"
++                android:layout_marginLeft="20dp"
++                android:layout_marginTop="10dp"
++                android:id="@+id/tv_bulletin2"
++                android:layout_below="@+id/tv_mes2"
++                android:layout_toRightOf="@+id/iv_book"/>
++
++        </RelativeLayout>
++
++
++
++    </LinearLayout>
++
++
++</LinearLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/shadow_linear.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/shadow_linear.xml	(date 1605925928823)
++++ app/src/main/res/drawable/shadow_linear.xml	(date 1605925928823)
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
++    <item>
++        <shape android:shape="rectangle">
++            <solid android:color="#CABBBBBB"/>
++            <corners android:radius="2dp" />
++        </shape>
++    </item>
++
++    <item
++        android:left="0dp"
++        android:right="0dp"
++        android:top="0dp"
++        android:bottom="2dp">
++        <shape android:shape="rectangle">
++            <solid android:color="@android:color/white"/>
++            <corners android:radius="2dp" />
++        </shape>
++    </item></layer-list>
+\ No newline at end of file
+Index: app/src/main/res/drawable/rounded_matrix.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/rounded_matrix.xml	(date 1606097128209)
++++ app/src/main/res/drawable/rounded_matrix.xml	(date 1606097128209)
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle" >
++    <padding
++        android:bottom="5dp"
++        android:left="5dp"
++        android:right="5dp"
++        android:top="5dp"
++        />
++    <!-- 设置圆角矩形 -->
++    <corners android:radius="135dp" />
++    <stroke
++        android:width="5px"
++        android:color="#00FFFFFF" />
++    <solid android:color="#FF1E90FF" />
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java	(date 1606122495419)
++++ app/src/main/java/com/example/homeworkcorrect/fragment/MyFragmentMainContent.java	(date 1606122495419)
+@@ -0,0 +1,52 @@
++package com.example.homeworkcorrect.fragment;
++
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.LinearLayout;
++import android.widget.RelativeLayout;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.fragment.app.Fragment;
++
++import com.example.homeworkcorrect.R;
++
++
++public class MyFragmentMainContent extends Fragment {
++    private LinearLayout llcamera;
++    private View view;
++    private LinearLayout llrecommand;
++    private RelativeLayout rlerrors;
++    private RelativeLayout rlperson;
++    @Nullable
++    @Override
++    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
++        view=inflater.inflate(R.layout.fragment_mymaincontent,
++                container,
++                false);
++        getViews();
++        MyListener listener=new MyListener();
++        llcamera.setOnClickListener(listener);
++        llrecommand.setOnClickListener(listener);
++        rlperson.setOnClickListener(listener);
++        rlerrors.setOnClickListener(listener);
++        return view;
++    }
++    public class MyListener implements View.OnClickListener{
++
++        @Override
++        public void onClick(View v) {
++            switch(v.getId()){
++
++            }
++        }
++    }
++    public void getViews(){
++       llcamera=view.findViewById(R.id.ll_camera);
++       llrecommand=view.findViewById(R.id.ll_recommand);
++       rlerrors=view.findViewById(R.id.rl_errors);
++       rlperson=view.findViewById(R.id.rl_person);
++    }
++}
