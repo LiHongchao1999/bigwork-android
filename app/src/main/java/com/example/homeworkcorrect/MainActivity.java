@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTabHost;
 
+import com.example.homeworkcorrect.fragment.HomeworkFragment;
 import com.example.homeworkcorrect.fragment.MyFragment;
 import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
 import com.example.homeworkcorrect.fragment.OnlineShopFragment;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIndicator(getTabSpecView("third_tab","作业",R.drawable.assignment));
         //Class参数：类名.class,对象.getClass()
         fragmentTabHost.addTab(tab3,
-                MyFragment.class,//FristFragment类的Class（字节码）对象
+                HomeworkFragment.class,//FristFragment类的Class（字节码）对象
                 null);//传递数据时使用，不需要传递数据直接传null
 
 
