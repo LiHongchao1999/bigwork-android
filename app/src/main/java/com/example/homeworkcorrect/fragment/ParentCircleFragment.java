@@ -145,10 +145,16 @@ public class ParentCircleFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     switch (list.get(position).getSection()){
                         case "发表":
+                            Intent intent = new Intent();
+                            startActivity(intent);
                             break;
                         case "照片":
+                            Intent intent1 = new Intent();
+                            startActivity(intent1);
                             break;
                         case "视频":
+                            Intent intent2 = new Intent();
+                            startActivity(intent2);
                             break;
                     }
                 }
