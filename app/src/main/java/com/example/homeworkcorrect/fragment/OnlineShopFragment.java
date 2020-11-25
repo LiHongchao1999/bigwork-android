@@ -84,7 +84,6 @@ public class OnlineShopFragment extends Fragment {
                 R.layout.book_list_item);
         ScrollableGridView bookListView = root.findViewById(R.id.gv_book);
         bookListView.setAdapter(customBookAdapter);
-        Log.e("111",11+"");
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
