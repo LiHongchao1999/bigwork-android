@@ -72,10 +72,10 @@ public class MyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my, container, false);
         Toolbar toolbar = view.findViewById(R.id.tool);
-        ImageView advertise = view.findViewById(R.id.advertise);
-        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
-        circularBitmapDrawable.setCornerRadius(150);
-        advertise.setImageDrawable(circularBitmapDrawable);
+//        ImageView advertise = view.findViewById(R.id.advertise);
+//        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
+//        circularBitmapDrawable.setCornerRadius(150);
+//        advertise.setImageDrawable(circularBitmapDrawable);
         return view;
     }
 }

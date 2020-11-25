@@ -61,6 +61,13 @@
             android:text="福利" />
     </LinearLayout>
 
+    <GridView
+        android:id="@+id/gv_commodit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        xmlns:android="http://schemas.android.com/apk/res/android" />
+
 
 
 

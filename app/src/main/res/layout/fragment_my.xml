@@ -65,17 +65,44 @@
                 android:layout_alignParentRight="true"
                 android:src="@drawable/two"/>
         </RelativeLayout>
-        <ImageView
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:id="@+id/advertise"
-            android:src="@drawable/advertise"/>
+<!--        <ImageView-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:id="@+id/advertise"-->
+<!--            android:src="@drawable/advertise"/>-->
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_bottom"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/my_order"
+                    android:src="@drawable/my_order"/>
+                <TextView
+                    android:paddingLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_toRightOf="@id/my_order"
+                    android:text="我的订单"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/right"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:padding="10dp"
