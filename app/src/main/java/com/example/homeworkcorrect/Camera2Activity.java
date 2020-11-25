@@ -259,6 +259,7 @@ public class Camera2Activity extends AppCompatActivity {
                 mImageReader = ImageReader.newInstance(mPreviewSize.getWidth(), mPreviewSize.getHeight(),
                         ImageFormat.JPEG, 2);
                 mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
+
             }
             //检查是否支持闪光灯
             Boolean available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
