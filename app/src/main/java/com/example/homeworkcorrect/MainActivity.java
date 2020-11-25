@@ -4,185 +4,149 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTabHost;
 
-import com.example.homeworkcorrect.fragment.HomeworkFragment;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.homeworkcorrect.fragment.MyFragment;
 import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
 import com.example.homeworkcorrect.fragment.OnlineShopFragment;
 import com.example.homeworkcorrect.fragment.ParentCircleFragment;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity {
-    private Map<String, ImageView> imageViewMap = new HashMap<>();
-    private Map<String, TextView> textViewMap = new HashMap<>();
-    private String userName;
-    private String demo;
-    private String userName1;
-    private String demo1;
-    private String key;
-
-
+    private Fragment currentFragment = new Fragment(); //当前fragment
+    private MyFragment myFragment; //我的页面
+    private MyFragmentMainContent mainContent; //主页页面
+    private OnlineShopFragment onlineShopFragment; //商城页面
+    private ParentCircleFragment parentCircleFragment; //家长圈页面
+    private ImageView mainImg;
+    private ImageView shopImg;
+    private ImageView assignmentImg;
+    private ImageView parentImg;
+    private ImageView mineImg;
+    private TextView mainText;
+    private TextView shopText;
+    private TextView assignmentText;
+    private TextView parentText;
+    private TextView mineText;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //获取FragmentTabHost的引用
-        FragmentTabHost fragmentTabHost = findViewById(android.R.id.tabhost);
-        //初始化
-
-        fragmentTabHost.setup(this,
-                getSupportFragmentManager(),//管理多个Fragment对象的管理器
-                android.R.id.tabcontent);//显示内容页面的控件的id
-
-
-        //创建内容页面TabSpec对象
-        TabHost.TabSpec tab1 = fragmentTabHost.newTabSpec("first_tab")
-                .setIndicator(getTabSpecView("first_tab","主页",R.drawable.main1));
-        //Class参数：类名.class,对象.getClass()
-        fragmentTabHost.addTab(tab1,
-                MyFragmentMainContent.class,//FristFragment类的Class（字节码）对象
-                null);//传递数据时使用，不需要传递数据直接传null
-
-
-        //创建内容页面TabSpec对象
-        TabHost.TabSpec tab2 = fragmentTabHost.newTabSpec("second_tab")
-                .setIndicator(getTabSpecView("second_tab","商城",R.drawable.shop));
-        //Class参数：类名.class,对象.getClass()
-        fragmentTabHost.addTab(tab2,
-                OnlineShopFragment.class,//FristFragment类的Class（字节码）对象
-                null);//传递数据时使用，不需要传递数据直接传null
-        //创建内容页面TabSpec对象
-        TabHost.TabSpec tab3 = fragmentTabHost.newTabSpec("third_tab")
-                .setIndicator(getTabSpecView("third_tab","作业",R.drawable.assignment));
-        //Class参数：类名.class,对象.getClass()
-        fragmentTabHost.addTab(tab3,
-                HomeworkFragment.class,//FristFragment类的Class（字节码）对象
-                null);//传递数据时使用，不需要传递数据直接传null
-
-
-        //创建内容页面TabSpec对象
-        TabHost.TabSpec tab4 = fragmentTabHost.newTabSpec("forth_tab")
-                .setIndicator(getTabSpecView("forth_tab","家长圈",R.drawable.friend));
-        //Class参数：类名.class,对象.getClass()
-        fragmentTabHost.addTab(tab4,
-                ParentCircleFragment.class,//FristFragment类的Class（字节码）对象
-                null);//传递数据时使用，不需要传递数据直接传null
-
-
-        //创建内容页面TabSpec对象
-        TabHost.TabSpec tab5 = fragmentTabHost.newTabSpec("fifth_tab")
-                .setIndicator(getTabSpecView("fifth_tab","我的",R.drawable.my));
-        //Class参数：类名.class,对象.getClass()
-        fragmentTabHost.addTab(tab5,
-                MyFragment.class,//FristFragment类的Class（字节码）对象
-                null);//传递数据时使用，不需要传递数据直接传null
-
-
-        //处理fragmentTabHost的选项切换事件
-        fragmentTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                //修改图片和文字的颜色
-                switch (tabId){
-                    case "first_tab"://选中了短信
-                        imageViewMap.get("first_tab").setImageResource(R.drawable.main1);
-                        textViewMap.get("first_tab").setTextColor(Color.rgb(240,128,128));
-                        imageViewMap.get("second_tab").setImageResource(R.drawable.shop);
-                        textViewMap.get("second_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment);
-                        textViewMap.get("third_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("forth_tab").setImageResource(R.drawable.friend);
-                        textViewMap.get("forth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my);
-                        textViewMap.get("fifth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        break;
-                    case "second_tab"://选中了联系人
-                        imageViewMap.get("first_tab").setImageResource(R.drawable.main);
-                        textViewMap.get("first_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("second_tab").setImageResource(R.drawable.shop1);
-                        textViewMap.get("second_tab").setTextColor(Color.rgb(240,128,128));
-                        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment);
-                        textViewMap.get("third_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("forth_tab").setImageResource(R.drawable.friend);
-                        textViewMap.get("forth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my);
-                        textViewMap.get("fifth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        break;
-                    case "third_tab"://选中了短信
-                        imageViewMap.get("first_tab").setImageResource(R.drawable.main);
-                        textViewMap.get("first_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("second_tab").setImageResource(R.drawable.shop);
-                        textViewMap.get("second_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment1);
-                        textViewMap.get("third_tab").setTextColor(Color.rgb(240,128,128));
-                        imageViewMap.get("forth_tab").setImageResource(R.drawable.friend);
-                        textViewMap.get("forth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my);
-                        textViewMap.get("fifth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        break;
-                    case "forth_tab"://选中了联系人
-                        imageViewMap.get("first_tab").setImageResource(R.drawable.main);
-                        textViewMap.get("first_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("second_tab").setImageResource(R.drawable.shop);
-                        textViewMap.get("second_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment);
-                        textViewMap.get("third_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("forth_tab").setImageResource(R.drawable.friends1);
-                        textViewMap.get("forth_tab").setTextColor(Color.rgb(240,128,128));
-                        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my);
-                        textViewMap.get("fifth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        break;
-                    case "fifth_tab"://选中了短信
-                        imageViewMap.get("first_tab").setImageResource(R.drawable.main);
-                        textViewMap.get("first_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("second_tab").setImageResource(R.drawable.shop);
-                        textViewMap.get("second_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment);
-                        textViewMap.get("third_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("forth_tab").setImageResource(R.drawable.friend);
-                        textViewMap.get("forth_tab").setTextColor(getResources().getColor(android.R.color.black));
-                        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my1);
-                        textViewMap.get("fifth_tab").setTextColor(Color.rgb(240,128,128));
-                        break;
-                }
-            }
-        });
-
-        //设置默认选中的标签页:参数是下标
-        fragmentTabHost.setCurrentTab(0);
-        imageViewMap.get("first_tab").setImageResource(R.drawable.main1);
-        textViewMap.get("first_tab").setTextColor(Color.rgb(240,128,128));
-        imageViewMap.get("second_tab").setImageResource(R.drawable.shop);
-        textViewMap.get("second_tab").setTextColor(getResources().getColor(android.R.color.black));
-        imageViewMap.get("third_tab").setImageResource(R.drawable.assignment);
-        textViewMap.get("third_tab").setTextColor(getResources().getColor(android.R.color.black));
-        imageViewMap.get("forth_tab").setImageResource(R.drawable.friend);
-        textViewMap.get("forth_tab").setTextColor(getResources().getColor(android.R.color.black));
-        imageViewMap.get("fifth_tab").setImageResource(R.drawable.my);
-        textViewMap.get("fifth_tab").setTextColor(getResources().getColor(android.R.color.black));
+        //获取控件
+        getViews();
+        //获取fragment对象
+        mainContent = new MyFragmentMainContent();
+        onlineShopFragment = new OnlineShopFragment();
+        parentCircleFragment = new ParentCircleFragment();
+        myFragment = new MyFragment();
+        //设置当前页
+        changeTeb(mainContent);
+        currentFragment = mainContent;
+        mainImg.setImageResource(R.drawable.main1);
+        mainText.setTextColor(Color.rgb(240,128,128));
     }
-    public View getTabSpecView(String tag, String tilte, int drawable){
-        View view = getLayoutInflater().inflate(R.layout.tab_spec_layout,null);
+    private void getViews() {
+        mainImg = findViewById(R.id.main_img);
+        mainText = findViewById(R.id.main_text);
+        shopImg = findViewById(R.id.shop_img);
+        shopText = findViewById(R.id.shop_text);
+        assignmentImg = findViewById(R.id.assignment_img);
+        assignmentText = findViewById(R.id.assignment_text);
+        parentImg = findViewById(R.id.parent_circle_img);
+        parentText = findViewById(R.id.parent_circle_text);
+        mineImg = findViewById(R.id.mine_img);
+        mineText = findViewById(R.id.mine_text);
+    }
 
-        //获取tab_spec_layout布局当中视图控件的引用
-        ImageView icon = view.findViewById(R.id.icon);
-        icon.setImageResource(drawable);
-
-        //将ImageView对象存储到Map中
-        imageViewMap.put(tag,icon);
-
-        TextView tvTitle = view.findViewById(R.id.title);
-        tvTitle.setText(tilte);
-
-        textViewMap.put(tag,tvTitle);
-
-        return view;
+    private void changeTeb(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        if (currentFragment != fragment) {
+            if (!fragment.isAdded()) {
+                transaction.add(R.id.tab_content, fragment);
+            }
+            transaction.hide(currentFragment);
+            transaction.show(fragment);
+            transaction.commit();
+            currentFragment = fragment;
+        }
+    }
+    /*
+    * 单机事件
+    * */
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.main://主页
+                changeTeb(mainContent);
+                mainImg.setImageResource(R.drawable.main1);
+                mainText.setTextColor(Color.rgb(240,128,128));
+                shopImg.setImageResource(R.drawable.shop);
+                shopText.setTextColor(Color.BLACK);
+                assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentText.setTextColor(Color.BLACK);
+                parentImg.setImageResource(R.drawable.friend);
+                parentText.setTextColor(Color.BLACK);
+                mineImg.setImageResource(R.drawable.my);
+                mineText.setTextColor(Color.BLACK);
+                break;
+            case R.id.shop: //商城
+                changeTeb(onlineShopFragment);
+                mainImg.setImageResource(R.drawable.main);
+                mainText.setTextColor(Color.BLACK);
+                shopImg.setImageResource(R.drawable.shop1);
+                shopText.setTextColor(Color.rgb(240,128,128));
+                assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentText.setTextColor(Color.BLACK);
+                parentImg.setImageResource(R.drawable.friend);
+                parentText.setTextColor(Color.BLACK);
+                mineImg.setImageResource(R.drawable.my);
+                mineText.setTextColor(Color.BLACK);
+                break;
+            case R.id.assignment: //作业
+                changeTeb(myFragment);
+                mainImg.setImageResource(R.drawable.main);
+                mainText.setTextColor(Color.BLACK);
+                shopImg.setImageResource(R.drawable.shop);
+                shopText.setTextColor(Color.BLACK);
+                assignmentImg.setImageResource(R.drawable.assignment1);
+                assignmentText.setTextColor(Color.rgb(240,128,128));
+                parentImg.setImageResource(R.drawable.friend);
+                parentText.setTextColor(Color.BLACK);
+                mineImg.setImageResource(R.drawable.my);
+                mineText.setTextColor(Color.BLACK);
+                break;
+            case R.id.parent_circle: //家长圈
+                changeTeb(parentCircleFragment);
+                mainImg.setImageResource(R.drawable.main);
+                mainText.setTextColor(Color.BLACK);
+                shopImg.setImageResource(R.drawable.shop);
+                shopText.setTextColor(Color.BLACK);
+                assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentText.setTextColor(Color.BLACK);
+                parentImg.setImageResource(R.drawable.friends1);
+                parentText.setTextColor(Color.rgb(240,128,128));
+                mineImg.setImageResource(R.drawable.my);
+                mineText.setTextColor(Color.BLACK);
+                break;
+            case R.id.mine: //我的
+                changeTeb(myFragment);
+                mainImg.setImageResource(R.drawable.main);
+                mainText.setTextColor(Color.BLACK);
+                shopImg.setImageResource(R.drawable.shop);
+                shopText.setTextColor(Color.BLACK);
+                assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentText.setTextColor(Color.BLACK);
+                parentImg.setImageResource(R.drawable.friend);
+                parentText.setTextColor(Color.BLACK);
+                mineImg.setImageResource(R.drawable.my1);
+                mineText.setTextColor(Color.rgb(240,128,128));
+                break;
+        }
     }
 }
