@@ -8,6 +8,7 @@ public class Book {
     private double price;//书本价格
     private int stock;//书本库存
     private String image;//书本图片
+    private String commission;//推广佣金
 
     public int getId() {
         return id;
@@ -63,6 +64,14 @@ public class Book {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCommission() {
+        return commission;
+    }
+
+    public void setCommission(String commission) {
+        this.commission = commission;
     }
 
     public Book() {

@@ -67,18 +67,49 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:gravity="left"
-            android:text="优选专区"
+            android:text="优选书籍"
             android:textColor="#000"
             android:textStyle="bold"
             android:layout_marginLeft="15dp"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <com.example.homeworkcorrect.ScrollableGridView
             android:id="@+id/gv_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="auto_fit"
+            android:verticalSpacing="20dp"
             xmlns:android="http://schemas.android.com/apk/res/android" />
+
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="培训机构推荐"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:layout_marginLeft="15dp"
+            android:textSize="25sp" />
+
+<!--        <com.example.homeworkcorrect.ScrollableGridView-->
+<!--            android:id="@+id/gv_school"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:numColumns="auto_fit"-->
+<!--            android:verticalSpacing="20dp"-->
+<!--            xmlns:android="http://schemas.android.com/apk/res/android" />-->
+
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/lv_school"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#fff"
+            android:background="#fdfdfd"
+            android:dividerHeight="20dp">
+        </ListView>
+
     </LinearLayout>
 </ScrollView>

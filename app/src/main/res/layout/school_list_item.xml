@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/school_photo"
+        android:layout_width="120dp"
+        android:src="@drawable/school_01"
+        android:layout_marginRight="20dp"
+        android:layout_height="120dp"/>
+
+    <LinearLayout
+        android:layout_toRightOf="@id/school_photo"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音悦家艺术教育培训学校"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/school_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="河北省石家庄市裕华区南二环东路"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/school_content"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数学、英语"
+            android:textColor="#fff"
+            android:background="#32AA66"
+            android:textSize="16sp"/>
+        <Button
+            android:id="@+id/btn_show_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="详情"
+            android:textColor="#32AA66"/>
+
+    </LinearLayout>
+</RelativeLayout>

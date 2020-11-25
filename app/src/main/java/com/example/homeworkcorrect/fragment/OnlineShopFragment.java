@@ -22,7 +22,9 @@ import com.example.homeworkcorrect.GlideImageLoader;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.adapter.CustomBookAdapter;
+import com.example.homeworkcorrect.adapter.CustomSchoolAdapter;
 import com.example.homeworkcorrect.entity.Book;
+import com.example.homeworkcorrect.entity.School;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -36,7 +38,9 @@ public class OnlineShopFragment extends Fragment {
     private View root;
     private Banner banner;
     private List<Book> books = new ArrayList<>();
+    private List<School> schools = new ArrayList<>();
     private CustomBookAdapter customBookAdapter;
+    private CustomSchoolAdapter customSchoolAdapter;
     private SmartRefreshLayout refreshLayout;
 
     //资源文件
@@ -51,6 +55,7 @@ public class OnlineShopFragment extends Fragment {
         findViews();
         setListeners();
         getBookList();
+        getSchoolList();
         banner = (Banner) root.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -72,12 +77,20 @@ public class OnlineShopFragment extends Fragment {
                     initView();
                     break;
                 case 2:
-
+                    //准备数据
+                    initViewForSchool();
                     break;
             }
         };
 
     };
+
+    private void initViewForSchool() {
+        customSchoolAdapter = new CustomSchoolAdapter(getContext(), schools,
+                R.layout.school_list_item);
+        ListView schoolListView = root.findViewById(R.id.lv_school);
+        schoolListView.setAdapter(customSchoolAdapter);
+    }
 
     private void initView() {
         customBookAdapter = new CustomBookAdapter(getContext(), books,
@@ -129,6 +142,23 @@ public class OnlineShopFragment extends Fragment {
         Message msg = handler.obtainMessage();
         msg.what = 1;
         handler.sendMessage(msg);
+    }
+
+    private void getSchoolList() {
+        School school1 = new School("音悦家艺术教育培训学校1","河北省石家庄市裕华区南二环东路",
+                "数学、英语","","18811111111");
+        School school2 = new School("音悦家艺术教育培训学校2","河北省石家庄市裕华区南二环东路",
+                "语文、数学、英语","","18811111111");
+        School school3 = new School("音悦家艺术教育培训学校3","河北省石家庄市裕华区南二环东路",
+                "数学","","18811111111");
+        schools.add(school1);
+        schools.add(school2);
+        schools.add(school3);
+        //资源下载完成，返回消息
+        Message msg = handler.obtainMessage();
+        msg.what = 2;
+        handler.sendMessage(msg);
+
     }
 
     private void setListeners() {
