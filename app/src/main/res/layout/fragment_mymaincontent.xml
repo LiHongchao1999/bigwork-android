@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ring"
         android:id="@+id/iv_ring"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="right"/>
 
     <LinearLayout
@@ -15,7 +17,7 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:background="@drawable/rounded_matrix"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_height="270dp"
         android:orientation="vertical"
         android:gravity="center"
@@ -45,7 +47,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="250dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         android:layout_gravity="center"
         android:id="@+id/ll_recommand"
@@ -71,13 +73,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:background="@drawable/shadow_linear"
             android:id="@+id/rl_person"
-            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_height="80dp">
             <ImageView
                 android:layout_width="wrap_content"
@@ -106,8 +110,10 @@
 
         </RelativeLayout>
         <RelativeLayout
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/shadow_linear"
             android:id="@+id/rl_errors"
             android:layout_height="80dp">
@@ -129,7 +135,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="含同校高频错题集"
+                android:text="含高频错题"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/tv_bulletin2"
