@@ -1,18 +1,20 @@
 package com.example.homeworkcorrect;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTabHost;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTabHost;
+
 import com.example.homeworkcorrect.fragment.MyFragment;
 import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
 import com.example.homeworkcorrect.fragment.OnlineShopFragment;
 import com.example.homeworkcorrect.fragment.ParentCircleFragment;
+
 import java.util.HashMap;
 import java.util.Map;
 

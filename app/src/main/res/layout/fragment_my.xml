@@ -133,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:padding="10dp"
                 android:layout_marginBottom="10dp"
+                android:id="@+id/recommend"
                 android:background="@drawable/border_bottom"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -186,6 +187,7 @@
                 android:padding="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_bottom"
+                android:id="@+id/contactUs"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="35dp"
@@ -210,6 +212,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:padding="10dp"
+                android:id="@+id/setting_relative"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_bottom"
                 android:layout_height="wrap_content">

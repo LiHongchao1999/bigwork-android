@@ -1,22 +1,22 @@
 package com.example.homeworkcorrect.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
-
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
+import com.example.homeworkcorrect.ContactUsActivity;
 import com.example.homeworkcorrect.R;
+import com.example.homeworkcorrect.SettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +76,36 @@ public class MyFragment extends Fragment {
 //        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
 //        circularBitmapDrawable.setCornerRadius(150);
 //        advertise.setImageDrawable(circularBitmapDrawable);
+        RelativeLayout relativeLayout = view.findViewById(R.id.recommend);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.example);
+                Uri imageUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, null, null));
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TITLE,"分享到");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                shareIntent.setType("image/*");
+                startActivity(Intent.createChooser(shareIntent, "分享到"));
+            }
+        });
+        RelativeLayout setting = view.findViewById(R.id.setting_relative);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        RelativeLayout contactUs = view.findViewById(R.id.contactUs);
+        contactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ContactUsActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

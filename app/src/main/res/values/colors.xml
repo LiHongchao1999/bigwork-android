@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="backgroundOfMyInformation">#8799a3</color>
     <color name="toolBar">#F4606C</color>
+    <color name="colorlightorange">#FD9669</color>
     <color name="colorCircle">#3598DB</color>
     <color name="colorFill">#FFFFFF</color>
     <color name="colorBack">#3598E7</color>
@@ -14,4 +15,5 @@
     <color name="bluehao">	#FF1E90FF</color>
     <color name="orangehao">#FFFFA500</color>
     <color name="brownhao">#FF8B4513</color>
+    <color name="lightgray">#F5F5F5</color>
 </resources>
