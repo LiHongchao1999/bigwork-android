@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import com.example.homeworkcorrect.fragment.MyFragment;
+import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
 import com.example.homeworkcorrect.fragment.OnlineShopFragment;
 import com.example.homeworkcorrect.fragment.ParentCircleFragment;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIndicator(getTabSpecView("first_tab","主页",R.drawable.main1));
         //Class参数：类名.class,对象.getClass()
         fragmentTabHost.addTab(tab1,
-                MyFragment.class,//FristFragment类的Class（字节码）对象
+                MyFragmentMainContent.class,//FristFragment类的Class（字节码）对象
                 null);//传递数据时使用，不需要传递数据直接传null
 
 
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTabHost.addTab(tab2,
                 OnlineShopFragment.class,//FristFragment类的Class（字节码）对象
                 null);//传递数据时使用，不需要传递数据直接传null
-
-
         //创建内容页面TabSpec对象
         TabHost.TabSpec tab3 = fragmentTabHost.newTabSpec("third_tab")
                 .setIndicator(getTabSpecView("third_tab","作业",R.drawable.assignment));
