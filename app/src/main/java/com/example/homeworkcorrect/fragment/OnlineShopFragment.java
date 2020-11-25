@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.GlideImageLoader;
 import com.example.homeworkcorrect.R;
+import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.adapter.CustomBookAdapter;
 import com.example.homeworkcorrect.entity.Book;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -81,7 +82,7 @@ public class OnlineShopFragment extends Fragment {
     private void initView() {
         customBookAdapter = new CustomBookAdapter(getContext(), books,
                 R.layout.book_list_item);
-        GridView bookListView = root.findViewById(R.id.gv_book);
+        ScrollableGridView bookListView = root.findViewById(R.id.gv_book);
         bookListView.setAdapter(customBookAdapter);
         bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
