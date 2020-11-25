@@ -61,8 +61,18 @@
             android:text="福利" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="优选专区"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"
+        android:textSize="30sp" />
+
     <GridView
-        android:id="@+id/gv_commodit"
+        android:id="@+id/gv_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="auto_fit"
