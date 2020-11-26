@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_margin="5dp"
+    android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:gravity="center"
@@ -68,7 +69,7 @@
                 android:gravity="center"
                 android:text="5个"
                 android:textColor="#000"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:textSize="20sp"/>
 
         </LinearLayout>

@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.homeworkcorrect.GlideImageLoader;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.ScrollableGridView;
+import com.example.homeworkcorrect.ShowBookInfoActivity;
 import com.example.homeworkcorrect.adapter.CustomBookAdapter;
 import com.example.homeworkcorrect.adapter.CustomSchoolAdapter;
 import com.example.homeworkcorrect.entity.Book;
@@ -67,7 +68,7 @@ public class OnlineShopFragment extends Fragment {
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             // 处理消息
             super.handleMessage(msg);
@@ -81,14 +82,16 @@ public class OnlineShopFragment extends Fragment {
                     initViewForSchool();
                     break;
             }
-        };
+        }
+
+        ;
 
     };
 
     private void initViewForSchool() {
         customSchoolAdapter = new CustomSchoolAdapter(getContext(), schools,
                 R.layout.school_list_item);
-        ListView schoolListView = root.findViewById(R.id.lv_school);
+        ScrollableGridView schoolListView = root.findViewById(R.id.gv_school);
         schoolListView.setAdapter(customSchoolAdapter);
     }
 
@@ -101,8 +104,8 @@ public class OnlineShopFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //打印
-                Log.e("选中的蛋糕名称----------------","" + books.get(position).getBookName());
-                int menu_id =  books.get(position).getId();
+                Log.e("选中的蛋糕名称----------------", "" + books.get(position).getBookName());
+                int menu_id = books.get(position).getId();
                 //判断用户是否登录
 //                if (user_Name.length() <= 0){
 //                    Toast.makeText(getActivity(), "请先登录",
@@ -110,15 +113,15 @@ public class OnlineShopFragment extends Fragment {
 //                }
 //                else {
 //
-//                    //跳转到蛋糕详细信息的Activity
-//                    Intent intent = new Intent();
-//                    //设置目的地Activity类
-//                    intent.setClass(getActivity(),
-//                            ShowCakeInfoActivity.class);
-//                    //传递自定义类型的对象
-//                    //携带用户选中的菜谱id
-//                    intent.putExtra("cake",cakes.get(position));
-//                    startActivity(intent);
+                //跳转到蛋糕详细信息的Activity
+                Intent intent = new Intent();
+                //设置目的地Activity类
+                intent.setClass(getActivity(),
+                        ShowBookInfoActivity.class);
+                //传递自定义类型的对象
+                //携带用户选中的菜谱id
+                intent.putExtra("book", books.get(position));
+                startActivity(intent);
 //                }
             }
         });
@@ -128,15 +131,15 @@ public class OnlineShopFragment extends Fragment {
 
 
     private void getBookList() {
-        Book book1 = new Book("计算高手五年级上每日10分钟","晏飞1","河北少年儿童出版社",21.0f,10,"");
+        Book book1 = new Book("计算高手五年级上每日10分钟", "晏飞1", "河北少年儿童出版社", 21.0f, 10, "");
         books.add(book1);
-        Book book2 = new Book("计算高手五年级上每日10分钟","晏飞2","河北少年儿童出版社",22.0f,9,":");
+        Book book2 = new Book("计算高手五年级上每日10分钟", "晏飞2", "河北少年儿童出版社", 22.0f, 9, ":");
         books.add(book2);
-        Book book3 = new Book("计算高手五年级上每日10分钟","晏飞3","河北少年儿童出版社",23.0f,8,":");
+        Book book3 = new Book("计算高手五年级上每日10分钟", "晏飞3", "河北少年儿童出版社", 23.0f, 8, ":");
         books.add(book3);
-        Book book4 = new Book("计算高手五年级上每日10分钟","晏飞4","河北少年儿童出版社",24.0f,7,":");
+        Book book4 = new Book("计算高手五年级上每日10分钟", "晏飞4", "河北少年儿童出版社", 24.0f, 7, ":");
         books.add(book4);
-        Book book5 = new Book("计算高手五年级上每日10分钟","晏飞5","河北少年儿童出版社",25.0f,6,":");
+        Book book5 = new Book("计算高手五年级上每日10分钟", "晏飞5", "河北少年儿童出版社", 25.0f, 6, ":");
         books.add(book5);
         //资源下载完成，返回消息
         Message msg = handler.obtainMessage();
@@ -145,15 +148,16 @@ public class OnlineShopFragment extends Fragment {
     }
 
     private void getSchoolList() {
-        School school1 = new School("音悦家艺术教育培训学校1","河北省石家庄市裕华区南二环东路",
-                "数学、英语","","18811111111");
-        School school2 = new School("音悦家艺术教育培训学校2","河北省石家庄市裕华区南二环东路",
-                "语文、数学、英语","","18811111111");
-        School school3 = new School("音悦家艺术教育培训学校3","河北省石家庄市裕华区南二环东路",
-                "数学","","18811111111");
+        School school1 = new School("音悦家艺术教育培训学校1", "河北省石家庄市裕华区南二环东路",
+                "数学、英语", "", "18811111111");
+        School school2 = new School("音悦家艺术教育培训学校2", "河北省石家庄市裕华区南二环东路",
+                "语文、数学、英语", "", "18811111111");
+        School school3 = new School("音悦家艺术教育培训学校3", "河北省石家庄市裕华区南二环东路",
+                "数学", "", "18811111111");
         schools.add(school1);
         schools.add(school2);
         schools.add(school3);
+        Log.e("school", schools.toString());
         //资源下载完成，返回消息
         Message msg = handler.obtainMessage();
         msg.what = 2;
@@ -168,11 +172,11 @@ public class OnlineShopFragment extends Fragment {
         banner = root.findViewById(R.id.banner);
     }
 
-    private void setListener(){
+    private void setListener() {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                Log.e("下拉刷新","666");
+                Log.e("下拉刷新", "666");
                 getBookList();
                 //资源下载完成，返回消息
                 Message msg = handler.obtainMessage();

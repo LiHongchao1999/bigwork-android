@@ -80,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="auto_fit"
+            android:horizontalSpacing="5dp"
             android:verticalSpacing="20dp"
             xmlns:android="http://schemas.android.com/apk/res/android" />
 
@@ -87,6 +88,7 @@
             android:paddingTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:gravity="left"
             android:text="培训机构推荐"
             android:textColor="#000"
@@ -94,22 +96,24 @@
             android:layout_marginLeft="15dp"
             android:textSize="25sp" />
 
-<!--        <com.example.homeworkcorrect.ScrollableGridView-->
-<!--            android:id="@+id/gv_school"-->
+        <com.example.homeworkcorrect.ScrollableGridView
+            android:id="@+id/gv_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:verticalSpacing="20dp"
+            xmlns:android="http://schemas.android.com/apk/res/android" />
+
+<!--        <ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:id="@+id/lv_school"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:numColumns="auto_fit"-->
-<!--            android:verticalSpacing="20dp"-->
-<!--            xmlns:android="http://schemas.android.com/apk/res/android" />-->
-
-        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/lv_school"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#fff"
-            android:background="#fdfdfd"
-            android:dividerHeight="20dp">
-        </ListView>
+<!--            android:divider="#fff"-->
+<!--            android:background="#fdfdfd"-->
+<!--            android:dividerHeight="20dp">-->
+<!--        </ListView>-->
 
     </LinearLayout>
 </ScrollView>

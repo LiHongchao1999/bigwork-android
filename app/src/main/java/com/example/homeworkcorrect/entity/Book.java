@@ -1,6 +1,8 @@
 package com.example.homeworkcorrect.entity;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     private int id;
     private String bookName;//书本名称
     private String bookAuthor;//书本作者
