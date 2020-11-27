@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -24,6 +25,7 @@ public class MyFragmentMainContent extends Fragment {
     private LinearLayout llrecommand;
     private RelativeLayout rlerrors;
     private RelativeLayout rlperson;
+    private ImageView ring;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,10 +38,10 @@ public class MyFragmentMainContent extends Fragment {
         llrecommand.setOnClickListener(listener);
         rlperson.setOnClickListener(listener);
         rlerrors.setOnClickListener(listener);
+        ring.setOnClickListener(listener);
         return view;
     }
     public class MyListener implements View.OnClickListener{
-
         @Override
         public void onClick(View v) {
             switch(v.getId()){
@@ -59,5 +61,6 @@ public class MyFragmentMainContent extends Fragment {
        llrecommand=view.findViewById(R.id.ll_recommand);
        rlerrors=view.findViewById(R.id.rl_errors);
        rlperson=view.findViewById(R.id.rl_person);
+       ring = view.findViewById(R.id.iv_ring);
     }
 }

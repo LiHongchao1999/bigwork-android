@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.homeworkcorrect.fragment.HomeworkFragment;
 import com.example.homeworkcorrect.fragment.MyFragment;
 import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
 import com.example.homeworkcorrect.fragment.OnlineShopFragment;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private MyFragmentMainContent mainContent; //主页页面
     private OnlineShopFragment onlineShopFragment; //商城页面
     private ParentCircleFragment parentCircleFragment; //家长圈页面
+    private HomeworkFragment homeworkFragment;//作业页面
     private ImageView mainImg;
     private ImageView shopImg;
     private ImageView assignmentImg;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         onlineShopFragment = new OnlineShopFragment();
         parentCircleFragment = new ParentCircleFragment();
         myFragment = new MyFragment();
+        homeworkFragment = new HomeworkFragment();
         //设置当前页
         changeTeb(mainContent);
         currentFragment = mainContent;
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.assignment: //作业
-                changeTeb(myFragment);
+                changeTeb(homeworkFragment);
                 mainImg.setImageResource(R.drawable.main);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop);

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.homeworkcorrect.CircleDetailActivity;
+import com.example.homeworkcorrect.PublishCircleActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.adapter.CustomCircleAdapter;
 import com.example.homeworkcorrect.adapter.CustomSelectAdapter;
@@ -53,6 +55,8 @@ public class ParentCircleFragment extends Fragment {
         //获取控件
         getViews();
         list = new ArrayList<>();
+        //设置弹出框绑定的listview以及初始化popupwindow
+        setListView();
         //绑定自定义适配器
         Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
         Bitmap img1 = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
@@ -92,6 +96,48 @@ public class ParentCircleFragment extends Fragment {
         freCircle.setOnClickListener(myListener);
         return view;
     }
+    /*
+    * 设置弹出框的数据listview
+    * */
+    private void setListView() {
+        ListView listView = new ListView(getContext());
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (list.get(position).getSection()){
+                    case "发表":
+                        Intent intent = new Intent(getContext(), PublishCircleActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "照片":
+                        Intent intent1 = new Intent();
+                        startActivity(intent1);
+                        break;
+                    case "视频":
+                        Intent intent2 = new Intent();
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
+        selectAdapter = new CustomSelectAdapter(getContext(),list,R.layout.item_list_layout);
+        listView.setAdapter(selectAdapter);
+        //弹出一个listview的下拉框
+        int width=300;
+        int height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        popupWindow = new PopupWindow(listView,width,height);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("tag",publish.getTag(R.id.tag_first)+"");
+        if(popupWindow.isShowing()){
+            publish.setTag(R.id.tag_first,"close");
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+        }
+    }
+
     private void getViews() {
         nearCircle = view.findViewById(R.id.circle_near);
         freCircle = view.findViewById(R.id.circle_fre);
@@ -138,32 +184,6 @@ public class ParentCircleFragment extends Fragment {
      * */
     private void clickArrow() {
         if(popupWindow == null){
-            //弹出一个listview的下拉框
-            ListView listView = new ListView(getContext());
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    switch (list.get(position).getSection()){
-                        case "发表":
-                            Intent intent = new Intent();
-                            startActivity(intent);
-                            break;
-                        case "照片":
-                            Intent intent1 = new Intent();
-                            startActivity(intent1);
-                            break;
-                        case "视频":
-                            Intent intent2 = new Intent();
-                            startActivity(intent2);
-                            break;
-                    }
-                }
-            });
-            selectAdapter = new CustomSelectAdapter(getContext(),list,R.layout.item_list_layout);
-            listView.setAdapter(selectAdapter);
-            int width=300;
-            int height= ViewGroup.LayoutParams.WRAP_CONTENT;
-            popupWindow = new PopupWindow(listView,width,height);
             //设置获取焦点，防止多次弹出，实现点一次弹出一次，在点一次收起
             //设置PopUpWindow的焦点，设置为true之后，PopupWindow内容区域，才可以响应点击事件
             popupWindow.setFocusable(true);
