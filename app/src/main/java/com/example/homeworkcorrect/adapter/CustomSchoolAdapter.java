@@ -71,7 +71,7 @@ public class CustomSchoolAdapter extends BaseAdapter {
         //加载图片
         String src = schools.get(position).getPhoto();
         //String url = "address" + src;
-        String url ="https://s3.ax1x.com/2020/11/25/DafUns.png";
+        String url ="https://ftp.bmp.ovh/imgs/2020/11/7d02f8162e4c204e.png";
         Glide.with(mContext)
                 .load(url)
                 .into(school_photo);

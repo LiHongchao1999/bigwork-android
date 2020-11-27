@@ -20,8 +20,8 @@ public class ShowBookInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_book_info);
 
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606371190038&di=1f7e0dece43b4a4b91ae6bd7e8f479c9&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F10%2F20170610192627_yhAMN.thumb.700_0.jpeg");
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606371190038&di=1f7e0dece43b4a4b91ae6bd7e8f479c9&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F10%2F20170610192627_yhAMN.thumb.700_0.jpeg");
+        list_path.add("https://ftp.bmp.ovh/imgs/2020/11/fa11ecddf576dead.jpg");
+        list_path.add("https://ftp.bmp.ovh/imgs/2020/11/fa11ecddf576dead.jpg");
 
 
 
