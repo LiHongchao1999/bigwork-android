@@ -1,0 +1,140 @@
+Index: app/src/main/res/values/arrays.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/arrays.xml	(date 1606353437154)
++++ app/src/main/res/values/arrays.xml	(date 1606353437154)
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string-array name="subject" >
++        <item>数学</item>
++        <item>英语</item>
++    </string-array>
++</resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_submit_home_work_activtiy.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_submit_home_work_activtiy.xml	(date 1606356441616)
++++ app/src/main/res/layout/activity_submit_home_work_activtiy.xml	(date 1606356441616)
+@@ -0,0 +1,115 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    xmlns:android="http://schemas.android.com/apk/res/android" >
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal">
++        <ImageView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:src="@drawable/retu"
++            android:layout_centerVertical="true"
++            android:id="@+id/iv_return"/>
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="作业信息"
++            android:layout_centerHorizontal="true"
++            android:textColor="@color/blackhao"
++            android:textSize="30sp"
++            android:layout_gravity="center"/>
++    </RelativeLayout>
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++        android:orientation="horizontal">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="作业发布时间："
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="30dp"
++            android:textSize="20sp"/>
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:textSize="20sp"
++            />
++    </LinearLayout>
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++
++        android:orientation="horizontal">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:id="@+id/tv_deadline"
++            android:layout_centerVertical="true"
++            android:text="作业截止时间："
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="30dp"
++            android:textSize="20dp"/>
++       <TextView
++           android:layout_width="match_parent"
++           android:layout_height="wrap_content"
++           android:layout_centerVertical="true"
++           android:layout_toRightOf="@+id/tv_deadline"
++           android:layout_toLeftOf="@+id/btn_choose_date"
++           android:textSize="20sp"/>
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="选择日期"
++            android:layout_alignParentRight="true"
++            android:id="@+id/btn_choose_date"/>
++    </RelativeLayout>
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp">
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="学科："
++            android:id="@+id/tv_subject"
++            android:textColor="@color/blackhao"
++            android:layout_marginLeft="110dp"
++            android:textSize="20dp" />
++        <androidx.appcompat.widget.AppCompatSpinner
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_toRightOf="@+id/tv_subject"
++            android:entries="@array/subject"
++            android:id="@+id/sp_subject"/>
++    </RelativeLayout>
++    <TextView
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="25dp"
++        android:text="作业图片："
++        android:textColor="@color/blackhao"
++        android:layout_marginLeft="70dp"
++        android:textSize="20dp" />
++    <ImageView
++        android:layout_width="350dp"
++        android:id="@+id/iv_homework"
++        android:layout_marginTop="25dp"
++        android:layout_height="300dp"
++        android:src="@drawable/emptypic"
++        android:layout_marginLeft="30dp"/>
++    <Button
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="提交"
++        android:textSize="20dp"
++        android:id="@+id/btn_submit"
++        android:layout_gravity="center"
++        android:layout_marginTop="20dp"/>
++
++</LinearLayout>
+\ No newline at end of file
