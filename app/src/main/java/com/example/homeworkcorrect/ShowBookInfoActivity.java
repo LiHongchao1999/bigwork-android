@@ -22,6 +22,7 @@ public class ShowBookInfoActivity extends AppCompatActivity {
 
         list_path.add("https://ftp.bmp.ovh/imgs/2020/11/fa11ecddf576dead.jpg");
         list_path.add("https://ftp.bmp.ovh/imgs/2020/11/fa11ecddf576dead.jpg");
+        list_path.add("https://ftp.bmp.ovh/imgs/2020/11/fa11ecddf576dead.jpg");
 
 
 
