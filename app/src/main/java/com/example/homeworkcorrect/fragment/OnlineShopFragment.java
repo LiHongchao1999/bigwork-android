@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import com.example.homeworkcorrect.GlideImageLoader;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.ScrollableGridView;
+import com.example.homeworkcorrect.ShowAllBookInfoActivity;
+import com.example.homeworkcorrect.ShowAllSchoolInfoActivity;
 import com.example.homeworkcorrect.ShowBookInfoActivity;
 import com.example.homeworkcorrect.adapter.CustomBookAdapter;
 import com.example.homeworkcorrect.adapter.CustomSchoolAdapter;
@@ -43,6 +46,8 @@ public class OnlineShopFragment extends Fragment {
     private CustomBookAdapter customBookAdapter;
     private CustomSchoolAdapter customSchoolAdapter;
     private SmartRefreshLayout refreshLayout;
+    private TextView tv_book_store;
+    private TextView tv_class;
 
     //资源文件
     private Integer[] images = {R.drawable.cake01, R.drawable.cake02, R.drawable.cake03, R.drawable.cake04, R.drawable.cake05};
@@ -104,7 +109,7 @@ public class OnlineShopFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //打印
-                Log.e("选中的蛋糕名称----------------", "" + books.get(position).getBookName());
+                Log.e("选中的书本名称----------------", "" + books.get(position).getBookName());
                 int menu_id = books.get(position).getId();
                 //判断用户是否登录
 //                if (user_Name.length() <= 0){
@@ -166,10 +171,27 @@ public class OnlineShopFragment extends Fragment {
     }
 
     private void setListeners() {
+        tv_book_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowAllBookInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tv_class.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShowAllSchoolInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews() {
         banner = root.findViewById(R.id.banner);
+        tv_book_store = root.findViewById(R.id.tv_book_store);
+        tv_class = root.findViewById(R.id.tv_class);
     }
 
     private void setListener() {

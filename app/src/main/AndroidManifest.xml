@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowBookInfoActivity"></activity>
+        <activity android:name=".ShowAllSchoolInfoActivity"></activity>
+        <activity android:name=".ShowAllBookInfoActivity" />
+        <activity android:name=".ShowBookInfoActivity" />
         <activity android:name=".ShowSchoolInfoActivity" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".Camera2Activity" />

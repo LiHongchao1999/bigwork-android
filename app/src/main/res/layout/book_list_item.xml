@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -45,7 +44,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="30.1"
-            android:layout_marginRight="10dp"
             android:textColor="	#FF0000"
             android:textSize="20sp"/>
 
