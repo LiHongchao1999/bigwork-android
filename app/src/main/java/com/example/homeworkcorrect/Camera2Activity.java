@@ -1,7 +1,11 @@
 package com.example.homeworkcorrect;
+
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -14,15 +18,19 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -70,8 +78,10 @@ public class Camera2Activity extends AppCompatActivity {
     RadioButton close;
     @BindView(R.id.flash_rg)
     RadioGroup flashRg;
-
-
+    @BindView(R.id.next)
+    ImageView next;
+    @BindView(R.id.photoAlbum)
+    ImageView photoAlbum;
     /*** 相机管理类*/
     CameraManager mCameraManager;
 
@@ -88,8 +98,8 @@ public class Camera2Activity extends AppCompatActivity {
     private Size mPreviewSize;
     private int mSurfaceWidth;
     private int mSurfaceHeight;
-
-
+    private ArrayList<String> photoList = new ArrayList<>();
+    private Handler mainHandler;
     /*** 打开摄像头的ID{@link CameraDevice}.*/
     private int mCameraId = CameraCharacteristics.LENS_FACING_FRONT;
 
@@ -148,11 +158,10 @@ public class Camera2Activity extends AppCompatActivity {
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            mFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+            mFile = new File(Environment.getExternalStorageDirectory()+"/DCIM/Camera/",new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+            photoList.add(mFile.getAbsolutePath());
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
         }
-
-
     };
 
 
@@ -215,8 +224,8 @@ public class Camera2Activity extends AppCompatActivity {
         }
     };
     private int CONTROL_AE_MODE;
-
-
+    private CameraCharacteristics characteristics;
+    private Context mcontext;
 
 
     /**
@@ -235,7 +244,7 @@ public class Camera2Activity extends AppCompatActivity {
             mSurfaceWidth = width;
             mSurfaceHeight = height;
 //            getCameraId(cameraId);
-            CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(mCameraId + "");
+            characteristics = mCameraManager.getCameraCharacteristics(mCameraId + "");
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             // 获取设备方向
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
@@ -248,7 +257,8 @@ public class Camera2Activity extends AppCompatActivity {
                 rotatedHeight = mSurfaceWidth;
             }
             // 获取最佳的预览尺寸
-            mPreviewSize = getPreferredPreviewSize(map.getOutputSizes(SurfaceTexture.class), rotatedWidth, rotatedHeight);
+            //mPreviewSize = getOptimalSize(SurfaceTexture.class, rotatedWidth, rotatedHeight);
+            mPreviewSize = getPreferredPreviewSize(map.getOutputSizes(SurfaceTexture.class),rotatedWidth,rotatedHeight);
             if (swapRotation) {
                 texture.setAspectRatio(mPreviewSize.getWidth(), mPreviewSize.getHeight());
             } else {
@@ -261,6 +271,7 @@ public class Camera2Activity extends AppCompatActivity {
                 mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
 
             }
+
             //检查是否支持闪光灯
             Boolean available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE);
             mFlashSupported = available == null ? false : available;
@@ -298,10 +309,6 @@ public class Camera2Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
     /**
      * 创建预览对话
      */
@@ -309,9 +316,11 @@ public class Camera2Activity extends AppCompatActivity {
         try {
             // 获取texture实例
             SurfaceTexture surfaceTexture = texture.getSurfaceTexture();
-            assert surfaceTexture != null;
-            //我们将默认缓冲区的大小配置为我们想要的相机预览的大小。
+            //Size previewSize = getOptimalSize(characteristics, SurfaceTexture.class, texture.getWidth(), texture.getHeight());
             surfaceTexture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
+//            assert surfaceTexture != null;
+//            //我们将默认缓冲区的大小配置为我们想要的相机预览的大小。
+//            surfaceTexture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
             // 用来开始预览的输出surface
             Surface surface = new Surface(surfaceTexture);
             //创建预览请求构建器
@@ -348,6 +357,7 @@ public class Camera2Activity extends AppCompatActivity {
                         }
                     }, null
             );
+
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -375,6 +385,9 @@ public class Camera2Activity extends AppCompatActivity {
             //设置为自动模式
 //            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
 
+            int deviceOrientation = new DeviceOrientationListener(this).orientation;
+            int jpegOrientation = getJpegOrientation(characteristics, deviceOrientation);
+            mPreviewRequestBuilder.set(CaptureRequest.JPEG_ORIENTATION, jpegOrientation);
 
             setFlashMode(CONTROL_AE_MODE);
             // 停止连续取景
@@ -385,7 +398,8 @@ public class Camera2Activity extends AppCompatActivity {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     //重新打开预览
-                    //createCameraPreview();
+                    createCameraPreview();
+
                 }
             }, null);
         } catch (CameraAccessException e) {
@@ -426,7 +440,6 @@ public class Camera2Activity extends AppCompatActivity {
         }
     }
 
-
     /**
      * 设置最佳尺寸
      *
@@ -456,6 +469,14 @@ public class Camera2Activity extends AppCompatActivity {
                 }
             });
         }
+//
+//        Collections.sort(collectorSizes, new Comparator<Size>() {
+//            @Override
+//            public int compare(Size o1, Size o2) {
+//                return o1.getWidth() * o1.getHeight() - o2.getWidth() * o2.getHeight();
+//            }
+//        });
+//        Collections.reverse(collectorSizes);
         return sizes[0];
     }
 
@@ -468,9 +489,37 @@ public class Camera2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_camera2);
         ButterKnife.bind(this);
         initView();
+        mcontext = this;
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("12",photoList.size()+"");
+                if(photoList.size()!=0){
+                    Intent intent = new Intent(Camera2Activity.this,SubmitHomeWorkActivtiy.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("photoList",photoList);
+                    intent.putExtra("photoList",bundle);
+                    startActivity(intent);
+                }else{
+
+                    InfoDialog infoDialog = new InfoDialog.Builder(mcontext,R.layout.dialog)
+                        .setTitle("UnDone")
+                        .setMessage("您还未选择照片")
+                        .setButton("OK", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        //Toast.makeText(mcontext, "OK Clicked.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                        ).create();
+                    infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
+                    infoDialog.show();
+                }
+            }
+        });
+        mainHandler  = new Handler();
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
     }
-
-
     private void initView() {
         flashRg.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
@@ -592,7 +641,7 @@ public class Camera2Activity extends AppCompatActivity {
      * 保存图片到自定目录
      * 保存jpeg到指定的文件夹下, 开启子线程执行保存操作
      */
-    private static class ImageSaver implements Runnable {
+    private class ImageSaver implements Runnable {
 
 
         /**
@@ -615,6 +664,7 @@ public class Camera2Activity extends AppCompatActivity {
 
         @Override
         public void run() {
+
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
@@ -634,8 +684,60 @@ public class Camera2Activity extends AppCompatActivity {
                     }
                 }
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Intent mediaScanIntent = new Intent(
+                        Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri = Uri.fromFile(mFile); //out is your output file
+                mediaScanIntent.setData(contentUri);
+                Camera2Activity.this.sendBroadcast(mediaScanIntent);
+            } else {
+                sendBroadcast(new Intent(
+                        Intent.ACTION_MEDIA_MOUNTED,
+                        Uri.parse("file://"
+                                + Environment.getExternalStorageDirectory())));
+            }
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    Bitmap bitmap = BitmapFactory.decodeFile(mFile.getAbsolutePath());
+                    photoAlbum.setImageBitmap(bitmap);
+                }
+            };
+            //上面代码中的runnable线程体经过post后会直接传送到主线程中执行修改字体的操作。
+            //post直接可以把一段代码当做变量一样传递，但是请不要传送耗时操作的代码到主线程中
+            mainHandler.post(r);
+        }
+    }
+    private int getJpegOrientation(CameraCharacteristics cameraCharacteristics, int deviceOrientation) {
+        int myDeviceOrientation = deviceOrientation;
+        if (myDeviceOrientation == android.view.OrientationEventListener.ORIENTATION_UNKNOWN) {
+            return 0;
+        }
+        int sensorOrientation = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
+
+                // Round device orientation to a multiple of 90
+        myDeviceOrientation = (myDeviceOrientation + 45) / 90 * 90;
+
+        // Reverse device orientation for front-facing cameras
+        Boolean facingFront = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING) == CameraCharacteristics.LENS_FACING_FRONT;
+        if (facingFront) {
+            myDeviceOrientation = -myDeviceOrientation;
         }
 
+        // Calculate desired JPEG orientation relative to camera orientation to make
+        // the image upright relative to the device orientation
+        return (sensorOrientation + myDeviceOrientation + 360) % 360;
+    }
 
+    private class DeviceOrientationListener extends OrientationEventListener{
+        private int orientation = 0;
+        public DeviceOrientationListener(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void onOrientationChanged(int i) {
+            this.orientation = i;
+        }
     }
 }
