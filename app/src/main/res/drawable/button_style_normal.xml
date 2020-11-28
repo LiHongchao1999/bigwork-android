@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <corners android:radius="10.0dp"/><!--圆角属性-->
+    <gradient/><!--渐变属性-->
+    <padding/><!--边距属性-->
+    <size/><!--大小属性-->
+    <!--    <stroke android:width="2dp" android:color="@android:color/black"/>--><!--边框属性-->
+    <solid android:color="@android:color/holo_blue_bright"/>
+</shape>
