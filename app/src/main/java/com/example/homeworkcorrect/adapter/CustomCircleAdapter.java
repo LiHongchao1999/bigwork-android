@@ -12,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.R;
 
+import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
 
@@ -64,7 +66,7 @@ public class CustomCircleAdapter extends BaseAdapter {
             viewHolder.nickName = convertView.findViewById(R.id.fre_nickname);
             viewHolder.sendTime = convertView.findViewById(R.id.fre_send_time);
             viewHolder.content = convertView.findViewById(R.id.fre_send_content);
-            viewHolder.img = convertView.findViewById(R.id.fre_send_img);
+            viewHolder.gridView = convertView.findViewById(R.id.send_img_list);
             viewHolder.forward = convertView.findViewById(R.id.fre_forward);
             viewHolder.comment = convertView.findViewById(R.id.fre_comment);
             viewHolder.like = convertView.findViewById(R.id.fre_like);
@@ -81,7 +83,7 @@ public class CustomCircleAdapter extends BaseAdapter {
         viewHolder.nickName.setText(circles.get(position).getUserName());
         viewHolder.sendTime.setText(circles.get(position).getTime());
         viewHolder.content.setText(circles.get(position).getContent());
-        viewHolder.img.setImageBitmap(circles.get(position).getSendImg());
+        viewHolder.gridView.setAdapter(new CustomSendImgAdapter(mContext,circles.get(position).getSendImg(),R.layout.send_img_list_item));
         viewHolder.forwardSize.setText(circles.get(position).getForwardSize()+"");
         viewHolder.commentSize.setText(circles.get(position).getCommentSize()+"");
         viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");
@@ -116,7 +118,7 @@ public class CustomCircleAdapter extends BaseAdapter {
         private CircleImageView userImg; //用户头像
         public TextView nickName; //用户昵称
         public TextView content; //发送的内容
-        public ImageView img; //发送的图片
+        public ScrollableGridView gridView;//存放上传的图片列表
         public TextView sendTime; //发送的时间
         public LinearLayout forward; //转发
         public LinearLayout comment; //评论

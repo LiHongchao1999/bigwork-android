@@ -4,6 +4,7 @@
     android:padding="5dp"
     android:orientation="vertical"
     android:background="@drawable/edit_border"
+    android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,11 +54,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <ImageView
-                        android:id="@+id/fre_send_img"
+                    <com.example.homeworkcorrect.ScrollableGridView
+                        android:id="@+id/send_img_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/my1"/>
+                        android:horizontalSpacing="3dp"
+                        android:numColumns="3"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

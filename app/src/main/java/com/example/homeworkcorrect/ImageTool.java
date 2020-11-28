@@ -58,10 +58,21 @@ public class ImageTool {
             if (isMediaDocument(uri)) { // MediaProvider
                 // 使用':'分割
                 String id = documentId.split(":")[1];
-
-                String selection = MediaStore.Images.Media._ID + "=?";
-                String[] selectionArgs = {id};
-                filePath = getDataColumn(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
+                String type = documentId.split(":")[0];
+                String selection;
+                if("image".equals(type)){
+                    selection = MediaStore.Images.Media._ID + "=?";
+                    String[] selectionArgs = {id};
+                    filePath = getDataColumn(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
+                }else if("video".equals(type)){
+                    selection = MediaStore.Video.Media._ID + "=?";
+                    String[] selectionArgs = {id};
+                    filePath = getDataColumn(context, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
+                }else if("audio".equals(type)){
+                    selection = MediaStore.Audio.Media._ID + "=?";
+                    String[] selectionArgs = {id};
+                    filePath = getDataColumn(context, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, selection, selectionArgs);
+                }
             } else if (isDownloadsDocument(uri)) { // DownloadsProvider
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(documentId));
                 filePath = getDataColumn(context, contentUri, null, null);

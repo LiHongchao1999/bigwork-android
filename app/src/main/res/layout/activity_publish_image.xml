@@ -17,7 +17,7 @@
                 android:layout_height="40dp"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/ss_cancel"
+                    android:id="@+id/zp_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="取消"
@@ -38,7 +38,7 @@
                 android:layout_height="40dp"
                 android:gravity="center">
                 <TextView
-                    android:id="@+id/ss_send"
+                    android:id="@+id/zp_send"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="发表"
@@ -53,7 +53,7 @@
             android:background="@drawable/bottom"
             android:padding="3dp">
             <EditText
-                android:id="@+id/ss_edit_content"
+                android:id="@+id/zp_edit_content"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 android:layout_height="match_parent"
                 android:padding="5dp">
                 <com.example.homeworkcorrect.ScrollableGridView
-                    android:id="@+id/img_list"
+                    android:id="@+id/zp_img_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="3"/>

@@ -28,7 +28,7 @@
                 android:textSize="18sp"
                 android:textColor="@android:color/black"/>
             <ImageView
-                android:layout_marginLeft="170dp"
+                android:layout_marginLeft="120dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -124,7 +124,7 @@
                     android:text="146"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginLeft="205dp"
+                android:layout_marginLeft="155dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView

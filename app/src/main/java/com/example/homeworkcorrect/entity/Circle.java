@@ -2,12 +2,14 @@ package com.example.homeworkcorrect.entity;
 
 import android.graphics.Bitmap;
 
+import java.util.List;
+
 public class Circle {
     private Bitmap userImg;
     private String userName;
     private String time;
     private String content;
-    private Bitmap sendImg;
+    private List<Bitmap> sendImg;
     private int likeSize;
     private int forwardSize;
     private int commentSize;
@@ -15,7 +17,7 @@ public class Circle {
     public Circle() {
     }
 
-    public Circle(Bitmap userImg, String userName, String time, String content, Bitmap sendImg, int likeSize, int forwardSize, int commentSize) {
+    public Circle(Bitmap userImg, String userName, String time, String content, List<Bitmap> sendImg, int likeSize, int forwardSize, int commentSize) {
         this.userImg = userImg;
         this.userName = userName;
         this.time = time;
@@ -58,11 +60,11 @@ public class Circle {
         this.content = content;
     }
 
-    public Bitmap getSendImg() {
+    public List<Bitmap> getSendImg() {
         return sendImg;
     }
 
-    public void setSendImg(Bitmap sendImg) {
+    public void setSendImg(List<Bitmap> sendImg) {
         this.sendImg = sendImg;
     }
 
