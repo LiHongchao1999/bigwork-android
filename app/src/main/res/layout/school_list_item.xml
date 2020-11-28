@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/book_list_style"
+    android:padding="5dp"
     android:descendantFocusability="blocksDescendants">
-
     <ImageView
         android:id="@+id/school_photo"
         android:layout_width="120dp"
         android:src="@drawable/school_01"
         android:layout_marginRight="20dp"
         android:layout_height="120dp"/>
-
     <LinearLayout
         android:layout_toRightOf="@id/school_photo"
         android:layout_centerVertical="true"

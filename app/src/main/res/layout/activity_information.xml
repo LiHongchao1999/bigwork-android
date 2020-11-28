@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f0f0f0"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@drawable/bottom">
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/info_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/back2"/>
-        <TextView
-            android:layout_marginLeft="125dp"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="消息中心"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"/>
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/info_setting"
-            android:layout_marginLeft="110dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/setting1"/>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f0f0f0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bottom">
+            <ImageView
+                android:onClick="onClicked"
+                android:layout_gravity="center"
+                android:id="@+id/info_back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/back"/>
+            <TextView
+                android:layout_marginLeft="100dp"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="消息中心"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"/>
+            <ImageView
+                android:onClick="onClicked"
+                android:layout_gravity="center"
+                android:id="@+id/info_add_fre"
+                android:layout_marginLeft="85dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/add"/>
+        </LinearLayout>
+        <com.example.homeworkcorrect.MyListView
+            android:id="@+id/info_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-    <ListView
-        android:id="@+id/info_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+</ScrollView>

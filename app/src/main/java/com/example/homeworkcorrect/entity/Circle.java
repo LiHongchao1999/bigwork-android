@@ -5,14 +5,14 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 public class Circle {
-    private Bitmap userImg;
-    private String userName;
-    private String time;
-    private String content;
-    private List<Bitmap> sendImg;
-    private int likeSize;
-    private int forwardSize;
-    private int commentSize;
+    private Bitmap userImg; //用户头像
+    private String userName;  //用户名
+    private String time;  //发表的时间
+    private String content;  //发表的内容
+    private List<Bitmap> sendImg;  //发表的图片
+    private int likeSize;  //点赞数
+    private int forwardSize;  //转发数
+    private int commentSize;  //评论数
 
     public Circle() {
     }

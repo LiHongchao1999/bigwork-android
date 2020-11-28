@@ -1,6 +1,5 @@
 package com.example.homeworkcorrect.entity;
 
-import android.graphics.Bitmap;
 
 public class PopWindowEntity {
     private int img;

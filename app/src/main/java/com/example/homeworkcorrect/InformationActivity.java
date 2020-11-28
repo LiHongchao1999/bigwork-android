@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InformationActivity extends AppCompatActivity {
-    private ImageView back;
-    private ListView listView;
+    private ImageView back; //返回按钮
+    private MyListView listView; //消息列表
+    private ImageView addFre;//添加好友
     private CustomMsgAdapter adapter;
     private List<Information> list = new ArrayList<>();
     @Override
@@ -32,15 +34,9 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
         getViews();
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         //准备假数据
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-        Information information = new Information("清风","新朋友你好","下午 5:14",bitmap);
+        Information information = new Information("清风","新朋友o]你好","下午 5:14",bitmap);
         list.add(information);
         adapter = new CustomMsgAdapter(this,list,R.layout.infomation_list_item_layout);
         listView.setAdapter(adapter);
@@ -57,5 +53,24 @@ public class InformationActivity extends AppCompatActivity {
     private void getViews() {
         listView = findViewById(R.id.info_list);
         back = findViewById(R.id.info_back);
+        addFre = findViewById(R.id.info_add_fre);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /*
+    * 单机事件
+    * */
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.info_back://点击返回
+                finish();
+                break;
+            case R.id.info_add_fre://点击添加
+                break;
+        }
     }
 }
