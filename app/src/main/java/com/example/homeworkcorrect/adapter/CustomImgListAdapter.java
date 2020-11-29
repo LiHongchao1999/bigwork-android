@@ -22,6 +22,7 @@ public class CustomImgListAdapter extends BaseAdapter {
     private int itemLayoutRes;
     public CustomImgListAdapter(Context mContext, List<String> imgs, int msg_list_item) {
         this.mContext = mContext;
+        Log.e("213",imgs.toString());
         this.imgs = imgs;
         this.itemLayoutRes = msg_list_item;
     }
@@ -56,17 +57,11 @@ public class CustomImgListAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Log.e("add路径",imgs.get(imgs.size()-1));
-        if(imgs.get(position).equals("add")){//表示是添加图片的图片
-            Log.e("img",imgs.get(position));
-            viewHolder.checkBox.setVisibility(View.GONE);
-            Glide.with(convertView).load(R.drawable.add_img).into(viewHolder.imageView);
-        }else{
-            viewHolder.checkBox.setVisibility(View.VISIBLE);
-            Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
-            //Bitmap bitmap = ImageTool.createImageThumbnail(imgs.get(position));
-            Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
-        }
+        //Log.e("add路径",imgs.get(imgs.size()-1));
+        viewHolder.checkBox.setVisibility(View.VISIBLE);
+        Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
+        //Bitmap bitmap = ImageTool.createImageThumbnail(imgs.get(position));
+        Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

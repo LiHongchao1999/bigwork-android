@@ -38,5 +38,6 @@
         <activity android:name=".InformationActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".CircleDetailActivity" />
+        <activity android:name=".SubmitHomeWorkActivtiy"/>
     </application>
 </manifest>

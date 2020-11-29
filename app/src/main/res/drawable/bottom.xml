@@ -11,7 +11,7 @@
     <item android:bottom="1dp" >
         <shape>
             <!--     View填充颜色 -->
-            <solid android:color="#FFFFFF" />
+            <solid android:color="@color/colorPrimary" />
         </shape>
     </item>
 </layer-list>
