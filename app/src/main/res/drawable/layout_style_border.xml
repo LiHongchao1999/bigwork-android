@@ -4,7 +4,6 @@
     <stroke
         android:width="0.5dp"
         android:color="#708090" />
-
     <padding
         android:bottom="2dp"
         android:top="2dp" />
