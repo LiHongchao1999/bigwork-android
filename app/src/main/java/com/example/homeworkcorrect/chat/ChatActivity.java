@@ -2,6 +2,7 @@ package com.example.homeworkcorrect.chat;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homeworkcorrect.FreDetailActivity;
 import com.example.homeworkcorrect.R;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class ChatActivity extends AppCompatActivity {
     private String content; //输入的内容
     private ImageView back;//返回
     private TextView nickName; //用户昵称
+    private ImageView freMore;//显示对方的信息
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +61,11 @@ public class ChatActivity extends AppCompatActivity {
         tvSend = findViewById(R.id.tvSend);
         back = findViewById(R.id.img_back);
         nickName = findViewById(R.id.nickname);
+        freMore = findViewById(R.id.fre_more);
     }
 
     private void initData() {
+        //输入框监听器
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,7 +78,7 @@ public class ChatActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s) { //输入完之后调用
                 //获取输入的值
                 content = s.toString().trim();
             }
@@ -92,12 +97,20 @@ public class ChatActivity extends AppCompatActivity {
                 hideKeyBorad(et);
             }
         });
-
+        //点击更多
+        freMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatActivity.this, FreDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void hideKeyBorad(View v) {
         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive()) {
+            //隐藏键盘
             imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
         }
     }

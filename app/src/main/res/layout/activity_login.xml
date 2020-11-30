@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/loginbackground"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <LinearLayout
+        android:id="@+id/first"
         android:layout_marginTop="100dp"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <TextView
             android:gravity="center"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="登录体验更多功能"
             android:textSize="30dp"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/first1"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/first"
+        android:layout_centerHorizontal="true"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_gravity="center">
         <EditText
             android:id="@+id/et_phone"
@@ -39,9 +42,12 @@
             android:layout_height="50dp"/>
     </LinearLayout>
     <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/first1"
+        android:id="@+id/first11"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center">
         <EditText
             android:hint="   验证码"
@@ -53,6 +59,9 @@
             android:inputType="textPassword" />
     </LinearLayout>
     <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/first11"
+        android:id="@+id/first111"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -67,9 +76,12 @@
             android:background="#FFA500"/>
     </LinearLayout>
     <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/first1111"
+        android:layout_below="@id/first111"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:layout_gravity="center">
         <TextView
             android:gravity="center"
@@ -79,13 +91,16 @@
             android:text="-------------其他登录方式-------------"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/first11111"
+        android:layout_below="@id/first1111"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center">
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/weixin"
             android:background="@drawable/circle_style_bor"
             />
@@ -94,14 +109,14 @@
 <!--            android:layout_height="70dp"-->
 <!--            android:src="@drawable/weix"/>-->
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="65dp"
             android:src="@drawable/qq"/>
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/weibo"
             android:layout_marginLeft="70dp"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

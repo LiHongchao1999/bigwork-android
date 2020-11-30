@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -215,12 +219,14 @@ public class ParentCircleFragment extends Fragment {
      * */
     private void clickArrow() {
         if(popupWindow == null){
+            popupWindow.setBackgroundDrawable(getDrawable());
             //设置获取焦点，防止多次弹出，实现点一次弹出一次，在点一次收起
             //设置PopUpWindow的焦点，设置为true之后，PopupWindow内容区域，才可以响应点击事件
             popupWindow.setFocusable(true);
             //设置边缘点击收起
             popupWindow.setOutsideTouchable(true);
-            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+            popupWindow.setTouchable(true);
+
             //设置popupwindow关闭监听器
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -230,7 +236,7 @@ public class ParentCircleFragment extends Fragment {
                 }
             });
         }
-        popupWindow.showAtLocation(publish, Gravity.NO_GRAVITY,770,190);
+        popupWindow.showAtLocation(publish, Gravity.NO_GRAVITY,770,210);
     }
     /**
      * 设置添加屏幕的背景透明度
@@ -243,5 +249,14 @@ public class ParentCircleFragment extends Fragment {
         getActivity().getWindow().setAttributes(lp);
     }
 
+    /**
+     * 生成一个 透明的背景图片
+     * @return
+     */
+    private Drawable getDrawable() {
+        ShapeDrawable bgdrawable = new ShapeDrawable(new OvalShape());
+        bgdrawable.getPaint().setColor(getContext().getResources().getColor(android.R.color.transparent));
+        return bgdrawable;
+    }
 }
 

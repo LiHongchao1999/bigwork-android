@@ -7,12 +7,15 @@
         android:orientation="vertical"
         android:background="#f0f0f0"
         xmlns:android="http://schemas.android.com/apk/res/android">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:background="@drawable/bottom">
+            android:background="@drawable/bottom"
+            android:gravity="center_vertical">
             <ImageView
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
                 android:onClick="onClicked"
                 android:layout_gravity="center"
                 android:id="@+id/info_back"
@@ -20,24 +23,24 @@
                 android:layout_height="25dp"
                 android:background="@drawable/back"/>
             <TextView
-                android:layout_marginLeft="100dp"
+                android:layout_centerHorizontal="true"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="消息中心"
-                android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#ffffff"/>
             <ImageView
+                android:layout_alignParentRight="true"
                 android:onClick="onClicked"
                 android:layout_gravity="center"
                 android:id="@+id/info_add_fre"
-                android:layout_marginLeft="85dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/add"/>
-        </LinearLayout>
+        </RelativeLayout>
         <com.example.homeworkcorrect.MyListView
             android:id="@+id/info_list"
             android:layout_width="match_parent"
