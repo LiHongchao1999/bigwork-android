@@ -29,7 +29,6 @@ import java.util.List;
 
 public class PublishImageActivity extends AppCompatActivity {
     private List<String> imgUrls = new ArrayList<>(); //存放选择的图片
-    private static final String IMG_ADD= "add"; //添加图片
     private TextView cancel;//取消
     private TextView send; //发表
     private ScrollableGridView gridView; //图片
@@ -46,15 +45,13 @@ public class PublishImageActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (imgUrls.get(position).equals("add")) {//进行选择图片
-                    if (imgUrls.size() < 9) {
-                        //动态申请权限
-                        ActivityCompat.requestPermissions(PublishImageActivity.this,
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                20);
-                    } else {
-                        new Toast(PublishImageActivity.this).makeText(PublishImageActivity.this, "最多只能选择9张照片！", Toast.LENGTH_SHORT).show();
-                    }
+                if (imgUrls.size() < 9) {
+                    //动态申请权限
+                    ActivityCompat.requestPermissions(PublishImageActivity.this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            20);
+                } else {
+                    new Toast(PublishImageActivity.this).makeText(PublishImageActivity.this, "最多只能选择9张照片！", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -87,22 +84,13 @@ public class PublishImageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==50 && resultCode==RESULT_OK){
             List<Uri> mSelected = Matisse.obtainResult(data);
-            removeItem();
             for(Uri uri : mSelected){
                 String path = ImageTool.getRealPathFromUri(this,uri);
                 Log.e("图片地址",path);
                 imgUrls.add(path);
             }
-            imgUrls.add(IMG_ADD);
             Log.e("所有图片地址",imgUrls.toString());
             customAdapter.notifyDataSetChanged();
-        }
-    }
-    private void removeItem() {
-        if (imgUrls.size() != 9) {
-            if (imgUrls.size() != 0) {
-                imgUrls.remove(imgUrls.size() - 1);
-            }
         }
     }
     /*

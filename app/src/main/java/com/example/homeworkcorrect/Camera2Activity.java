@@ -3,6 +3,7 @@ package com.example.homeworkcorrect;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,9 +38,16 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.example.homeworkcorrect.filter.GifSizeFilter;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -115,7 +123,7 @@ public class Camera2Activity extends AppCompatActivity {
     /*** {@link CaptureRequest.Builder}用于相机预览请求的构造器*/
     private CaptureRequest.Builder mPreviewRequestBuilder;
 
-
+    private ImageView imageView;//选择图片
     /***预览请求, 由上面的构建器构建出来*/
     private CaptureRequest mPreviewRequest;
     /**
@@ -489,6 +497,17 @@ public class Camera2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_camera2);
         ButterKnife.bind(this);
         initView();
+        //图片选择
+        imageView = findViewById(R.id.choosePicture);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //动态申请权限
+                ActivityCompat.requestPermissions(Camera2Activity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        100);
+            }
+        });
         mcontext = this;
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -519,6 +538,37 @@ public class Camera2Activity extends AppCompatActivity {
         mainHandler  = new Handler();
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==100){
+            Matisse.from(Camera2Activity.this)
+                    .choose(MimeType.ofImage()) //只显示图片
+                    .countable(true) //显示选择的数量
+                    .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                    .gridExpectedSize(350) //图片显示在列表中的大小
+                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                    .thumbnailScale(0.8f)//缩放比例
+                    .imageEngine(new GlideEngine()) //使用图片加载引擎
+                    .theme(R.style.Matisse_Dracula) //主题
+                    .capture(false)//是否提供拍照功能
+                    .forResult(200);//设置作为标记的请求码
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==200 && resultCode==RESULT_OK){
+            List<Uri> mSelected = Matisse.obtainResult(data);
+            for(Uri uri : mSelected){
+                String path = ImageTool.getRealPathFromUri(this,uri);
+                photoList.add(path);
+            }
+        }
+    }
+
     private void initView() {
         flashRg.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
