@@ -546,7 +546,6 @@ public class Camera2Activity extends AppCompatActivity {
             Matisse.from(Camera2Activity.this)
                     .choose(MimeType.ofImage()) //只显示图片
                     .countable(true) //显示选择的数量
-                    .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                     .gridExpectedSize(350) //图片显示在列表中的大小
                     .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                     .thumbnailScale(0.8f)//缩放比例
