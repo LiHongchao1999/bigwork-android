@@ -501,7 +501,6 @@ public class Camera2Activity extends AppCompatActivity {
                     intent.putExtra("photoList",bundle);
                     startActivity(intent);
                 }else{
-
                     InfoDialog infoDialog = new InfoDialog.Builder(mcontext,R.layout.dialog)
                         .setTitle("UnDone")
                         .setMessage("您还未选择照片")
