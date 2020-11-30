@@ -36,7 +36,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:id="@+id/image_user"/>
-
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"

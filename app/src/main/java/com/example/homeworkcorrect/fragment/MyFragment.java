@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.ContactUsActivity;
 import com.example.homeworkcorrect.R;
+import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
 
 /**
@@ -88,6 +90,14 @@ public class MyFragment extends Fragment {
                 shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 shareIntent.setType("image/*");
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
+            }
+        });
+        ImageView imageView = view.findViewById(R.id.image_user);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SelfInformationActivity.class);
+                startActivity(intent);
             }
         });
         RelativeLayout setting = view.findViewById(R.id.setting_relative);
