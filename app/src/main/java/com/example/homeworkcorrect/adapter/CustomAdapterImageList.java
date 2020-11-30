@@ -3,7 +3,6 @@ package com.example.homeworkcorrect.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,11 @@ import com.example.homeworkcorrect.R;
 
 import java.util.List;
 
-public class CustomImgListAdapter extends BaseAdapter {
+public class CustomAdapterImageList extends BaseAdapter {
     private Context mContext;
     private List<String> imgs;
     private int itemLayoutRes;
-    public CustomImgListAdapter(Context mContext, List<String> imgs, int msg_list_item) {
+    public CustomAdapterImageList(Context mContext, List<String> imgs, int msg_list_item) {
         this.mContext = mContext;
         this.imgs = imgs;
         this.itemLayoutRes = msg_list_item;
@@ -56,9 +55,14 @@ public class CustomImgListAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.checkBox.setVisibility(View.VISIBLE);
-        Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
-        Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
+        if(imgs.get(position).equals("add")){
+            viewHolder.checkBox.setVisibility(View.GONE);
+            Glide.with(convertView).load(R.drawable.add_img).into(viewHolder.imageView);
+        }else{
+            viewHolder.checkBox.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
+            Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
+        }
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.homeworkcorrect.adapter.CustomAdapterImageList;
 import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
@@ -38,7 +39,7 @@ public class PublishCircleActivity extends AppCompatActivity {
     private TextView send; //发表
     private ScrollableGridView gridView; //图片
     private EditText content;//输入的内容
-    private CustomImgListAdapter customAdapter;
+    private CustomAdapterImageList customAdapter;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -55,7 +56,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         //获取控件
         getViews();
         imgUrls.add(IMG_ADD);
-        customAdapter = new CustomImgListAdapter(PublishCircleActivity.this,imgUrls,R.layout.img_list_item);
+        customAdapter = new CustomAdapterImageList(PublishCircleActivity.this,imgUrls,R.layout.img_list_item);
         gridView.setAdapter(customAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
