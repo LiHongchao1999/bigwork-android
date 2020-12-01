@@ -144,13 +144,19 @@ public class MyFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode == 150){
             String name = data.getStringExtra("nickname");
-            Log.e("MyFragment",name);
             nickName.setText(name);
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
-
+        }
+        if (requestCode==100 && resultCode==200){
+            String phone = data.getStringExtra("phone");
+            nickName.setText(phone);
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
         }
     }
 }

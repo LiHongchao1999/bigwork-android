@@ -59,10 +59,7 @@
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
@@ -72,6 +69,10 @@
         <activity android:name=".RealNameActivity" />
         <activity android:name=".NickNameActivity" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".PublishCircleActivity" />
         <activity android:name=".InformationActivity" />
