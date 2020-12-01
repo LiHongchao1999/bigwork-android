@@ -8,14 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.homeworkcorrect.IP;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.entity.Homework;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+
 public class HomeworkAdapter extends BaseAdapter {
 
+    private OkHttpClient okHttpClient;
     private Context context;
     private List<Homework> dataSource = new ArrayList<>();
     private int id;
@@ -24,6 +29,7 @@ public class HomeworkAdapter extends BaseAdapter {
         this.context = context;
         this.dataSource = dataSource;
         this.id = id;
+        this.okHttpClient = new OkHttpClient();
     }
 
     @Override
@@ -56,10 +62,10 @@ public class HomeworkAdapter extends BaseAdapter {
         }else {
             viewHolder =(ViewHolder) convertView.getTag();
         }
-        viewHolder.imgHomework.setImageBitmap(dataSource.get(position).getHomeworkImg());
+        Glide.with(context).load(IP.CONSTANT+"images/"+dataSource.get(position).getHomework_image().get(0)).into(viewHolder.imgHomework);
         viewHolder.tvHomeworkType.setText(dataSource.get(position).getHomeworkType());
         viewHolder.tvSubmitTime.setText(dataSource.get(position).getSubmitTime());
-        viewHolder.tvState.setText(dataSource.get(position).getState());
+        viewHolder.tvState.setText(dataSource.get(position).getTag());
         return convertView;
     }
     private class ViewHolder{

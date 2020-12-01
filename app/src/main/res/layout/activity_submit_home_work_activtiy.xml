@@ -28,20 +28,24 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/upload"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="作业发布时间："
                 android:textColor="@color/blackhao"
-
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_date"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 />
         </LinearLayout>
         <LinearLayout
@@ -49,16 +53,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="20dp"
+            android:gravity="center"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/deadline"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_deadline"
                 android:text="作业截止时间："
                 android:textColor="@color/blackhao"
-                android:textSize="20dp"/>
+                android:textSize="17sp"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -67,21 +77,46 @@
                 android:layout_toRightOf="@+id/tv_deadline"
                 android:layout_toLeftOf="@+id/btn_choose_date"
                 android:textSize="20sp"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择日期"
-                android:background="@drawable/background_shape"
-                android:layout_alignParentRight="true"
-                android:id="@+id/btn_choose_date"/>
+
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/date"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:orientation="horizontal">
+            <TextView
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="2020年5月20日"
+                android:id="@+id/dateText"/>
+            <TextView
+                android:layout_weight="1"
+                android:textSize="17sp"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:text="8:20"
+                android:id="@+id/time"/>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="25dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/subject"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -89,7 +124,7 @@
                 android:text="学科："
                 android:id="@+id/tv_subject"
                 android:textColor="@color/blackhao"
-                android:textSize="20dp" />
+                android:textSize="17sp" />
             <androidx.appcompat.widget.AppCompatSpinner
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -102,20 +137,22 @@
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="25dp"
             android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/homeworkimg"
+                android:layout_marginRight="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="作业图片："
                 android:textColor="@color/blackhao"
-                android:textSize="20dp" />
-            <Button
-                android:layout_width="wrap_content"
-                android:textSize="20sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/again"
-                android:background="@drawable/background_shape"
-                android:text="再拍一张"/>
+                android:textSize="17dp" />
+
         </LinearLayout>
 
 
@@ -123,14 +160,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/gridview"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:numColumns="3"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:text="提交"
             android:textSize="20dp"
             android:id="@+id/btn_submit"
-            android:background="@drawable/background_shape"
+            android:background="@drawable/background_circle_submit"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"/>
     </LinearLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--2、按下后单纯的变颜色-->
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle" >
+            <corners android:radius="20dp"/>
+            <solid android:color="@android:color/white"/>
+        </shape>
+
+    </item>
+    <!-- 按钮未点击-->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp"/>
+            <solid android:color="@color/lightgray"/>
+        </shape>
+    </item><!-- 按钮选中状态-->
+</selector>
