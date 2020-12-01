@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#F5F5F5"
-    android:orientation="vertical">
-    <LinearLayout
+    android:background="#f0f0f0">
+    <RelativeLayout
+        android:id="@+id/fir2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@android:color/white">
+        android:background="@color/colorPrimary">
         <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:id="@+id/iv_return"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/retu"
-            android:layout_gravity="center"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back"/>
         <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="身份证号码"
-            android:textSize="30dp"
-            android:layout_marginLeft="100dp"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
-    <LinearLayout
+            android:textSize="20dp"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/sec2"
+        android:layout_below="@id/fir2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/white">
         <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/text_id"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="号码:"
-            android:textSize="25dp"
-            android:textColor="@android:color/black"
-            android:layout_gravity="center"/>
+            android:textSize="20dp"
+            android:textColor="@android:color/black" />
         <EditText
+            android:layout_toRightOf="@+id/text_id"
+            android:layout_centerVertical="true"
             android:textColor="@android:color/black"
+            android:background="@drawable/edit_border1"
             android:onClick="buttonClicked"
             android:id="@+id/et_identitynumber"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="5dp"
             android:hint="请输入身份证号码"
             android:textColorHint="@android:color/darker_gray"/>
-    </LinearLayout>
+    </RelativeLayout>
     <TextView
+        android:id="@+id/thir2"
+        android:layout_below="@id/sec2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="30天只能修改一次。"
@@ -54,12 +66,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"/>
     <Button
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/thir2"
         android:id="@+id/bt_finish"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_style_normal"
-        android:layout_gravity="center"
-        android:layout_width="400dp"
-        android:layout_height="60dp"
+        android:textColor="#ffffff"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:text="完成"
-        android:textSize="30dp"/>
-</LinearLayout>
+        android:textSize="20dp"/>
+</RelativeLayout>

@@ -219,14 +219,13 @@ public class ParentCircleFragment extends Fragment {
      * */
     private void clickArrow() {
         if(popupWindow == null){
-            popupWindow.setBackgroundDrawable(getDrawable());
+            popupWindow.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
             //设置获取焦点，防止多次弹出，实现点一次弹出一次，在点一次收起
             //设置PopUpWindow的焦点，设置为true之后，PopupWindow内容区域，才可以响应点击事件
+            popupWindow.setTouchable(true);
             popupWindow.setFocusable(true);
             //设置边缘点击收起
             popupWindow.setOutsideTouchable(true);
-            popupWindow.setTouchable(true);
-
             //设置popupwindow关闭监听器
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -247,16 +246,6 @@ public class ParentCircleFragment extends Fragment {
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         getActivity().getWindow().setAttributes(lp);
-    }
-
-    /**
-     * 生成一个 透明的背景图片
-     * @return
-     */
-    private Drawable getDrawable() {
-        ShapeDrawable bgdrawable = new ShapeDrawable(new OvalShape());
-        bgdrawable.getPaint().setColor(getContext().getResources().getColor(android.R.color.transparent));
-        return bgdrawable;
     }
 }
 

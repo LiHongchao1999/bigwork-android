@@ -6,36 +6,38 @@
     android:background="#EEEEEE"
     android:orientation="vertical"
     tools:context=".chat.ChatActivity">
-    <LinearLayout
+    <RelativeLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:gravity="center_vertical">
         <ImageView
-            android:layout_marginTop="7.5dp"
+            android:layout_alignParentLeft="true"
             android:id="@+id/img_back"
             android:layout_marginLeft="5dp"
+            android:onClick="onClicked"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/back"/>
         <TextView
-            android:layout_gravity="center_vertical"
+            android:layout_centerHorizontal="true"
             android:id="@+id/nickname"
-            android:layout_marginLeft="130dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:text="清风"/>
         <ImageView
+            android:layout_alignParentRight="true"
             android:id="@+id/fre_more"
-            android:layout_marginLeft="130dp"
+            android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:onClick="onClicked"
             android:background="@drawable/fre_more"
             android:scaleType="fitXY"/>
-    </LinearLayout>
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylerView"
         android:layout_width="match_parent"

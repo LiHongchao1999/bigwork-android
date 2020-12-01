@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,15 +30,16 @@ public class ChatActivity extends AppCompatActivity {
     private EditText et;
     private TextView tvSend;
     private String content; //输入的内容
-    private ImageView back;//返回
     private TextView nickName; //用户昵称
-    private ImageView freMore;//显示对方的信息
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         getViews();
         //获取Intent
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("nickName");
+        nickName.setText(name);
         //赋值
         recyclerView.setHasFixedSize(true);
         //设置布局管理器
@@ -59,9 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recylerView);
         et = findViewById(R.id.et);
         tvSend = findViewById(R.id.tvSend);
-        back = findViewById(R.id.img_back);
         nickName = findViewById(R.id.nickname);
-        freMore = findViewById(R.id.fre_more);
     }
 
     private void initData() {
@@ -97,16 +97,7 @@ public class ChatActivity extends AppCompatActivity {
                 hideKeyBorad(et);
             }
         });
-        //点击更多
-        freMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChatActivity.this, FreDetailActivity.class);
-                startActivity(intent);
-            }
-        });
     }
-
     private void hideKeyBorad(View v) {
         InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive()) {
@@ -114,5 +105,29 @@ public class ChatActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
         }
     }
+    /*
+    * 单机事件
+    * */
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.img_back://点击返回
+                finish();
+                break;
+            case R.id.fre_more://更多
+                Intent intent = new Intent(ChatActivity.this, FreDetailActivity.class);
+                startActivityForResult(intent,100);
+                break;
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100 && resultCode==200){
+            //结束页面，进行跳转
+            Intent intent = new Intent();
+            setResult(50,intent);
+            finish();
+        }
+    }
 }

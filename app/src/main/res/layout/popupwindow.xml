@@ -1,43 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_marginTop="459dp"
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:text="拍照"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="1dp"
+        android:layout_height="40dp"
+        android:text="拍照"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="#ffffff"
+        android:textSize="20dp"/>
+    <Button
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:text="从本地相册上传"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:text="从本地相册上传"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="#ffffff"
+        android:textSize="20dp"/>
+    <Button
+        android:layout_marginTop="15dp"
+        android:id="@+id/bt_cancel"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-        <Button
-            android:id="@+id/bt_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:text="取消"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"
-            android:onClick="buttonClicked"/>
-    </LinearLayout>
+        android:layout_height="40dp"
+        android:text="取消"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:onClick="buttonClicked"/>
 </LinearLayout>

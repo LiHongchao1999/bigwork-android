@@ -1,54 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/w"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:gravity="center_vertical">
         <ImageView
-            android:layout_marginTop="7.5dp"
+            android:layout_alignParentLeft="true"
             android:id="@+id/fre_back"
+            android:onClick="onClicked"
             android:layout_marginLeft="5dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/back"/>
         <TextView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="130dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:text="好友信息"/>
-    </LinearLayout>
-    <LinearLayout
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/w1"
+        android:layout_below="@id/w"
         android:layout_marginTop="10dp"
         android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:layout_height="60dp">
         <com.example.homeworkcorrect.CircleImageView
             android:layout_marginLeft="20dp"
             android:id="@+id/fre_head_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/my1"/>
-        <LinearLayout
-            android:layout_marginTop="15dp"
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/fre_head_img"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/re_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/re_nick_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="浪迹天涯"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="18sp"/>
-        </LinearLayout>
+            android:text="浪迹天涯"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/fre_sex"
+            android:layout_toRightOf="@+id/fre_head_img"
+            android:layout_below="@+id/re_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:text="男"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/w2"
+        android:layout_below="@id/w1"
+        android:background="#ffffff"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="住址："
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fre_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1818181818"
+            />
     </LinearLayout>
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/w3"
+        android:layout_below="@id/w2"
+        android:background="#ffffff"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别："
+            android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/fre_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1818181818"
+            />
+    </LinearLayout>
+    <Button
+        android:layout_below="@id/w3"
+        android:layout_marginTop="5dp"
+        android:id="@+id/delete_fre"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:onClick="onClicked"
+        android:text="删除好友"
+        android:textColor="@android:color/holo_red_light"/>
+</RelativeLayout>

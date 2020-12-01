@@ -1,222 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical"
+    android:background="#f0f0f0"
     android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/sec"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/layout_style_border">
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimary">
         <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
             android:id="@+id/iv_return"
             android:layout_gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/retu"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back"/>
         <TextView
-            android:layout_marginLeft="120dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="个人信息"
-            android:textSize="25dp"
-            android:textColor="@android:color/black"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="@drawable/layout_style_border"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="头像"
             android:textSize="20dp"
-            android:layout_gravity="center"
-            android:textColor="@android:color/black"/>
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/head"
-            android:layout_marginLeft="260dp"/>
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:src="@drawable/enter"
-            android:onClick="buttonClicked"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layout_style_border"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="昵称"
-            android:textSize="20dp"
-            android:layout_gravity="center"
-            android:textColor="@android:color/black"/>
-        <LinearLayout
-            android:layout_width="311dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:layout_marginTop="14dp"
-                android:textColor="#778899"
-                android:gravity="right"/>
-        </LinearLayout>
-        <ImageView
-            android:onClick="buttonClicked"
-            android:id="@+id/iv_nickname"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/enter"
-            android:layout_gravity="center" />
-    </LinearLayout>
-    <LinearLayout
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_img"
+        android:layout_below="@+id/sec"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/layout_style_border"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:gravity="center_vertical"
+        android:background="#ffffff"
+        android:layout_marginTop="5dp"
+        android:onClick="onClicked">
         <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
+            android:text="头像"
+            android:textSize="18dp"
+            android:textColor="@android:color/black"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_gravity="center"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/head" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right"
+            android:layout_marginRight="5dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_nickname"
+        android:onClick="onClicked"
+        android:layout_below="@+id/change_img"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="昵称"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#778899"
+            android:text="浪迹天涯"/>
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:onClick="buttonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right"
+            android:layout_gravity="center" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_real_name"
+        android:onClick="onClicked"
+        android:layout_below="@+id/change_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="真实姓名"
-            android:textSize="20dp"
-            android:layout_gravity="center"
+            android:textSize="18dp"
             android:textColor="@android:color/black"/>
-        <LinearLayout
-            android:layout_width="270dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_realname"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:layout_marginTop="14dp"
-                android:textColor="#778899"
-                android:gravity="right"/>
-        </LinearLayout>
-        <ImageView
-            android:onClick="buttonClicked"
-            android:id="@+id/iv_realname"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/enter"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layout_style_border"
-        android:layout_marginTop="5dp">
         <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_realname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:textSize="18dp"
+            android:textColor="#778899"
+            android:text="薛程元"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_sex"
+        android:onClick="onClicked"
+        android:layout_below="@+id/change_real_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="性别"
-            android:textSize="20dp"
-            android:layout_gravity="center"
+            android:textSize="18dp"
             android:textColor="@android:color/black"/>
-        <LinearLayout
-            android:layout_width="310dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_sex"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:layout_marginTop="14dp"
-                android:textColor="#778899"
-                android:gravity="right"/>
-        </LinearLayout>
-        <ImageView
-            android:onClick="buttonClicked"
-            android:id="@+id/iv_sex"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/enter"
-            android:layout_gravity="center" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layout_style_border"
-        android:layout_marginTop="5dp">
         <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:textSize="18dp"
+            android:textColor="#778899"
+            android:text="男"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_id_card"
+        android:onClick="onClicked"
+        android:layout_below="@+id/change_sex"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="身份证号码"
-            android:textSize="20dp"
-            android:layout_gravity="center"
+            android:textSize="18dp"
             android:textColor="@android:color/black"/>
-        <LinearLayout
-            android:layout_width="250dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_identity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:layout_marginTop="14dp"
-                android:textColor="#778899"
-                android:gravity="right"/>
-        </LinearLayout>
-        <ImageView
-            android:onClick="buttonClicked"
-            android:id="@+id/iv_identitynumber"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/enter"
-            android:layout_gravity="center"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/layout_style_border"
-        android:layout_marginTop="5dp">
         <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_identity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="手机号"
-            android:textSize="20dp"
-            android:layout_gravity="center"
-            android:textColor="@android:color/black"/>
-        <LinearLayout
-            android:layout_width="290dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/tv_phonenum"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="20dp"
-                android:textColor="#778899"
-                android:layout_marginTop="14dp"
-                android:gravity="right"/>
-        </LinearLayout>
+            android:textSize="18dp"
+            android:textColor="#778899"
+            android:text="110112"/>
         <ImageView
-            android:onClick="buttonClicked"
-            android:id="@+id/iv_phonenumber"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/enter"
-            android:layout_gravity="center" />
-    </LinearLayout>
-</LinearLayout>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/change_phone"
+        android:onClick="onClicked"
+        android:layout_below="@+id/change_id_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="手机号"
+            android:textSize="18dp"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_phonenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#778899"
+            android:text="17320635079"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right" />
+    </RelativeLayout>
+</RelativeLayout>

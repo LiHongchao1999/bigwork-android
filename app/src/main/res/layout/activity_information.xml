@@ -36,7 +36,7 @@
                 android:onClick="onClicked"
                 android:layout_gravity="center"
                 android:id="@+id/info_add_fre"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/add"/>

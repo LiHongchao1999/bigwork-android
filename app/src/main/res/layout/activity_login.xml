@@ -77,46 +77,48 @@
     </LinearLayout>
     <LinearLayout
         android:layout_centerHorizontal="true"
-        android:id="@+id/first1111"
-        android:layout_below="@id/first111"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_gravity="center">
-        <TextView
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="#708090"
-            android:text="-------------其他登录方式-------------"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:id="@+id/first11111"
-        android:layout_below="@id/first1111"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/weixin"
-            android:background="@drawable/circle_style_bor"
-            />
-<!--        <com.example.homeworkcorrect.CircleImageView-->
-<!--            android:layout_width="70dp"-->
-<!--            android:layout_height="70dp"-->
-<!--            android:src="@drawable/weix"/>-->
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="65dp"
-            android:src="@drawable/qq"/>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/weibo"
-            android:layout_marginLeft="70dp"/>
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/first1111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#708090"
+                android:text="------------------其他登录方式------------------"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:id="@+id/first11111"
+            android:layout_below="@id/first1111"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/weixin"
+                android:background="@drawable/circle_style_bor" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/qq"
+                android:layout_marginLeft="40dp"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/weibo"
+                android:layout_marginLeft="40dp"/>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

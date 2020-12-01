@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FreDetailActivity"></activity>
+        <activity android:name=".AddFreActivity"></activity>
+        <activity android:name=".FreDetailActivity" />
         <activity android:name=".PublishVideoActivity" />
         <activity android:name=".PublishImageActivity" />
         <activity android:name=".ShowBookInfoActivity" />
@@ -44,7 +45,7 @@
         <activity android:name=".HeadPortraitActivity" />
         <activity android:name=".RealNameActivity" />
         <activity android:name=".NickNameActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".PublishCircleActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".chat.ChatActivity" />
