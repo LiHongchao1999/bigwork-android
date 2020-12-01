@@ -32,6 +32,7 @@ public class HomeworkFragment extends Fragment {
     private View view;
     private OkHttpClient okHttpClient;
     private ScrollableGridView lvHomework; //作业列表
+    private List<Homework> homeworks = new ArrayList<>();
     private HomeworkAdapter homeworkAdapter;
 
     @Nullable
@@ -40,6 +41,11 @@ public class HomeworkFragment extends Fragment {
         view = inflater.inflate(R.layout.homework_fragment, container,false);
         //获取控件
         getViews();
+        Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.homework1);
+//        Homework homework1 = new Homework("数学","1999/10/04","批改完成",img);
+//        homeworks.add(homework1);
+        homeworkAdapter = new HomeworkAdapter(getContext(),homeworks, R.layout.homework_list_item);
+        lvHomework.setAdapter(homeworkAdapter);
         getAllHomework();
         this.okHttpClient = new OkHttpClient();
         return view;
