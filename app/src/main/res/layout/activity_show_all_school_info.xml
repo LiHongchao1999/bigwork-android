@@ -7,6 +7,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.Toolbar
+            android:background="@color/whitehao"
+            android:layout_width="match_parent"
+            android:id="@+id/tool"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/back1"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学校列表"
+                android:layout_gravity="center"
+                android:textSize="20sp"/>
+        </androidx.appcompat.widget.Toolbar>
+
         <com.example.homeworkcorrect.ScrollableGridView
             android:id="@+id/gv_all_school"
             android:layout_width="match_parent"

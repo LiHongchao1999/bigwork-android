@@ -23,20 +23,21 @@
         <RelativeLayout
             android:layout_marginTop="3dp"
             android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content">
             <EditText
                 android:layout_marginLeft="15dp"
-                android:paddingLeft="35dp"
+                android:paddingLeft="15dp"
                 android:background="@drawable/edit_border"
                 android:id="@+id/search_content"
                 android:layout_width="330dp"
                 android:layout_height="30dp"/>
-            <ImageView
-                android:layout_marginLeft="23.5dp"
-                android:layout_marginTop="6dp"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:background="@drawable/search"/>
+<!--            <ImageView-->
+<!--                android:layout_marginLeft="23.5dp"-->
+<!--                android:layout_marginTop="6dp"-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:background="@drawable/search"/>-->
             <Button
                 android:layout_marginLeft="286dp"
                 android:background="@drawable/search_button_background"
