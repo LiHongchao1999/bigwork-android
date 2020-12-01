@@ -122,22 +122,11 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.bt_Login:
                 if(judgePhoneNums(phoneNums)&&etCode.getText().toString().length()==4){
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            SMSSDK.submitVerificationCode("86",phoneNums, etCode
-                                    .getText().toString());
-                            // 验证通过之后，将跳转
-                            Intent intent = new Intent();
-                            intent.setClass(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }
-                    }.start();
-                    break;
-                }else if (etCode.getText().toString().length()!=4){
-                    Toast.makeText(getApplicationContext(), "验证码错误",
-                            Toast.LENGTH_SHORT).show();
-                    break;
+                    SMSSDK.submitVerificationCode("86",phoneNums, etCode
+                            .getText().toString());
+                }if(judgePhoneNums(phoneNums)&&etCode.getText().toString().length()!=4){
+                Toast.makeText(getApplicationContext(), "验证码位数错误",
+                        Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -156,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 int event = msg.arg1;
                 int result = msg.arg2;
+                Log.e("result",result+"");
                 Object data = msg.obj;
                 Log.e("event", "event=" + event);
                 if (result == SMSSDK.RESULT_COMPLETE) {
@@ -169,12 +159,12 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
                                 Toast.LENGTH_SHORT).show();
-                    } else if(event==SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE){
-                        Toast.makeText(getApplicationContext(), "提交验证码错误",
-                                Toast.LENGTH_SHORT).show();
                     }else {
                         ((Throwable) data).printStackTrace();
                     }
+                }else if(result==SMSSDK.RESULT_ERROR){
+                    Toast.makeText(getApplicationContext(), "验证码错误",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         }
