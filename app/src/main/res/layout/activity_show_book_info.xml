@@ -7,7 +7,7 @@
     <androidx.appcompat.widget.Toolbar
         android:background="@color/whitehao"
         android:layout_width="match_parent"
-        android:id="@+id/tool"
+        android:id="@+id/tool_book"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/back1"
         xmlns:app="http://schemas.android.com/apk/res-auto"
