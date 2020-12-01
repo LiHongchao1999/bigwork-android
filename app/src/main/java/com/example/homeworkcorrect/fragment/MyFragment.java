@@ -6,16 +6,21 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.homeworkcorrect.CircleImageView;
 import com.example.homeworkcorrect.ContactUsActivity;
+import com.example.homeworkcorrect.LoginActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
@@ -35,6 +40,10 @@ public class MyFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TextView nickName;
+    private TextView lever;
+    private CircleImageView img;
+    private TextView login;
 
     public MyFragment() {
         // Required empty public constructor
@@ -65,7 +74,6 @@ public class MyFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -116,6 +124,33 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //点击登录
+        login = view.findViewById(R.id.login_kip);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivityForResult(intent,100);
+            }
+        });
+        nickName = view.findViewById(R.id.user_name);
+        lever = view.findViewById(R.id.user_lever);
+        img = view.findViewById(R.id.image_user);
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100 && resultCode == 150){
+            String name = data.getStringExtra("nickname");
+            Log.e("MyFragment",name);
+            nickName.setText(name);
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
+
+        }
     }
 }

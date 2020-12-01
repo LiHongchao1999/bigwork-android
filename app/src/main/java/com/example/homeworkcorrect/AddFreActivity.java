@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.homeworkcorrect.adapter.CustomAdapterSearchFre;
 import com.example.homeworkcorrect.entity.SearchFriend;
 
 import java.util.ArrayList;
@@ -18,11 +19,14 @@ public class AddFreActivity extends AppCompatActivity {
     private EditText content;//输入的内容
     private MyListView myListView;//搜索的结果展示
     private List<SearchFriend> fres = new ArrayList<>();
+    private CustomAdapterSearchFre adapterSearchFre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_fre);
         myListView = findViewById(R.id.add_list);
+        adapterSearchFre = new CustomAdapterSearchFre(this,fres,R.layout.fre_list_item_layout);
+        myListView.setAdapter(adapterSearchFre);
     }
     /*
     * 点击事件

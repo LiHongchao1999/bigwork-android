@@ -127,6 +127,7 @@
                 android:src="@drawable/weixin"
                 android:background="@drawable/circle_style_bor" />
             <ImageView
+                android:id="@+id/qq_login"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/qq"

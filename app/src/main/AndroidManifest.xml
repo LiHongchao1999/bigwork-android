@@ -28,8 +28,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent101920560" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".AddFreActivity"></activity>
         <activity android:name=".LoginWithPasswordActivity"></activity>
-        <activity android:name=".AddFreActivity" />
         <activity android:name=".FreDetailActivity" />
         <activity android:name=".PublishVideoActivity" />
         <activity android:name=".PublishImageActivity" />
@@ -41,11 +58,6 @@
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
@@ -54,7 +66,12 @@
         <activity android:name=".HeadPortraitActivity" />
         <activity android:name=".RealNameActivity" />
         <activity android:name=".NickNameActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".PublishCircleActivity" />
         <activity android:name=".InformationActivity" />
         <activity android:name=".chat.ChatActivity" />

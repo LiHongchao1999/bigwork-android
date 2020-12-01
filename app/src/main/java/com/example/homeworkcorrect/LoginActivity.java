@@ -4,16 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.homeworkcorrect.fragment.MyFragmentMainContent;
+import com.tencent.connect.UserInfo;
+import com.tencent.connect.auth.QQToken;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import com.mob.MobSDK;
 
 import cn.smssdk.EventHandler;
@@ -30,6 +47,26 @@ public class LoginActivity extends AppCompatActivity {
 
     private int i;
 
+    private Button login;
+    private ImageView qqLogin;//QQ登录
+    private Tencent tencent;
+    private UserInfo userInfo;
+    private BaseUiListener baseUiListener;
+    private Handler handler1 = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1://获取qq登录的用户名和性别
+                    String str = msg.obj.toString();
+                    String nickName = str.split(":")[0];
+                    String gender = str.split(":")[1];
+                    Intent intent = new Intent();
+                    intent.putExtra("nickname",nickName);
+                    setResult(150,intent);
+                    finish();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +92,92 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        qqLogin = findViewById(R.id.qq_login);
+        tencent = Tencent.createInstance("101920560",this.getApplicationContext());
+        qqLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!tencent.isSessionValid()){
+                    baseUiListener = new BaseUiListener();
+                    //第二个参数增量权限scope字符串，这个是获取用户qq基本信息，all代表所有权限
+                   tencent.login(LoginActivity.this, "all",baseUiListener);
+                }
+            }
+        });
+    }
+    private class BaseUiListener implements IUiListener{
+        @Override
+        public void onComplete(Object o) {
+            //授权成功
+            //获取登录账户的个人信息
+            Log.e("个人信息",o.toString());
+            JSONObject object = (JSONObject) o;
+            try {
+                String openId = object.getString("openid");
+                String accessToken = object.getString("access_token");
+                String expires = object.getString("expires_in");
+                tencent.setOpenId(openId);
+                tencent.setAccessToken(accessToken,expires);
+                QQToken qqToken = tencent.getQQToken();
+                userInfo = new UserInfo(getApplicationContext(),qqToken);
+                userInfo.getUserInfo(new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Log.e("LoginActivity","登录成功"+o.toString());
+                        JSONObject jsonObject = (JSONObject) o;
+                        try {
+                            String nickName = jsonObject.getString("nickname");
+                            String gender = jsonObject.getString("gender");
+                            Message msg = new Message();
+                            msg.obj = nickName+":"+gender;
+                            msg.what=1;
+                            handler1.sendMessage(msg);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Log.e("LoginActivity","登录失败"+o.toString());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.e("LoginActivity","登录取消"+o.toString());
+                    }
+
+                    @Override
+                    public void onWarning(int i) {
+
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onError(UiError uiError) {
+            //授权失败
+        }
+
+        @Override
+        public void onCancel() {
+            //授权取消
+        }
+
+        @Override
+        public void onWarning(int i) {
+
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == Constants.REQUEST_LOGIN){
+            Tencent.onActivityResultData(requestCode,resultCode,data,baseUiListener);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

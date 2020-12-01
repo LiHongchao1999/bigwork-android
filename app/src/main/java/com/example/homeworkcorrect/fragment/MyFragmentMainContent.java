@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.InformationActivity;
 import com.example.homeworkcorrect.Camera2Activity;
-import com.example.homeworkcorrect.Camera2Activity_ViewBinding;
 import com.example.homeworkcorrect.R;
 
 

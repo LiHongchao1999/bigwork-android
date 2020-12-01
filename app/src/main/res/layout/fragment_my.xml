@@ -32,10 +32,20 @@
             <com.example.homeworkcorrect.CircleImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/zzh"
+                android:src="@drawable/initial"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:id="@+id/image_user"/>
+            <TextView
+                android:id="@+id/login_kip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击登录"
+                android:layout_toRightOf="@+id/image_user"
+                android:layout_marginLeft="3dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="#ffffff"/>
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
@@ -43,14 +53,12 @@
                 android:layout_toRightOf="@id/image_user"
                 android:layout_alignTop="@id/image_user"
                 android:paddingBottom="10dp"
-                android:text="zhangzihua"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="lv5"
                 android:layout_alignBottom="@id/image_user"
                 android:gravity="center"
                 android:textColor="@android:color/white"

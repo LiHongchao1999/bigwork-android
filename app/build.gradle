@@ -31,11 +31,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     //聊天
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:23.3.0'
@@ -51,6 +55,11 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    //qq登录
+    implementation files('libs\\open_sdk_3.5.1.152_rd6ba70e_lite.jar')
+    implementation files('libs\\mta-sdk-2.0.0.jar')
+    implementation files('libs\\mid-sdk-2.10.jar')
+    //
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -335,8 +335,6 @@ public class Camera2Activity extends AppCompatActivity {
             mPreviewRequestBuilder.addTarget(surface);
             //在这里，我们为相机预览创建一个CameraCaptureSession。
             mCameraDevice.createCaptureSession(Arrays.asList(surface, mImageReader.getSurface()), new CameraCaptureSession.StateCallback() {
-
-
                         @Override
                         public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
                             // 相机关闭时, 直接返回
