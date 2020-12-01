@@ -37,8 +37,8 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 public class LoginActivity extends AppCompatActivity {
-    String APPKEY = "319a4d9f828f8";
-    String APPSECRET = "54f8a204b312c31507ed4533104f51ed";
+    String APPKEY = "31a00794f87b0";
+    String APPSECRET = "bee3fce1f9f4866b8c7fe62b3a58e701";
     //获取用到的控件
     EditText etphone;
     EditText etCode;

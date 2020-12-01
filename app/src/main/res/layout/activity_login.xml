@@ -26,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
         <EditText
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:id="@+id/et_phone"
             android:drawableLeft="@drawable/phone1"
             android:hint="   手机号码"
@@ -51,6 +53,8 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center">
         <EditText
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"
             android:id="@+id/et_Code"
             android:hint="   验证码"
             android:drawableLeft="@drawable/file2"

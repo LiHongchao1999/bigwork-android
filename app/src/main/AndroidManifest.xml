@@ -10,6 +10,7 @@
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" /> <!-- 轮播图 -->
+
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Mob短信验证 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -58,6 +59,10 @@
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
@@ -67,10 +72,6 @@
         <activity android:name=".RealNameActivity" />
         <activity android:name=".NickNameActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".PublishCircleActivity" />
         <activity android:name=".InformationActivity" />
