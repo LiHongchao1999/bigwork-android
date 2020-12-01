@@ -1,7 +1,6 @@
 package com.example.homeworkcorrect.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.example.homeworkcorrect.IP;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.entity.Homework;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
