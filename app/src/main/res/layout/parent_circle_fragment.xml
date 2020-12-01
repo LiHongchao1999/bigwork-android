@@ -6,14 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_vertical">
             <LinearLayout
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="7.5dp"
+                android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/lower_circle_style"
@@ -54,13 +55,13 @@
                 </LinearLayout>
             </LinearLayout>
             <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="3dp"
                 android:id="@+id/publish"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/add"/>
-        </LinearLayout>
+        </RelativeLayout>
         <com.example.homeworkcorrect.MyListView
             android:id="@+id/listview"
             android:background="#F0F0F0"

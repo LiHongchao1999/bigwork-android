@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,7 +37,7 @@ public class InformationActivity extends AppCompatActivity {
         getViews();
         //准备假数据
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-        Information information = new Information("清风","新朋友o]你好","下午 5:14",bitmap);
+        Information information = new Information("清风","新朋友你好","2020-11-30 5:14",bitmap);
         list.add(information);
         adapter = new CustomMsgAdapter(this,list,R.layout.infomation_list_item_layout);
         listView.setAdapter(adapter);
@@ -45,7 +46,8 @@ public class InformationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(InformationActivity.this, ChatActivity.class);
-                startActivity(intent);
+                intent.putExtra("nick","浪迹天涯");
+                startActivityForResult(intent,10);
             }
         });
     }
@@ -70,7 +72,22 @@ public class InformationActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.info_add_fre://点击添加
+                Intent intent = new Intent(InformationActivity.this,AddFreActivity.class);
+                startActivityForResult(intent,100);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100){
+
+        }
+        if (requestCode==10 && resultCode==50){
+            //对该item进行删除
+            //更新
+            adapter.notifyDataSetChanged();
         }
     }
 }

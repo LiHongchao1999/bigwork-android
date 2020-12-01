@@ -9,7 +9,7 @@ public class School implements Serializable {
     private String content;//培训内容
     private String photo;//照片
     private String phone;//电话
-    private String commission;//推广佣金
+    private double commission;//推广佣金
 
     public int getId() {
         return id;
@@ -59,11 +59,11 @@ public class School implements Serializable {
         this.phone = phone;
     }
 
-    public String getCommission() {
+    public double getCommission() {
         return commission;
     }
 
-    public void setCommission(String commission) {
+    public void setCommission(double commission) {
         this.commission = commission;
     }
 

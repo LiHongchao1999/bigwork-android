@@ -7,24 +7,36 @@
     android:orientation="vertical"
     tools:context=".chat.ChatActivity">
     <RelativeLayout
-        android:background="#00bffe"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical">
         <ImageView
+            android:layout_alignParentLeft="true"
             android:id="@+id/img_back"
             android:layout_marginLeft="5dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:onClick="onClicked"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/back"/>
         <TextView
+            android:layout_centerHorizontal="true"
             android:id="@+id/nickname"
-            android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="清风"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/fre_more"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:onClick="onClicked"
+            android:background="@drawable/fre_more"
+            android:scaleType="fitXY"/>
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylerView"
@@ -47,7 +59,6 @@
             android:paddingLeft="4dp"
             android:textSize="14sp"
             android:background="@drawable/bg_et" />
-
         <TextView
             android:id="@+id/tvSend"
             android:layout_width="0dp"

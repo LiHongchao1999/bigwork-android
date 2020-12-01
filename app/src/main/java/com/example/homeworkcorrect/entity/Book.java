@@ -3,6 +3,7 @@ package com.example.homeworkcorrect.entity;
 import java.io.Serializable;
 
 public class Book implements Serializable {
+
     private int id;
     private String bookName;//书本名称
     private String bookAuthor;//书本作者
@@ -10,7 +11,7 @@ public class Book implements Serializable {
     private double price;//书本价格
     private int stock;//书本库存
     private String image;//书本图片
-    private String commission;//推广佣金
+    private double commission;//推广佣金
 
     public int getId() {
         return id;
@@ -68,11 +69,11 @@ public class Book implements Serializable {
         this.image = image;
     }
 
-    public String getCommission() {
+    public double getCommission() {
         return commission;
     }
 
-    public void setCommission(String commission) {
+    public void setCommission(double commission) {
         this.commission = commission;
     }
 

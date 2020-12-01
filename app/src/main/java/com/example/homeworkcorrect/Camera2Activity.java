@@ -502,10 +502,17 @@ public class Camera2Activity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //动态申请权限
-                ActivityCompat.requestPermissions(Camera2Activity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        100);
+                Matisse.from(Camera2Activity.this)
+                        .choose(MimeType.ofImage()) //只显示图片
+                        .countable(true) //显示选择的数量
+                        .gridExpectedSize(350) //图片显示在列表中的大小
+                        .maxSelectable(9)
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                        .thumbnailScale(0.8f)//缩放比例
+                        .imageEngine(new GlideEngine()) //使用图片加载引擎
+                        .theme(R.style.Matisse_Dracula) //主题
+                        .capture(false)//是否提供拍照功能
+                        .forResult(200);//设置作为标记的请求码
             }
         });
         mcontext = this;
@@ -538,24 +545,6 @@ public class Camera2Activity extends AppCompatActivity {
         mainHandler  = new Handler();
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode==100){
-            Matisse.from(Camera2Activity.this)
-                    .choose(MimeType.ofImage()) //只显示图片
-                    .countable(true) //显示选择的数量
-                    .gridExpectedSize(350) //图片显示在列表中的大小
-                    .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                    .thumbnailScale(0.8f)//缩放比例
-                    .imageEngine(new GlideEngine()) //使用图片加载引擎
-                    .theme(R.style.Matisse_Dracula) //主题
-                    .capture(false)//是否提供拍照功能
-                    .forResult(200);//设置作为标记的请求码
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -565,6 +554,7 @@ public class Camera2Activity extends AppCompatActivity {
                 String path = ImageTool.getRealPathFromUri(this,uri);
                 photoList.add(path);
             }
+
         }
     }
 

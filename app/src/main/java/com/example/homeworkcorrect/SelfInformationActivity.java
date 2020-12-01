@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,35 +21,35 @@ public class SelfInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_self_information);
     }
 
-    public void buttonClicked(View view){
+    public void onClicked(View view){
         switch (view.getId()){
-            case R.id.iv_head:
+            case R.id.change_img://点击头像
                 showPopupWindow();
                 break;
             case R.id.bt_cancel:
                 popupWindow.dismiss();
                 break;
-            case R.id.iv_nickname:
+            case R.id.change_nickname://点击修改昵称
                 Intent intent =new Intent();
                 intent.setClass(SelfInformationActivity.this,NickNameActivity.class);
                 startActivityForResult(intent,1);
                 break;
-            case R.id.iv_realname:
+            case R.id.change_real_name://点击修改真实姓名
                 Intent intent1 = new Intent();
                 intent1.setClass(SelfInformationActivity.this,RealNameActivity.class);
                 startActivityForResult(intent1,1);
                 break;
-            case R.id.iv_sex:
+            case R.id.change_sex://点击修改性别
                 Intent intent2 = new Intent();
                 intent2.setClass(SelfInformationActivity.this,SexActivity.class);
                 startActivityForResult(intent2,1);
                 break;
-            case R.id.iv_identitynumber:
+            case R.id.change_id_card://点击修改身份证号
                 Intent intent3 = new Intent();
                 intent3.setClass(SelfInformationActivity.this,IdentityNumberActivity.class);
                 startActivityForResult(intent3,1);
                 break;
-            case R.id.iv_phonenumber:
+            case R.id.change_phone://点击修改电话
                 Intent intent4 = new Intent();
                 intent4.setClass(SelfInformationActivity.this,PhoneNumberActivity.class);
                 startActivityForResult(intent4,1);
@@ -60,15 +61,15 @@ public class SelfInformationActivity extends AppCompatActivity {
         //创建PopupWindow对象
         popupWindow = new PopupWindow(this);
         //设置弹出窗口的宽度
-        popupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(LinearLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(RelativeLayout.LayoutParams.MATCH_PARENT);
         //设置它的视图
         View view = getLayoutInflater().inflate(R.layout.popupwindow,null);
         //设置视图当中控件的属性和监听器
         popupWindow.setContentView(view);
         //显示PopupWindow（必须指定显示的位置）
-        LinearLayout root = findViewById(R.id.root);
-        popupWindow.showAtLocation(root, Gravity.BOTTOM,0,0);
+        RelativeLayout root = findViewById(R.id.root);
+        popupWindow.showAtLocation(root,Gravity.NO_GRAVITY,0,0);
     }
 
     @Override

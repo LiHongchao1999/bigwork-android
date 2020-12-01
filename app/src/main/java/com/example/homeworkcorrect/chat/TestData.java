@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class TestData {
 
     public static ArrayList<ItemModel> getTestAdData() {
+        //从数据库中获取通信双方的内容，根据时间进行排序，以及对方的头像和基本信息。
         ArrayList<ItemModel> models = new ArrayList<>();
         ChatModel model = new ChatModel();
         model.setContent("你好？我们交个朋友吧！");
@@ -29,7 +30,7 @@ public class TestData {
         model5.setIcon("http://img.my.csdn.net/uploads/201508/05/1438760758_3497.jpg");
         models.add(new ItemModel(ItemModel.CHAT_A, model5));
         ChatModel model6 = new ChatModel();
-        model6.setContent("你是妹子，卧槽，我怎么没看出来？");
+        model6.setContent("你是，卧槽，我怎么没看出来？");
         model6.setIcon("http://img.my.csdn.net/uploads/201508/05/1438760758_6667.jpg");
         models.add(new ItemModel(ItemModel.CHAT_B, model6));
         ChatModel model7= new ChatModel();

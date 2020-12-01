@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:orientation="vertical"
+    android:background="#f0f0f0"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/fir2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@android:color/white">
+        android:background="@color/colorPrimary">
         <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
             android:id="@+id/iv_return"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/retu"
-            android:layout_gravity="center"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/back" />
         <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="性别"
-            android:textSize="30dp"
-            android:layout_marginLeft="140dp"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
+            android:textSize="20dp"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
     <RadioGroup
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/fir2"
         android:id="@+id/RG_sex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,11 +41,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="男"
-            android:textSize="30dp"/>
+            android:textSize="20dp"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/rb_2"
-            android:layout_marginLeft="20dp"
-            android:textSize="30dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp"
             android:button="@drawable/checkbox_style_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,13 +54,14 @@
             android:textColor="@android:color/black"/>
     </RadioGroup>
     <Button
-
-        android:id="@+id/bt_finish"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:layout_below="@id/RG_sex"
+        android:id="@+id/bt_finish"
         android:background="@drawable/button_style_normal"
-        android:layout_gravity="center"
-        android:layout_width="400dp"
-        android:layout_height="60dp"
+        android:textColor="#ffffff"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
         android:text="完成"
-        android:textSize="30dp"/>
-</LinearLayout>
+        android:textSize="20dp"/>
+</RelativeLayout>
