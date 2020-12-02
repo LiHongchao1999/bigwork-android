@@ -1,153 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#f0f0f0">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:background="@color/colorPrimary">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商城"
-                android:textColor="#ffffff"
-                android:textSize="22sp" />
-        </LinearLayout>
-
+        android:background="#f0f0f0"
+        android:orientation="vertical">
         <RelativeLayout
-            android:layout_marginTop="3dp"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content">
-            <EditText
+            <RelativeLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:id="@+id/search_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="11.5dp"
+                    android:gravity="center"
+                    android:text="商城"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/search_ll_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="15dp"
-                android:paddingLeft="15dp"
-                android:background="@drawable/edit_border"
-                android:id="@+id/search_content"
-                android:layout_width="330dp"
-                android:layout_height="30dp"/>
-<!--            <ImageView-->
-<!--                android:layout_marginLeft="23.5dp"-->
-<!--                android:layout_marginTop="6dp"-->
-<!--                android:layout_width="18dp"-->
-<!--                android:layout_height="18dp"-->
-<!--                android:background="@drawable/search"/>-->
-            <Button
-                android:layout_marginLeft="286dp"
-                android:background="@drawable/search_button_background"
-                android:layout_width="60dp"
-                android:text="搜索"
-                android:textSize="14sp"
-                android:textColor="#ffffff"
-                android:layout_height="30dp"/>
+                android:layout_marginTop="49dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="visible">
+                <EditText
+                    android:id="@+id/search_tv_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:cursorVisible="false"
+                    android:background="@drawable/edit_border"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:hint="这是搜索框"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:background="@drawable/search_button_background"
+                    android:text="搜索"
+                    android:layout_marginRight="10dp" />
+
+            </LinearLayout>
         </RelativeLayout>
-        <com.youth.banner.Banner
-            android:layout_marginTop="3dp"
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="20dp">
 
-            <TextView
-                android:id="@+id/tv_book_store"
-                android:layout_width="wrap_content"
+
+        <com.example.homeworkcorrect.AnimationNestedScrollView
+            android:id="@+id/search_sv_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/book_shop"
-                android:drawablePadding="10dp"
-                android:gravity="center_horizontal"
-                android:text="书店" />
+                android:orientation="vertical">
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="3dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/teacher"
-                android:drawablePadding="10dp"
-                android:gravity="center_horizontal"
-                android:text="家教" />
+                <LinearLayout
 
-            <TextView
-                android:id="@+id/tv_class"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/cls"
-                android:drawablePadding="10dp"
-                android:gravity="center_horizontal"
-                android:text="培训课" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/gift"
-                android:drawablePadding="10dp"
-                android:gravity="center_horizontal"
-                android:text="福利" />
-        </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:gravity="left"
-            android:text="优选书籍"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:textSize="25sp" />
+                        <ImageView
+                            android:id="@+id/img_book"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/bookstore" />
 
-        <com.example.homeworkcorrect.ScrollableGridView
-            android:id="@+id/gv_book"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="auto_fit"
-            android:horizontalSpacing="5dp"
-            android:verticalSpacing="20dp"
-            android:padding="3dp"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
+                        <TextView
+                            android:id="@+id/tv_book_store"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_book"
+                            android:layout_centerHorizontal="true"
+                            android:text="书店" />
+                    </RelativeLayout>
 
-        <TextView
-            android:paddingTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:gravity="left"
-            android:text="培训机构推荐"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"
-            android:textSize="25sp" />
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
-        <com.example.homeworkcorrect.ScrollableGridView
-            android:id="@+id/gv_school"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="1"
-            android:padding="5dp"
-            android:verticalSpacing="20dp"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
+                        <ImageView
+                            android:id="@+id/img_teacher"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/hometeacher" />
 
-<!--        <ListView xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--            android:id="@+id/lv_school"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:divider="#fff"-->
-<!--            android:background="#fdfdfd"-->
-<!--            android:dividerHeight="20dp">-->
-<!--        </ListView>-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_teacher"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="家教" />
+                    </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/img_class"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/classes" />
+
+                        <TextView
+                            android:id="@+id/tv_class"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_class"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="培训课" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/img_gift"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/gift" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_gift"
+                            android:layout_centerHorizontal="true"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_horizontal"
+                            android:text="福利" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="left"
+                    android:paddingBottom="10dp"
+                    android:text="优选书籍"
+                    android:textColor="#000"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <com.example.homeworkcorrect.ScrollableGridView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/gv_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="5dp"
+                    android:numColumns="auto_fit"
+                    android:padding="3dp"
+                    android:verticalSpacing="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="left"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="培训机构推荐"
+                    android:textColor="#000"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <com.example.homeworkcorrect.ScrollableGridView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/gv_school"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="1"
+                    android:padding="5dp"
+                    android:verticalSpacing="20dp" />
+            </LinearLayout>
+        </com.example.homeworkcorrect.AnimationNestedScrollView>
     </LinearLayout>
-</ScrollView>
+
+
+</LinearLayout>
