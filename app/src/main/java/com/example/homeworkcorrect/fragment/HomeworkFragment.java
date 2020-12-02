@@ -35,7 +35,6 @@ public class HomeworkFragment extends Fragment {
     private View view;
     private OkHttpClient okHttpClient;
     private ScrollableGridView lvHomework; //作业列表
-    private List<Homework> homeworks = new ArrayList<>();
     private HomeworkAdapter homeworkAdapter;
 
     @Nullable
@@ -44,13 +43,8 @@ public class HomeworkFragment extends Fragment {
         view = inflater.inflate(R.layout.homework_fragment, container,false);
         //获取控件
         getViews();
-        Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.homework1);
-//        Homework homework1 = new Homework("数学","1999/10/04","批改完成",img);
-//        homeworks.add(homework1);
-        homeworkAdapter = new HomeworkAdapter(getContext(),homeworks, R.layout.homework_list_item);
-        lvHomework.setAdapter(homeworkAdapter);
-        getAllHomework();
         this.okHttpClient = new OkHttpClient();
+        getAllHomework();
         return view;
     }
     /*
@@ -65,8 +59,15 @@ public class HomeworkFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getAllHomework();
+    }
+
     public void getAllHomework(){
-        Request request = new Request.Builder().url(IP.CONSTANT+"").build();
+        Request request = new Request.Builder().url(IP.CONSTANT+"GetHomeworkListServlet").build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程
@@ -85,7 +86,12 @@ public class HomeworkFragment extends Fragment {
                     Gson gson = new Gson();
                     list = gson.fromJson(res, new TypeToken<ArrayList<Homework>>() {}.getType());
                     homeworkAdapter = new HomeworkAdapter(getContext(),list, R.layout.homework_list_item);
-                    lvHomework.setAdapter(homeworkAdapter);
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            lvHomework.setAdapter(homeworkAdapter);
+                        }
+                    });
+
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }

@@ -3,17 +3,17 @@ package com.example.homeworkcorrect;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
@@ -45,6 +45,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
     private Button submit;
     private TextView dateText;
     private TextView timeText;
+    private ImageView backImg;
     private CustomDialog.Builder builder;
     private int year;
     private int month;
@@ -71,6 +72,16 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
     private void getViews() {
         spinner=findViewById(R.id.sp_subject);
         tvDate=findViewById(R.id.tv_date);
+        backImg = findViewById(R.id.back2);
+        backImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra("photoList",photoList);
+                setResult(300,intent);
+                finish();
+            }
+        });
         btnEndDate=findViewById(R.id.btn_choose_date);
         //again = findViewById(R.id.again);
         dateText = findViewById(R.id.dateText);
@@ -81,7 +92,6 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        int second = calendar.get(Calendar.SECOND);
         dateText.setText(year+"年"+month+"月"+day+"日");
         String hourStr;
         String minuteStr;
@@ -194,7 +204,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
                 infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
                 infoDialog.show();
                 for(int i=0;i<photoList.size();i++){
-                    uploadImagesOfHomework(i);
+                    uploadImagesOfHomework(0);
                 }
             }
         });
@@ -239,7 +249,8 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         long time = Calendar.getInstance().getTimeInMillis();
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(photoList.get(i)));
         Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
-        photoList.get(i).replaceAll(photoList.get(i),time+".jpg");
+        photoList.remove(i);
+        photoList.add(time+".jpg");
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -257,12 +268,15 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra("photoList",photoList);
+            setResult(300,intent);
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

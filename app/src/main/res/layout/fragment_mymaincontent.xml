@@ -2,56 +2,74 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:src="@drawable/ring"
         android:id="@+id/iv_ring"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="right"/>
+    <FrameLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+        <ImageView
+            android:layout_gravity="center"
+            android:alpha="0.3"
+            android:id="@+id/rotate"
+            android:adjustViewBounds="true"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:src="@drawable/border"/>
+
+        <LinearLayout
+            android:id="@+id/ll_camera"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_matrix"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/camera" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/orangehao"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="应用题、口算题"
+                android:textColor="@color/brownhao" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="全批改"
+                android:textColor="@color/whitehao" />
+        </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="270dp"
-        android:layout_marginBottom="30dp"
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_matrix"
-        android:layout_marginTop="30dp"
-        android:layout_height="270dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:id="@+id/ll_camera">
-        <ImageView
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/iv_camera"
-            android:src="@drawable/camera"/>
-        <TextView
-            android:textColor="@color/brownhao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/orangehao"
-            android:text="应用题、口算题" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/whitehao"
-            android:layout_marginBottom="20dp"
-            android:text="全批改"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
         android:layout_gravity="center"
         android:id="@+id/ll_recommand"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@drawable/rounded_matrix"
         android:gravity="center">
         <TextView
@@ -60,93 +78,25 @@
             android:textColor="@color/whitehao"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="5dp"
             android:textSize="25sp"
+            android:fontFamily="@font/huawenxingkai"
             android:textFontWeight="300"
             android:text="推荐作业批"/>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/index"/>
+            android:layout_width="30dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="30dp"
+            android:src="@drawable/share"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:id="@+id/advertise"
         android:layout_height="wrap_content"
-
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:background="@drawable/shadow_linear"
-            android:id="@+id/rl_person"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_height="80dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/people"
-                android:layout_centerVertical="true"
-                android:id="@+id/iv_people"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="完善学生信息"
-                android:layout_alignTop="@+id/iv_people"
-                android:id="@+id/tv_mes"
-                android:layout_toRightOf="@+id/iv_people"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="学习周报"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/tv_bulletin"
-                android:layout_below="@+id/tv_mes"
-                android:layout_toRightOf="@+id/iv_people"/>
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/shadow_linear"
-            android:id="@+id/rl_errors"
-            android:layout_height="80dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/book"
-                android:layout_centerVertical="true"
-                android:id="@+id/iv_book"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="错题本"
-                android:layout_alignTop="@+id/iv_book"
-                android:id="@+id/tv_mes2"
-                android:layout_toRightOf="@+id/iv_book"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="含高频错题"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:id="@+id/tv_bulletin2"
-                android:layout_below="@+id/tv_mes2"
-                android:layout_toRightOf="@+id/iv_book"/>
-
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
+        android:adjustViewBounds="true"
+        android:src="@drawable/advertise"/>
 
 
 </LinearLayout>
