@@ -1,11 +1,11 @@
 package com.example.homeworkcorrect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.entity.School;
@@ -32,7 +32,7 @@ public class ShowSchoolInfoActivity extends AppCompatActivity {
         sch_phone = findViewById(R.id.sch_phone);
 
         Glide.with(this)
-                .load("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606371190038&di=1f7e0dece43b4a4b91ae6bd7e8f479c9&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F10%2F20170610192627_yhAMN.thumb.700_0.jpeg")
+                .load("https://ftp.bmp.ovh/imgs/2020/11/7d02f8162e4c204e.png")
                 .into(sch_img);
 
         sch_name.setText(school.getName());

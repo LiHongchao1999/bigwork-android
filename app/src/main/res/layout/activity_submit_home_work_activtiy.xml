@@ -12,6 +12,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="25dp"
+                android:id="@+id/back2"
                 android:layout_height="25dp"
                 android:src="@drawable/back2"/>
             <TextView

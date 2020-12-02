@@ -7,8 +7,7 @@
     <ImageView android:id="@+id/img_homework"
         android:layout_gravity="center"
         android:layout_width="130dp"
-        android:layout_height="120dp"
-        android:background="@drawable/homework1"/>
+        android:layout_height="120dp" />
     <LinearLayout
         android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"

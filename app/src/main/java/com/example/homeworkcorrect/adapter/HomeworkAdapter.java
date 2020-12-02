@@ -63,6 +63,7 @@ public class HomeworkAdapter extends BaseAdapter {
         }else {
             viewHolder =(ViewHolder) convertView.getTag();
         }
+        //Log.e("12312",dataSource.get(position).getHomework_image().toString());
         Glide.with(context).load(IP.CONSTANT+"images/"+dataSource.get(position).getHomework_image().get(0)).into(viewHolder.imgHomework);
         viewHolder.tvHomeworkType.setText(dataSource.get(position).getHomeworkType());
         viewHolder.tvSubmitTime.setText(dataSource.get(position).getSubmitTime());

@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.OrientationEventListener;
@@ -517,13 +516,12 @@ public class Camera2Activity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("12",photoList.size()+"");
                 if(photoList.size()!=0){
                     Intent intent = new Intent(Camera2Activity.this,SubmitHomeWorkActivtiy.class);
                     Bundle bundle = new Bundle();
                     bundle.putStringArrayList("photoList",photoList);
                     intent.putExtra("photoList",bundle);
-                    startActivity(intent);
+                    startActivityForResult(intent,100);
                 }else{
                     InfoDialog infoDialog = new InfoDialog.Builder(mcontext,R.layout.dialog)
                         .setTitle("UnDone")
@@ -541,7 +539,19 @@ public class Camera2Activity extends AppCompatActivity {
             }
         });
         mainHandler  = new Handler();
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        PackageManager pm = getPackageManager();
+        boolean permission1 = (PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission("android.permission.CAMERA", "com.example.homeworkcorrect"));
+        boolean permission2 = (PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission("android.permission.READ_EXTERNAL_STORAGE", "com.example.homeworkcorrect"));
+        boolean permission3 = (PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "com.example.homeworkcorrect"));
+        if(permission1&&permission2&&permission3){
+        }else{
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+        }
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -552,7 +562,13 @@ public class Camera2Activity extends AppCompatActivity {
                 String path = ImageTool.getRealPathFromUri(this,uri);
                 photoList.add(path);
             }
-
+        }else if(requestCode==100 && resultCode==300){
+            photoList=data.getStringArrayListExtra("photoList");
+            if(photoList.size()==0){
+                photoAlbum.setImageBitmap(null);
+            }else{
+                photoAlbum.setImageBitmap(BitmapFactory.decodeFile(photoList.get(photoList.size()-1)));
+            }
         }
     }
 
