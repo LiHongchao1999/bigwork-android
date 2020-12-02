@@ -44,13 +44,14 @@
             android:text="头像"
             android:textSize="18dp"
             android:textColor="@android:color/black"/>
-        <ImageView
+        <com.example.homeworkcorrect.chat.CircleImageView
+            android:id="@+id/tv_head_img"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30dp"
             android:layout_gravity="center"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:background="@drawable/head" />
+            android:src="@drawable/head" />
         <ImageView
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

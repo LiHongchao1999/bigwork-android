@@ -13,7 +13,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
-            android:id="@+id/iv_return"
+            android:id="@+id/iv_return1"
+            android:onClick="onClicked"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/back" />
@@ -68,7 +69,8 @@
     <Button
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/thir1"
-        android:id="@+id/bt_finish"
+        android:id="@+id/bt_finish1"
+        android:onClick="onClicked"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_style_normal"
         android:layout_width="350dp"

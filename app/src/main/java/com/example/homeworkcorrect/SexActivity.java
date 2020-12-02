@@ -12,26 +12,19 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SexActivity extends AppCompatActivity {
-
+    private RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sex);
+        radioGroup = findViewById(R.id.RG_sex);
+    }
 
-        final RadioGroup radioGroup = findViewById(R.id.RG_sex);
-        ImageView ivreturn = findViewById(R.id.iv_return);
-
-        ivreturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        Button btfinish = findViewById(R.id.bt_finish);
-        btfinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.iv_return2:
+                break;
+            case R.id.bt_finish2:
                 RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
                 String sex = radioButton.getText().toString();
                 Log.e("sex",sex);
@@ -39,9 +32,7 @@ public class SexActivity extends AppCompatActivity {
                 intent.putExtra("sex",sex);
                 setResult(4,intent);
                 finish();
-            }
-        });
-
+                break;
+        }
     }
-
 }

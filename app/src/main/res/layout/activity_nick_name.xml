@@ -12,6 +12,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
+            android:onClick="onClicked"
             android:id="@+id/iv_return"
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -74,6 +75,7 @@
         android:background="@drawable/button_style_normal"
         android:layout_width="350dp"
         android:layout_height="30dp"
+        android:onClick="onClicked"
         android:textColor="#ffffff"
         android:text="完成"
         android:textSize="20dp"/>

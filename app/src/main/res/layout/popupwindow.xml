@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
+        android:id="@+id/bt_camera"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="拍照"
@@ -14,6 +15,7 @@
         android:textColor="#ffffff"
         android:textSize="20dp"/>
     <Button
+        android:id="@+id/bt_photo"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -30,6 +32,4 @@
         android:background="@android:color/holo_blue_light"
         android:textColor="#ffffff"
         android:textSize="20dp"/>
-<!--        android:onClick="buttonClicked"-->
-
 </LinearLayout>

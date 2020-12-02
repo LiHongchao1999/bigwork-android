@@ -86,6 +86,7 @@ public class MyFragment extends Fragment {
 //        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
 //        circularBitmapDrawable.setCornerRadius(150);
 //        advertise.setImageDrawable(circularBitmapDrawable);
+        //点击分享
         RelativeLayout relativeLayout = view.findViewById(R.id.recommend);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,14 +101,18 @@ public class MyFragment extends Fragment {
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
             }
         });
-        ImageView imageView = view.findViewById(R.id.image_user);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        //点击用户头像
+        img = view.findViewById(R.id.image_user);
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SelfInformationActivity.class);
-                startActivity(intent);
+                if(login.getText().toString().equals("") || login.getText().toString()==null) {
+                    Intent intent = new Intent(getContext(), SelfInformationActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+        //点击设置
         RelativeLayout setting = view.findViewById(R.id.setting_relative);
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +121,7 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //点击联系我们
         RelativeLayout contactUs = view.findViewById(R.id.contactUs);
         contactUs.setOnClickListener(new View.OnClickListener() {
             @Override

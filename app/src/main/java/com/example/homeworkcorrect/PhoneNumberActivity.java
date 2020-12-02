@@ -11,33 +11,28 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PhoneNumberActivity extends AppCompatActivity {
-
+    private EditText phonenumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_number);
 
         //获取控件
-        ImageView ivreturn = findViewById(R.id.iv_return);
-        Button btfinish = findViewById(R.id.bt_finish);
-        final EditText phonenumber = findViewById(R.id.et_phonenumber);
-        ivreturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        phonenumber = findViewById(R.id.et_phonenumber);
+    }
+    public void onClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_return4:
                 finish();
-            }
-        });
-
-        btfinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.bt_finish4:
                 String phonenum = phonenumber.getText().toString();
                 Log.e("phonenum",phonenum);
                 Intent intent = new Intent();
                 intent.putExtra("phonenum",phonenum);
                 setResult(6,intent);
                 finish();
-            }
-        });
+                break;
+        }
     }
 }
