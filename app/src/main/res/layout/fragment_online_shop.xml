@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,6 +71,7 @@
 
             </LinearLayout>
         </RelativeLayout>
+
 
 
         <com.example.homeworkcorrect.AnimationNestedScrollView
@@ -230,5 +237,5 @@
         </com.example.homeworkcorrect.AnimationNestedScrollView>
     </LinearLayout>
 
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

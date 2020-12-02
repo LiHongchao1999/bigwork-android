@@ -204,7 +204,8 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
                 infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
                 infoDialog.show();
                 for(int i=0;i<photoList.size();i++){
-                    uploadImagesOfHomework(0);
+                    uploadImagesOfHomework(i);
+                    Log.e("执行了上传图片的方法","i="+i);
                 }
             }
         });
@@ -245,11 +246,12 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         });
     }
 
-    private void uploadImagesOfHomework(final int i) {
+    private void uploadImagesOfHomework(int i) {
         long time = Calendar.getInstance().getTimeInMillis();
-        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(photoList.get(i)));
+        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(photoList.get(0)));
+        Log.e("list的内容",photoList.get(0)+"");
         Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
-        photoList.remove(i);
+        photoList.remove(0);
         photoList.add(time+".jpg");
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -260,6 +262,10 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
+                Log.e("i的值",i+"");
+                Log.e("size的值",photoList.size()+"");
+
                 if(i==photoList.size()-1){
                     submitHomeworkInformation();
                 }
