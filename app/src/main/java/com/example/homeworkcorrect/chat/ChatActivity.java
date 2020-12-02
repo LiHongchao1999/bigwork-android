@@ -24,13 +24,13 @@ import com.example.homeworkcorrect.R;
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView; // item
     private ChatAdapter adapter;
     private EditText et;
     private TextView tvSend;
     private String content; //输入的内容
     private TextView nickName; //用户昵称
+    private ArrayList<ItemModel> models = new ArrayList<>();//获取到的聊天记录
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,9 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("nickName");
         nickName.setText(name);
+        //获取到发送方id和接收方id后
+        //会根据接收方id和发送方id获取到发送的所有消息记录，按时间进行排序
+        //获取到JSONArray  将他们转换成models
         //赋值
         recyclerView.setHasFixedSize(true);
         //设置布局管理器
@@ -92,8 +95,12 @@ public class ChatActivity extends AppCompatActivity {
                 model.setIcon("http://img.my.csdn.net/uploads/201508/05/1438760758_6667.jpg");
                 model.setContent(content);
                 data.add(new ItemModel(ItemModel.CHAT_B, model));
+                //添加到list中，并更新
                 adapter.addAll(data);
                 et.setText("");
+                //通过socket发送给服务端
+
+                //隐藏键盘
                 hideKeyBorad(et);
             }
         });

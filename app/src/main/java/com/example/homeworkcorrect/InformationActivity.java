@@ -37,7 +37,7 @@ public class InformationActivity extends AppCompatActivity {
         getViews();
         //准备假数据
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-        Information information = new Information("清风","新朋友你好","2020-11-30 5:14",bitmap);
+        Information information = new Information(1,"清风","新朋友你好","2020-11-30 5:14",bitmap);
         list.add(information);
         adapter = new CustomMsgAdapter(this,list,R.layout.infomation_list_item_layout);
         listView.setAdapter(adapter);
@@ -45,6 +45,7 @@ public class InformationActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //将当前用户id和接收方id发送给chatActivity
                 Intent intent = new Intent(InformationActivity.this, ChatActivity.class);
                 intent.putExtra("nick","浪迹天涯");
                 startActivityForResult(intent,10);
