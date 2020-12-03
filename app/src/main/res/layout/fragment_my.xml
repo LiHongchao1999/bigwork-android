@@ -111,6 +111,7 @@
                     android:layout_alignParentRight="true"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/error_topic_book"
                 android:layout_width="match_parent"
                 android:padding="10dp"
                 android:layout_marginBottom="10dp"

@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.CircleImageView;
 import com.example.homeworkcorrect.ContactUsActivity;
+import com.example.homeworkcorrect.ErrorTopicBookActivity;
 import com.example.homeworkcorrect.LoginActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
@@ -142,6 +143,15 @@ public class MyFragment extends Fragment {
         nickName = view.findViewById(R.id.user_name);
         lever = view.findViewById(R.id.user_lever);
         img = view.findViewById(R.id.image_user);
+        //点击错题本
+        RelativeLayout errorBook = view.findViewById(R.id.error_topic_book);
+        errorBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ErrorTopicBookActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

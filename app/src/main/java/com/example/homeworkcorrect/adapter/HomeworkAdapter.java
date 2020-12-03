@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.homeworkcorrect.IP;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.entity.Homework;
 
