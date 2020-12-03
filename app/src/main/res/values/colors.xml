@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8799a3</color>
-    <color name="colorPrimaryDark">#8799a3</color>
+    <color name="colorPrimary">#B0C4DE</color>
+    <color name="colorPrimaryDark">#B0C4DE</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="backgroundOfMyInformation">#8799a3</color>
+    <color name="backgroundOfMyInformation">#B0C4DE</color>
     <color name="toolBar">#F4606C</color>
     <color name="colorlightorange">#FD9669</color>
     <color name="colorCircle">#3598DB</color>
