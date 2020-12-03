@@ -9,8 +9,8 @@ public class WrongQuestion {
 	private int user_id;//用户id
 	private String question_Type;//错题类型
 	private String update_time;//上传时间
-	private List<String> homework_image;//作业图片
-	private List<String> result_image;//结果图片
+	private List<String> homework_image;//老师批改图片
+	private List<String> result_image;//用户上传图片
 	private String result_text_teacher;//老师注释
 	private String result_text_student;//学生注释
 	public int getId() {

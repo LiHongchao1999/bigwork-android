@@ -16,8 +16,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -30,7 +30,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeworkDetailActivity"></activity>
+        <activity android:name=".AddErrorBookActivity"></activity>
+        <activity android:name=".ErrorTopicBookActivity" />
+        <activity android:name=".HomeWorkCorrectDetail" />
+        <activity android:name=".HomeworkDetailActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -66,7 +69,7 @@
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
         <activity android:name=".PhoneNumberActivity" />
