@@ -1,13 +1,18 @@
 package com.example.homeworkcorrect;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterResult;
@@ -21,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeWorkCorrectDetail extends AppCompatActivity {
@@ -30,7 +34,8 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
     private Homework homework = new Homework();
     private CustomAdapterResult adapter;
     private List<String> result;//老师发送的图片
-
+    private PopupWindow popupWindow;//评分
+    private int grade=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,13 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
             homework.setTeacher_id(jsonObject.getInt("teacher_id"));
             homework.setResult_text(jsonObject.getString("resultText"));
             homework.setMoney(jsonObject.getDouble("money"));
+            homework.setGrade(jsonObject.getInt("grade"));
+            String a = jsonObject.getString("isGrade");
+            if(a.equals("true")){
+                homework.setGrade(true);
+            }else{
+                homework.setGrade(false);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -85,8 +97,68 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                 intent.putExtra("result_img",str);
                 startActivity(intent);
                 break;
-            case R.id.user_comment://进行评价
+            case R.id.user_comment://进行评分
+                backgroundAlpha(0.5f);
+                showPopupWindow();
                 break;
         }
+    }
+    public void showPopupWindow(){
+        //创建PopupWindow对象
+        popupWindow = new PopupWindow(this);
+        //设置弹出窗口的宽度
+        popupWindow.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(RelativeLayout.LayoutParams.MATCH_PARENT);
+        //设置它的视图
+        View view = getLayoutInflater().inflate(R.layout.raring_star_popupwindow,null);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        //设置边缘点击收起
+        popupWindow.setOutsideTouchable(true);
+        //获取控件
+        RatingBar bar = view.findViewById(R.id.ratingBar);
+        Button btn = view.findViewById(R.id.comment_commit);
+        if(homework.isGrade()){//表示用户还没有评分
+            bar.setRating(homework.getGrade()); //设置评分结果
+            btn.setText("已提交");
+        }else{
+            bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                    Log.e("星级评分为",rating+"");
+                    grade = (int)rating;
+                }
+            });
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    homework.setGrade(grade);
+                    popupWindow.dismiss();
+                }
+            });
+        }
+        //设置popupwindow关闭监听器
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                backgroundAlpha(1.0f);
+            }
+        });
+        //设置视图当中控件的属性和监听器
+        popupWindow.setContentView(view);
+        //显示PopupWindow（必须指定显示的位置）
+        RelativeLayout root = findViewById(R.id.root);
+        popupWindow.showAtLocation(root, Gravity.CENTER,0,0);
+    }
+    /**
+     * 设置添加屏幕的背景透明度
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(float bgAlpha)
+    {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        getWindow().setAttributes(lp);
     }
 }

@@ -77,6 +77,8 @@ public class HomeworkFragment extends Fragment {
                         jsonObject.put("resultImg",result);
                         jsonObject.put("resultText",homework.getResult_text());
                         jsonObject.put("money",homework.getMoney());
+                        jsonObject.put("isGrade",homework.isGrade()+"");
+                        jsonObject.put("grade",homework.getGrade());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -125,7 +127,6 @@ public class HomeworkFragment extends Fragment {
                             lvHomework.setAdapter(homeworkAdapter);
                         }
                     });
-
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }

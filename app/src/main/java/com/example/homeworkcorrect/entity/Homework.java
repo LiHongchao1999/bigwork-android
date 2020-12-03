@@ -15,9 +15,19 @@ public class Homework {
     private List<String> result_image;//结果图片
     private String result_text;//结果文字
     private double money;//佣金
+    private int grade;//作业评分
+    private boolean isGrade;//判断是否评分
 
     public int getId() {
         return id;
+    }
+
+    public boolean isGrade() {
+        return isGrade;
+    }
+
+    public void setGrade(boolean grade) {
+        isGrade = grade;
     }
 
     public void setId(int id) {
@@ -96,16 +106,30 @@ public class Homework {
         this.money = money;
     }
 
+    public float getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     public Homework() {
 
     }
 
-    public Homework(String submitTime, String deadline, String homeworkType, List<String> homework_image, List<String> result_image, double money) {
+    public Homework(int id, String submitTime, String deadline, String homeworkType, String tag, List<String> homework_image, int teacher_id, List<String> result_image, String result_text, double money, int grade, boolean isGrade) {
+        this.id = id;
         this.submitTime = submitTime;
         this.deadline = deadline;
         this.homeworkType = homeworkType;
+        this.tag = tag;
         this.homework_image = homework_image;
+        this.teacher_id = teacher_id;
         this.result_image = result_image;
+        this.result_text = result_text;
         this.money = money;
+        this.grade = grade;
+        this.isGrade = isGrade;
     }
 }

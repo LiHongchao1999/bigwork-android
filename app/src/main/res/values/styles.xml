@@ -12,4 +12,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+    <style name="mRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/star_count_style</item>
+        <item name="android:minHeight">32dp</item>
+        <item name="android:maxHeight">32dp</item> //这里是图片的高度
+    </style>
 </resources>

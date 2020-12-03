@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/comment_background"
+        android:layout_width="180dp"
+        android:layout_height="120dp">
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/comment_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评分"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            />
+        <RatingBar
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/comment_user"
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0"
+            style="@style/mRatingBar"
+            android:stepSize="1"/>
+        <Button
+            android:id="@+id/comment_commit"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_style_normal"
+            android:layout_below="@+id/ratingBar"
+            android:layout_centerHorizontal="true"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="提交"
+            android:textSize="16sp"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+</RelativeLayout>
