@@ -13,8 +13,8 @@
         <ImageView
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
-            android:id="@+id/self_return"
             android:onClick="onClicked"
+            android:id="@+id/self_return"
             android:layout_gravity="center"
             android:layout_width="25dp"
             android:layout_height="25dp"

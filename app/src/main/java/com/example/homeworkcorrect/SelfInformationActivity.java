@@ -190,7 +190,6 @@ public class SelfInformationActivity extends AppCompatActivity {
             List<Uri> mSelected = Matisse.obtainResult(data);
             path = ImageTool.getRealPathFromUri(this,mSelected.get(0));
             Log.e("图片地址",path);
-            UserCache.userImg = path;
             //弹出框消失
             popupWindow.dismiss();
             //修改头像
@@ -202,7 +201,6 @@ public class SelfInformationActivity extends AppCompatActivity {
             popupWindow.dismiss();
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
             imgUrl = ImageTool.getRealPathFromUri(this,uri);
-            UserCache.userImg = imgUrl;
             Log.e("获取到的图片地址",imgUrl);
             //修改头像
             headImg.setImageBitmap(bitmap);
