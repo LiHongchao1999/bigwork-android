@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
 import com.zhihu.matisse.Matisse;
@@ -45,6 +46,9 @@ public class SelfInformationActivity extends AppCompatActivity {
 
     public void onClicked(View view){
         switch (view.getId()){
+            case R.id.self_return://点击返回
+                
+                break;
             case R.id.change_img://点击头像
                 showPopupWindow();
                 break;
@@ -181,6 +185,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             //弹出框消失
             popupWindow.dismiss();
             //修改头像
+            UserCache.userImg = path;
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             headImg.setImageBitmap(bitmap);
         }
@@ -189,6 +194,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             popupWindow.dismiss();
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
             imgUrl = ImageTool.getRealPathFromUri(this,uri);
+            UserCache.userImg = imgUrl;
             Log.e("获取到的图片地址",imgUrl);
             //修改头像
             headImg.setImageBitmap(bitmap);

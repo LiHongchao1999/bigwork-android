@@ -156,14 +156,6 @@ public class ParentCircleFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode==150){//接收到发表的动态信息
-            //传递自定义类型对象（第三种方式）
-//                Student student = new Student("张三","110","110");
-//                intent.putExtra("stu",student);
-            //第三种方式接受数据
-//        Student stu= (Student) request.getSerializableExtra("stu");
-//        String name = stu.getName();
-//        String phone = stu.getPhone();
-//        String email = stu.getEmail();
         }
         if(requestCode==200 && resultCode==250){//接收到发表的图片动态信息
 
