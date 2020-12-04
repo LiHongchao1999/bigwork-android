@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
 import com.zhihu.matisse.Matisse;
@@ -28,7 +29,6 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
-import java.io.File;
 import java.util.List;
 
 public class SelfInformationActivity extends AppCompatActivity {
@@ -41,10 +41,22 @@ public class SelfInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_information);
         headImg = findViewById(R.id.tv_head_img);
+        if(UserCache.userImg.equals("") || UserCache.userImg==null){
+            headImg.setImageDrawable(getResources().getDrawable(R.drawable.head));
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
+            headImg.setImageBitmap(bitmap);
+}
+
     }
 
     public void onClicked(View view){
         switch (view.getId()){
+            case R.id.self_return:
+                Intent intent8 = new Intent();
+                setResult(20,intent8);
+                finish();
+                break;
             case R.id.change_img://点击头像
                 showPopupWindow();
                 break;
@@ -178,6 +190,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             List<Uri> mSelected = Matisse.obtainResult(data);
             path = ImageTool.getRealPathFromUri(this,mSelected.get(0));
             Log.e("图片地址",path);
+            UserCache.userImg = path;
             //弹出框消失
             popupWindow.dismiss();
             //修改头像
@@ -189,6 +202,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             popupWindow.dismiss();
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
             imgUrl = ImageTool.getRealPathFromUri(this,uri);
+            UserCache.userImg = imgUrl;
             Log.e("获取到的图片地址",imgUrl);
             //修改头像
             headImg.setImageBitmap(bitmap);

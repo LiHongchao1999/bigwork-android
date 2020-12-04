@@ -6,11 +6,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +23,7 @@ import com.example.homeworkcorrect.LoginActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
+import com.example.homeworkcorrect.cache.UserCache;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,7 +108,7 @@ public class MyFragment extends Fragment {
             public void onClick(View v) {
                 if(login.getText().toString().equals("") || login.getText().toString()==null) {
                     Intent intent = new Intent(getContext(), SelfInformationActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,10);
                 }
             }
         });
@@ -173,6 +172,10 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
+        }
+        if (requestCode==10 && resultCode==20){
+            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
+            img.setImageBitmap(bitmap);
         }
     }
 }
