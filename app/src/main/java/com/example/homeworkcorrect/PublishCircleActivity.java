@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterImageList;
-import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
 import com.zhihu.matisse.Matisse;
@@ -106,6 +105,17 @@ public class PublishCircleActivity extends AppCompatActivity {
                 imgUrls.add(path);
             }
             imgUrls.add(IMG_ADD);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    List<String> urls = new ArrayList<String>();
+                    for(int j=0;j<imgUrls.size()-1;j++){
+                        urls.add(imgUrls.get(j));
+                    }
+                    new ShowImagesDialog(PublishCircleActivity.this,urls,i).show();
+                }
+            });
+            new ShowImagesDialog(this,imgUrls,1);
             Log.e("所有图片地址",imgUrls.toString());
             customAdapter.notifyDataSetChanged();
         }

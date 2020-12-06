@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.GridView;
@@ -67,6 +68,13 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         photoList = photoBundle.getStringArrayList("photoList");
         CustomImgListAdapter adapter = new CustomImgListAdapter(this,photoList,R.layout.img_list_item);
         GridView gridView = findViewById(R.id.gridview);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(SubmitHomeWorkActivtiy.this,photoList,i).show();
+            }
+        });
+
         gridView.setAdapter(adapter);
     }
 

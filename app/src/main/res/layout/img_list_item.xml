@@ -17,6 +17,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:focusable="false"
         android:layout_margin="2dp"
         android:background="@drawable/ic_delete"
         android:button="@null"
