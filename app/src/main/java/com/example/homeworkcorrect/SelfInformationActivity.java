@@ -41,7 +41,7 @@ public class SelfInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_information);
         headImg = findViewById(R.id.tv_head_img);
-        if(UserCache.userImg.equals("") || UserCache.userImg==null){
+        if("".equals(UserCache.userImg) || UserCache.userImg==null){
             headImg.setImageDrawable(getResources().getDrawable(R.drawable.head));
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
@@ -195,6 +195,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             //修改头像
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             headImg.setImageBitmap(bitmap);
+            UserCache.userImg=path;
         }
         if (requestCode==20){
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
@@ -204,6 +205,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             Log.e("获取到的图片地址",imgUrl);
             //修改头像
             headImg.setImageBitmap(bitmap);
+            UserCache.userImg=imgUrl;
         }
     }
 }

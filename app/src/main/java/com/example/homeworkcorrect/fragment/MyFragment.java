@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.example.homeworkcorrect.CircleImageView;
 import com.example.homeworkcorrect.ContactUsActivity;
 import com.example.homeworkcorrect.ErrorTopicBookActivity;
 import com.example.homeworkcorrect.LoginActivity;
@@ -24,6 +23,7 @@ import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
 import com.example.homeworkcorrect.cache.UserCache;
+import com.example.homeworkcorrect.chat.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,7 +118,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), SettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,66);
             }
         });
         //点击联系我们
@@ -159,23 +159,34 @@ public class MyFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode == 150){
             String name = data.getStringExtra("nickname");
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
             nickName.setText(name);
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
-            img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
+            img.setImageDrawable(getResources().getDrawable(R.drawable.head));
         }
         if (requestCode==100 && resultCode==200){
             String phone = data.getStringExtra("phone");
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
             nickName.setText(phone);
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
-            img.setImageDrawable(getResources().getDrawable(R.drawable.zzh));
+            img.setImageDrawable(getResources().getDrawable(R.drawable.head));
         }
         if (requestCode==10 && resultCode==20){
             Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
             img.setImageBitmap(bitmap);
+        }
+        if(requestCode==66&&resultCode==666){
+            img.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.initial));
+            login.setVisibility(View.VISIBLE);
+            login.setText("点击登录");
+            lever.setVisibility(View.INVISIBLE);
+            nickName.setVisibility(View.INVISIBLE);
         }
     }
 }

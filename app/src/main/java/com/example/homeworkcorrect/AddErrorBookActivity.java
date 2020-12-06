@@ -1,12 +1,6 @@
 package com.example.homeworkcorrect;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,10 +10,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.homeworkcorrect.adapter.CustomAdapterResult;
 import com.example.homeworkcorrect.adapter.CustomAdapterSelfResult;
 import com.example.homeworkcorrect.cache.IP;
-import com.example.homeworkcorrect.entity.Homework;
 import com.example.homeworkcorrect.entity.WrongQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -155,16 +152,20 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 break;
             case R.id.add_error_keep:
                 //赋值
-                if(editText.getText().toString().equals("") || editText.getText().toString() == null){
-                    question.setResult_text_student("");
-                }else{
-                    question.setResult_image(selfSend);
-                }
-                question.setResult_text_student(editText.getText().toString());
-                //上传图片到服务器
-                for(int i=0;i<selfSend.size();i++){
-                    uploadImagesOfHomework(i);
-                }
+//                if(editText.getText().toString().equals("") || editText.getText().toString() == null){
+//                    question.setResult_text_student("");
+//                }else{
+//                    question.setResult_image(selfSend);
+//                }
+//                question.setResult_text_student(editText.getText().toString());
+//                //上传图片到服务器
+//                for(int i=0;i<selfSend.size();i++){
+//                    uploadImagesOfHomework(i);
+//                }
+                Intent intent = new Intent(AddErrorBookActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
                 break;
         }
     }

@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/head" />
+            android:src="@drawable/zzh" />
         <ImageView
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textColor="#778899"
-            android:text="浪迹天涯"/>
+            android:text="帅少男战士"/>
         <ImageView
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
