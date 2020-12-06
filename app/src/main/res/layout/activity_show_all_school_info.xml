@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCF0F0F0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <androidx.appcompat.widget.Toolbar
-            android:background="@color/whitehao"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:id="@+id/tool"
-            android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/back1"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="40dp"
             xmlns:android="http://schemas.android.com/apk/res/android">
+            <ImageView
+                android:id="@+id/schools_return"
+                android:onClick="onClicked"
+                android:layout_gravity="left"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/back"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="学校列表"
                 android:layout_gravity="center"
-                android:textSize="20sp"/>
+                android:textSize="18sp"
+                android:textColor="#ffffff"/>
         </androidx.appcompat.widget.Toolbar>
 
         <com.example.homeworkcorrect.ScrollableGridView
+            android:layout_marginTop="5dp"
             android:id="@+id/gv_all_school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

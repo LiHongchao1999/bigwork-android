@@ -1,5 +1,7 @@
 package com.example.homeworkcorrect;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,8 +26,6 @@ import com.example.homeworkcorrect.adapter.CustomAdapterResult;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Homework;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,9 +45,8 @@ import okhttp3.Response;
 public class HomeWorkCorrectDetail extends AppCompatActivity {
     private ScrollableGridView gridView;//图片列表
     private TextView comment;//评语
-    private Homework homework = new Homework();
+    private Homework homework;
     private CustomAdapterResult adapter;
-    private List<String> result;//老师发送的图片
     private PopupWindow popupWindow;//评分
     private int grade=0;
     private OkHttpClient okHttpClient;
@@ -75,39 +74,15 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_work_correct_detail);
         okHttpClient = new OkHttpClient();
+        homework = new Homework();
         //获取控件
         getViews();
         //获取数据
         Intent intent = getIntent();
-        String jsonStr = intent.getStringExtra("homework");
-        try {
-            JSONObject jsonObject = new JSONObject(jsonStr);
-            homework.setId(jsonObject.getInt("id"));
-            homework.setSubmitTime(jsonObject.getString("submitTime"));
-            homework.setDeadline(jsonObject.getString("deadLine"));
-            homework.setHomeworkType(jsonObject.getString("type"));
-            homework.setTag(jsonObject.getString("tag"));
-            Gson gson = new GsonBuilder()
-                    .serializeNulls()//允许导出null值
-                    .setPrettyPrinting() //格式化输出
-                    .create();
-            Type collectionType = new TypeToken<List<String>>(){}.getType();
-            result = gson.fromJson(jsonObject.getString("resultImg"),collectionType);
-            homework.setResult_image(result);
-            homework.setTeacher_id(jsonObject.getInt("teacher_id"));
-            homework.setResult_text(jsonObject.getString("resultText"));
-            homework.setMoney(jsonObject.getDouble("money"));
-            homework.setGrade(jsonObject.getInt("grade"));
-            String a = jsonObject.getString("isGrade");
-            if(a.equals("true")){
-                homework.setScored(true+"");
-            }else{
-                homework.setScored(false+"");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        adapter = new CustomAdapterResult(this,result,R.layout.send_img_list_item);
+        String str = intent.getStringExtra("homework");
+        Gson gson = new Gson();
+        homework = gson.fromJson(str,Homework.class);
+        adapter = new CustomAdapterResult(this,homework.getResult_image(),R.layout.send_img_list_item);
         gridView.setAdapter(adapter);
         comment.setText(homework.getResult_text());
     }
@@ -134,6 +109,7 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.user_comment://进行评分
+                Log.e("进行评分",true+"");
                 backgroundAlpha(0.5f);
                 showPopupWindow();
                 break;
@@ -147,11 +123,13 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
         popupWindow.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
         //设置它的视图
         View view = getLayoutInflater().inflate(R.layout.raring_star_popupwindow,null);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.comment_background));
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);
         //设置边缘点击收起
         popupWindow.setOutsideTouchable(true);
+        //设置动画
+        popupWindow.setAnimationStyle(R.style.comment_pop_animation);
         //获取控件
         RatingBar bar = view.findViewById(R.id.ratingBar);
         Button btn = view.findViewById(R.id.comment_commit);

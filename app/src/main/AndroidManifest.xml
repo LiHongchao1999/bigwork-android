@@ -30,10 +30,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddErrorBookActivity"></activity>
+        <activity android:name=".WrongQuestionDetailActivity"></activity>
+        <activity android:name=".AddErrorBookActivity" />
         <activity android:name=".ErrorTopicBookActivity" />
         <activity android:name=".HomeWorkCorrectDetail" />
-        <activity android:name=".HomeworkDetailActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

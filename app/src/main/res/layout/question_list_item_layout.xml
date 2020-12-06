@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/question_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2020年12月30日 08:05"
+        android:textColor="#000000"
+        android:textSize="17sp"
+        android:layout_marginLeft="3dp"/>
+    <com.example.homeworkcorrect.RoundRectLayout
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/question_item_background"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+        <ImageView
+            android:id="@+id/question_img_first"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/homework1"
+            android:background="@drawable/button_style_normal"/>
+    </com.example.homeworkcorrect.RoundRectLayout>
+</LinearLayout>

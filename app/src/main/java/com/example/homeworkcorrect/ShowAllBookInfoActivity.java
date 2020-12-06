@@ -98,4 +98,12 @@ public class ShowAllBookInfoActivity extends AppCompatActivity {
 
         //setListener();
     }
+
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.books_return:
+                finish();
+                break;
+        }
+    }
 }

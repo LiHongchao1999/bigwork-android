@@ -102,4 +102,11 @@ public class ShowAllSchoolInfoActivity extends AppCompatActivity {
     }
 
 
+    public void onClicked(View view) {
+        switch (view.getId()){
+            case R.id.schools_return:
+                finish();
+                break;
+        }
+    }
 }

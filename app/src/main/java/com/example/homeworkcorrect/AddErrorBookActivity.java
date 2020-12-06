@@ -1,6 +1,12 @@
 package com.example.homeworkcorrect;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,8 +33,10 @@ import com.wildma.pictureselector.PictureSelector;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -57,8 +65,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
                     String str = msg.obj.toString();
                     Toast.makeText(AddErrorBookActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
                     if(str.equals("true")){//上传成功
-                        Intent intent = new Intent();
-                        startActivity(intent);
+                        finish();
                     }else{
                         Toast.makeText(AddErrorBookActivity.this,"上传失败,请重新上传",Toast.LENGTH_LONG).show();
                     }
@@ -85,7 +92,6 @@ public class AddErrorBookActivity extends AppCompatActivity {
         List<String> imgs = gson.fromJson(str,collectionType);
         question.setHomework_image(imgs);
         question.setQuestion_Type(intent.getStringExtra("type"));
-        question.setUpdate_time(intent.getStringExtra("submitTime"));
         question.setResult_text_teacher(intent.getStringExtra("teacher_result"));
         //用户id默认为1
         question.setUser_id(1);
@@ -152,20 +158,20 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 break;
             case R.id.add_error_keep:
                 //赋值
-//                if(editText.getText().toString().equals("") || editText.getText().toString() == null){
-//                    question.setResult_text_student("");
-//                }else{
-//                    question.setResult_image(selfSend);
-//                }
-//                question.setResult_text_student(editText.getText().toString());
-//                //上传图片到服务器
-//                for(int i=0;i<selfSend.size();i++){
-//                    uploadImagesOfHomework(i);
-//                }
-                Intent intent = new Intent(AddErrorBookActivity.this,MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+                if(editText.getText().toString() == null|| editText.getText().toString().equals("") ){
+                    question.setResult_text_student("");
+                }else{
+                    question.setResult_image(selfSend);
+                }
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date curDate =  new Date(System.currentTimeMillis());
+                question.setUpdate_time(formatter.format(curDate)+"");
+                Log.e("当前时间",formatter.format(curDate));
+                question.setResult_text_student(editText.getText().toString());
+                //上传图片到服务器
+                for(int i=0;i<selfSend.size();i++){
+                    uploadImagesOfHomework(i);
+                }
                 break;
         }
     }

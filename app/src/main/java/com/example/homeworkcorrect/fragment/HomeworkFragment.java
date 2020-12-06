@@ -54,7 +54,7 @@ public class HomeworkFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //点击跳转到作业详情页
-                if(list.get(position).getTag().equals("等批改")){
+                if(list.get(position).getTag().equals("待批改")){
                     Toast.makeText(getContext(),"当前作业正在等待被修改",Toast.LENGTH_LONG).show();
                 }else if(list.get(position).getTag().equals("批改中")){
                     Toast.makeText(getContext(),"当前作业正在被修改",Toast.LENGTH_LONG).show();
@@ -63,26 +63,9 @@ public class HomeworkFragment extends Fragment {
                     Log.e("1111",list.get(position).getId()+"");
                     Intent intent = new Intent(getContext(), HomeWorkCorrectDetail.class);
                     Homework homework = list.get(position);
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("id",homework.getId());
-                        jsonObject.put("text",homework.getResult_text());
-                        jsonObject.put("submitTime",homework.getSubmitTime());
-                        jsonObject.put("deadLine",homework.getDeadline());
-                        jsonObject.put("type",homework.getHomeworkType());
-                        jsonObject.put("tag",homework.getTag());
-                        jsonObject.put("teacher_id",homework.getTeacher_id());
-                        Gson gson = new Gson();
-                        String result = gson.toJson(homework.getResult_image());
-                        jsonObject.put("resultImg",result);
-                        jsonObject.put("resultText",homework.getResult_text());
-                        jsonObject.put("money",homework.getMoney());
-                        jsonObject.put("isGrade",homework.getScored()+"");
-                        jsonObject.put("grade",homework.getGrade());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    intent.putExtra("homework",jsonObject.toString());
+                    Gson gson = new Gson();
+                    String work = gson.toJson(homework);
+                    intent.putExtra("homework",work);
                     startActivity(intent);
                 }
             }

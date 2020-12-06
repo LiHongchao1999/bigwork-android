@@ -136,6 +136,8 @@ public class ParentCircleFragment extends Fragment {
         });
         selectAdapter = new CustomSelectAdapter(getContext(),list,R.layout.item_list_layout);
         listView.setAdapter(selectAdapter);
+        listView.setDivider(getResources().getDrawable(R.color.colorFill));
+        listView.setDividerHeight(0);
         //弹出一个listview的下拉框
         int width=300;
         int height= ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -218,6 +220,8 @@ public class ParentCircleFragment extends Fragment {
             popupWindow.setFocusable(true);
             //设置边缘点击收起
             popupWindow.setOutsideTouchable(true);
+            //设置动画效果(必须放在showatLocation前面)
+            popupWindow.setAnimationStyle(R.style.style_pop_animation);
             //设置popupwindow关闭监听器
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -227,7 +231,7 @@ public class ParentCircleFragment extends Fragment {
                 }
             });
         }
-        popupWindow.showAtLocation(publish, Gravity.NO_GRAVITY,770,210);
+        popupWindow.showAsDropDown(publish);
     }
     /**
      * 设置添加屏幕的背景透明度
