@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.homeworkcorrect.entity.User;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -255,7 +256,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(judgePhoneNums(phoneNums)&&etCode.getText().toString().length()==4){
                     SMSSDK.submitVerificationCode("86",phoneNums, etCode
                             .getText().toString());
-                }if(judgePhoneNums(phoneNums)&&etCode.getText().toString().length()!=4){
+                }else if(etCode.getText().toString().length()!=4){
                 Toast.makeText(getApplicationContext(), "验证码位数错误",
                         Toast.LENGTH_SHORT).show();
                 }
@@ -284,10 +285,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
                         Toast.makeText(getApplicationContext(), "提交验证码成功",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent();
-                        intent.putExtra("phone",etphone.getText().toString());
-                        setResult(200,intent);
-                        finish();
+                        Intent intent = new Intent(LoginActivity.this,
+                                MainActivity.class);
+                        startActivity(intent);
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
                                 Toast.LENGTH_SHORT).show();
@@ -396,6 +396,15 @@ public class LoginActivity extends AppCompatActivity {
                 ((ip >> 8) & 0xFF) + "." +
                 ((ip >> 16) & 0xFF) + "." +
                 (ip >> 24 & 0xFF);
+    }
+
+    //将对象转换为JSON类型数据
+    public String object2JSON(User user) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nickname",user.getNickname());
+        jsonObject.put("sex",user.getSex());
+        jsonObject.put("img",user.getImage());
+        return jsonObject.toString();
     }
 
 
