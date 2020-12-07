@@ -5,11 +5,11 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 public class Circle {
-    private Bitmap userImg; //用户头像
+    private String userImg; //用户头像
     private String userName;  //用户名
     private String time;  //发表的时间
     private String content;  //发表的内容
-    private List<Bitmap> sendImg;  //发表的图片
+    private List<String> sendImg;  //发表的图片
     private int likeSize;  //点赞数
     private int forwardSize;  //转发数
     private int commentSize;  //评论数
@@ -17,7 +17,7 @@ public class Circle {
     public Circle() {
     }
 
-    public Circle(Bitmap userImg, String userName, String time, String content, List<Bitmap> sendImg, int likeSize, int forwardSize, int commentSize) {
+    public Circle(String userImg, String userName, String time, String content, List<String> sendImg, int likeSize, int forwardSize, int commentSize) {
         this.userImg = userImg;
         this.userName = userName;
         this.time = time;
@@ -28,11 +28,11 @@ public class Circle {
         this.commentSize = commentSize;
     }
 
-    public Bitmap getUserImg() {
+    public String getUserImg() {
         return userImg;
     }
 
-    public void setUserImg(Bitmap userImg) {
+    public void setUserImg(String userImg) {
         this.userImg = userImg;
     }
 
@@ -60,11 +60,11 @@ public class Circle {
         this.content = content;
     }
 
-    public List<Bitmap> getSendImg() {
+    public List<String> getSendImg() {
         return sendImg;
     }
 
-    public void setSendImg(List<Bitmap> sendImg) {
+    public void setSendImg(List<String> sendImg) {
         this.sendImg = sendImg;
     }
 

@@ -69,7 +69,7 @@
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
         <activity android:name=".PhoneNumberActivity" />

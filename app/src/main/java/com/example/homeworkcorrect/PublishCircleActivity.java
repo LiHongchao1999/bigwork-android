@@ -20,15 +20,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterImageList;
+import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
+import com.google.gson.Gson;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class PublishCircleActivity extends AppCompatActivity {
@@ -39,6 +55,7 @@ public class PublishCircleActivity extends AppCompatActivity {
     private ScrollableGridView gridView; //图片
     private EditText content;//输入的内容
     private CustomAdapterImageList customAdapter;
+    private OkHttpClient okHttpClient;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -54,6 +71,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_publish_circle);
         //获取控件
         getViews();
+        okHttpClient=new OkHttpClient();
         imgUrls.add(IMG_ADD);
         customAdapter = new CustomAdapterImageList(PublishCircleActivity.this,imgUrls,R.layout.img_list_item);
         gridView.setAdapter(customAdapter);
@@ -72,6 +90,7 @@ public class PublishCircleActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     @Override
@@ -143,6 +162,10 @@ public class PublishCircleActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.ss_send://点击发表
+                for(int i=0;i<imgUrls.size();i++){
+                    uploadImagesOfPublicCircle(i);
+                    Log.e("执行了上传图片的方法","i="+i);
+                }
                 Intent intent = new Intent();
                 Circle circle = new Circle();
                 //设置返回数据
@@ -150,5 +173,56 @@ public class PublishCircleActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+    public void submitPublishCircle(){
+        Circle circle=new Circle();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = new Date(System.currentTimeMillis());
+        circle.setTime(formatter.format(date));
+        circle.setCommentSize(10);
+        circle.setContent(content.getText().toString());
+        circle.setForwardSize(10);
+        circle.setLikeSize(10);
+        circle.setSendImg(imgUrls);
+        RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
+        Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+).build();
+        Call call=okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e("异步请求的结果",response.body().string());
+            }
+        });
+    }
+    private void uploadImagesOfPublicCircle(int i) {
+        long time = Calendar.getInstance().getTimeInMillis();
+        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(imgUrls.get(0)));
+        Log.e("list的内容",imgUrls.get(0)+"");
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+Servlet?imgName="+time+".jpg").build();
+        imgUrls.remove(0);
+        imgUrls.add(time+".jpg");
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                Log.e("i的值",i+"");
+                Log.e("size的值",imgUrls.size()+"");
+
+                if(i==imgUrls.size()-1){
+                    submitPublishCircle();
+                }
+            }
+        });
     }
 }
