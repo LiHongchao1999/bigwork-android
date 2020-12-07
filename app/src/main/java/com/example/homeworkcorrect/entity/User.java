@@ -76,5 +76,5 @@ public class User {
                 + ", image=" + image + ", qqNumber=" + qqNumber + ", weChatNumber=" + weChatNumber + ", grade=" + grade
                 + ", sex=" + sex + "]";
     }
-    
+
 }

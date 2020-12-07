@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 public class Circle {
+    private int id;
     private String userImg; //用户头像
     private String userName;  //用户名
     private String time;  //发表的时间
