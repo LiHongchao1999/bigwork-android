@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.parent_circle: //家长圈
-                changeTeb(parentCircleFragment);
+               changeTeb(parentCircleFragment);
                 mainImg.setImageResource(R.drawable.main);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop);

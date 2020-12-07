@@ -1,6 +1,7 @@
 package com.example.homeworkcorrect.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class CustomCircleAdapter extends BaseAdapter {
     private Context mContext;
+    private List<Bitmap> bitmaps;
     private List<Circle> circles = new ArrayList<>();
     private int itemLayoutRes;
     public CustomCircleAdapter(Context mContext, List<Circle> circles, int msg_list_item) {
@@ -79,11 +81,16 @@ public class CustomCircleAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         //给控件赋值
-        viewHolder.userImg.setImageBitmap(circles.get(position).getUserImg());
+        for(int i=0;i<circles.get(position).getSendImg().size();i++){
+            Bitmap bitmap=BitmapFactory.decodeFile(circles.get(position).getSendImg().get(i));
+            bitmaps.add(bitmap);
+        }
+        Bitmap bitmap=BitmapFactory.decodeFile(circles.get(position).getUserImg());
+        viewHolder.userImg.setImageBitmap(bitmap);
         viewHolder.nickName.setText(circles.get(position).getUserName());
         viewHolder.sendTime.setText(circles.get(position).getTime());
         viewHolder.content.setText(circles.get(position).getContent());
-        viewHolder.gridView.setAdapter(new CustomSendImgAdapter(mContext,circles.get(position).getSendImg(),R.layout.send_img_list_item));
+        viewHolder.gridView.setAdapter(new CustomSendImgAdapter(mContext,bitmaps,R.layout.send_img_list_item));
         viewHolder.forwardSize.setText(circles.get(position).getForwardSize()+"");
         viewHolder.commentSize.setText(circles.get(position).getCommentSize()+"");
         viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");
