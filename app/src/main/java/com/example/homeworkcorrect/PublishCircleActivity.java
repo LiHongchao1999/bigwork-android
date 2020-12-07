@@ -165,6 +165,11 @@ public class PublishCircleActivity extends AppCompatActivity {
                 imgUrls.remove(imgUrls.size()-1);
                 for(int i=0;i<imgUrls.size();i++){
                     uploadImagesOfPublicCircle(i);
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     Log.e("执行了上传图片的方法","i="+i);
                 }
                 Intent intent = new Intent();
