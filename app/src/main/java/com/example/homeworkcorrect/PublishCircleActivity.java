@@ -162,6 +162,7 @@ public class PublishCircleActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.ss_send://点击发表
+                imgUrls.remove(imgUrls.size()-1);
                 for(int i=0;i<imgUrls.size();i++){
                     uploadImagesOfPublicCircle(i);
                     Log.e("执行了上传图片的方法","i="+i);
@@ -183,9 +184,11 @@ public class PublishCircleActivity extends AppCompatActivity {
         circle.setContent(content.getText().toString());
         circle.setForwardSize(10);
         circle.setLikeSize(10);
+
         circle.setSendImg(imgUrls);
         RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
-        Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+).build();
+        Log.e("我穿了该有的字段了","hhh");
+        Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddCircleServlet").build();
         Call call=okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -203,7 +206,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         long time = Calendar.getInstance().getTimeInMillis();
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(imgUrls.get(0)));
         Log.e("list的内容",imgUrls.get(0)+"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+Servlet?imgName="+time+".jpg").build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadCircleImageServlet?imgName="+time+".jpg").build();
         imgUrls.remove(0);
         imgUrls.add(time+".jpg");
         Call call = okHttpClient.newCall(request);

@@ -57,6 +57,7 @@ public class ParentCircleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.parent_circle_fragment,container,false);
         //获取控件
         getViews();
@@ -64,39 +65,40 @@ public class ParentCircleFragment extends Fragment {
         //设置弹出框绑定的listview以及初始化popupwindow
         setListView();
         //绑定自定义适配器
-        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-        Bitmap img1 = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-        Bitmap img2 = BitmapFactory.decodeResource(getResources(),R.drawable.cake04);
-        Bitmap img3 = BitmapFactory.decodeResource(getResources(),R.drawable.cake03);
-        Bitmap img4 = BitmapFactory.decodeResource(getResources(),R.drawable.cake02);
-        List<Bitmap> bitmaps = new ArrayList<>();
-        bitmaps.add(img1);
-        bitmaps.add(img2);
-        bitmaps.add(img3);
-        bitmaps.add(img4);
-        Circle circlew = new Circle(img,"sss","2020/02/01 7:15","今天天气不错",bitmaps,10,20,10);
-        Circle circlea = new Circle(img,"bbb","2020/02/01 7:15","今天天气真好",bitmaps,10,20,10);
-        Circle circleb = new Circle(img,"www","2020/02/01 7:15","今天天气真SaaS",bitmaps,10,20,10);
-        Circle circlec = new Circle(img,"ccc","2020/02/01 7:15","今天天气真111",bitmaps,10,20,10);
-        Circle circled = new Circle(img,"eee","2020/02/01 7:15","今天天气真奥术大师",bitmaps,10,20,10);
-        Circle circlee = new Circle(img,"zzz","2020/02/01 7:15","今天天气真撒发放",bitmaps,10,20,10);
-        circles.add(circlew);
-        circles.add(circlea);
-        circles.add(circleb);
-        circles.add(circlec);
-        circles.add(circled);
-        circles.add(circlee);
-        circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
-        listView.setAdapter(circleAdapter);
-        //给每个item设置监听器
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //跳转到对应的详情页
-                Intent intent = new Intent(getContext(), CircleDetailActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
+//
+//        Bitmap img1 = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
+//        Bitmap img2 = BitmapFactory.decodeResource(getResources(),R.drawable.cake04);
+//        Bitmap img3 = BitmapFactory.decodeResource(getResources(),R.drawable.cake03);
+//        Bitmap img4 = BitmapFactory.decodeResource(getResources(),R.drawable.cake02);
+//        List<Bitmap> bitmaps = new ArrayList<>();
+//        bitmaps.add(img1);
+//        bitmaps.add(img2);
+//        bitmaps.add(img3);
+//        bitmaps.add(img4);
+//        Circle circlew = new Circle(img,"sss","2020/02/01 7:15","今天天气不错",bitmaps,10,20,10);
+//        Circle circlea = new Circle(img,"bbb","2020/02/01 7:15","今天天气真好",bitmaps,10,20,10);
+//        Circle circleb = new Circle(img,"www","2020/02/01 7:15","今天天气真SaaS",bitmaps,10,20,10);
+//        Circle circlec = new Circle(img,"ccc","2020/02/01 7:15","今天天气真111",bitmaps,10,20,10);
+//        Circle circled = new Circle(img,"eee","2020/02/01 7:15","今天天气真奥术大师",bitmaps,10,20,10);
+//        Circle circlee = new Circle(img,"zzz","2020/02/01 7:15","今天天气真撒发放",bitmaps,10,20,10);
+//        circles.add(circlew);
+//        circles.add(circlea);
+//        circles.add(circleb);
+//        circles.add(circlec);
+//        circles.add(circled);
+//        circles.add(circlee);
+//        circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
+//        listView.setAdapter(circleAdapter);
+//        //给每个item设置监听器
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                //跳转到对应的详情页
+//                Intent intent = new Intent(getContext(), CircleDetailActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         //准备数据
         list.add(new PopWindowEntity(R.drawable.print,"发表"));
         list.add(new PopWindowEntity(R.drawable.image,"图片"));
