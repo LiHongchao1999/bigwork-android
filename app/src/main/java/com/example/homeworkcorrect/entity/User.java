@@ -12,6 +12,18 @@ public class User {
     private String grade;//年级
     private String sex;//性别
 
+    public User() {
+    }
+
+    public User(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User(String phoneNumber, String password) {
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
+
     public int getId() {
         return id;
     }

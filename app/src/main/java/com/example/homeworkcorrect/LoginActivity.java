@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.entity.User;
+import com.google.gson.Gson;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -34,6 +35,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.mob.MobSDK;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -43,8 +46,18 @@ import java.util.Enumeration;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
+    public static User user;
+
+    private OkHttpClient okHttpClient;
     String APPKEY = "31a00794f87b0";
     String APPSECRET = "bee3fce1f9f4866b8c7fe62b3a58e701";
     //获取用到的控件
@@ -79,6 +92,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         EditText editText=findViewById(R.id.et_phone);
+
+        //1.创建OkHttpClient对象
+        okHttpClient = new OkHttpClient();
+
         //获取用户的ip
         userIp = getIPAddress();
         Log.e("ip",userIp);
@@ -283,6 +300,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     // 短信注册成功后，返回MainActivity,然后提示新好友
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
+                        //将手机号传给服务器端。服务器端判断该用户是否存在，未存在直接注册。
+                        try {
+                            postLogin();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Toast.makeText(getApplicationContext(), "提交验证码成功",
                                 Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,
@@ -407,5 +430,60 @@ public class LoginActivity extends AppCompatActivity {
         return jsonObject.toString();
     }
 
+    //把JSON格式的字符串解析成用户对象
+    public User json2Object(String jsonStr) throws JSONException {
+        User user = new User();
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        user.setId(jsonObject.getInt("id"));
+        user.setNickname(jsonObject.getString("nickname"));
+        user.setPhoneNumber(jsonObject.getString("phonenumber"));
+        user.setPassword(jsonObject.getString("password"));
+        user.setImage(jsonObject.getString("image"));
+        user.setQqNumber(jsonObject.getString("qqnumber"));
+        user.setWeChatNumber(jsonObject.getString("wechatnumber"));
+        user.setGrade(jsonObject.getString("grade"));
+        user.setSex(jsonObject.getString("sex"));
+        return user;
+    }
 
+    //登录逻辑
+    public void postLogin() throws JSONException {
+        //2.创建Request请求对象
+        //请求体是普通字符串
+        User user = new User(etphone.getText().toString());
+        Log.e("etphone",etphone.getText().toString());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
+        //3.创建Call对象
+        Request request = new Request.Builder()
+                .post(requestBody)//请求方式为POST
+                .url(IP.CONSTANT+"UserLoginServlet")
+                .build();
+        final Call call = okHttpClient.newCall(request);
+        //4.提交请求并返回响应
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时回调
+                Log.e("登录请求结果","失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功时回调
+                Log.e("登录请求结果","成功");
+                //从服务器端获取到JSON格式字符串
+                InputStream is = response.body().byteStream();
+                byte[] buffer = new byte[256];
+                int len = is.read(buffer);
+
+                String jsonString = new String(buffer,0,len);
+                try {
+                    LoginActivity.user = json2Object(jsonString);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                is.close();
+            }
+        });
+    }
 }
