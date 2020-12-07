@@ -215,6 +215,11 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
                 for(int i=0;i<photoList.size();i++){
                     uploadImagesOfHomework(i);
                     Log.e("执行了上传图片的方法","i="+i);
+                    try {
+                        Thread.sleep(1);//主线程休眠1ms，防止图片重名
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -257,6 +262,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
 
     private void uploadImagesOfHomework(int i) {
         long time = Calendar.getInstance().getTimeInMillis();
+        Log.e("获取到的时间",time+"");
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(photoList.get(0)));
         Log.e("list的内容",photoList.get(0)+"");
         Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
