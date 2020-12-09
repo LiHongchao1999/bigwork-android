@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Homework {
     private int id;//作业id
+    private int user_id;//user_id
     private String submitTime;//作业发布时间
     private String deadline;//作业截止时间
     private String homeworkType;//作业类型
@@ -13,10 +14,27 @@ public class Homework {
     private List<String> homework_image;//作业图片
     private int teacher_id;//教师id
     private List<String> result_image;//结果图片
+    private List<String> result_image_teacher;//老师结果图片
     private String result_text;//结果文字
     private double money;//佣金
     private int grade;//作业评分
     private String scored;//判断是否评分
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public List<String> getResult_image_teacher() {
+        return result_image_teacher;
+    }
+
+    public void setResult_image_teacher(List<String> result_image_teacher) {
+        this.result_image_teacher = result_image_teacher;
+    }
 
     public int getId() {
         return id;
@@ -116,6 +134,23 @@ public class Homework {
 
     public Homework() {
 
+    }
+
+    public Homework(int id, int user_id, String submitTime, String deadline, String homeworkType, String tag, List<String> homework_image, int teacher_id, List<String> result_image, List<String> result_image_teacher, String result_text, double money, int grade, String scored) {
+        this.id = id;
+        this.user_id = user_id;
+        this.submitTime = submitTime;
+        this.deadline = deadline;
+        this.homeworkType = homeworkType;
+        this.tag = tag;
+        this.homework_image = homework_image;
+        this.teacher_id = teacher_id;
+        this.result_image = result_image;
+        this.result_image_teacher = result_image_teacher;
+        this.result_text = result_text;
+        this.money = money;
+        this.grade = grade;
+        this.scored = scored;
     }
 
     public Homework(int id, String submitTime, String deadline, String homeworkType, String tag, List<String> homework_image, int teacher_id, List<String> result_image, String result_text, double money, int grade, String scored) {
