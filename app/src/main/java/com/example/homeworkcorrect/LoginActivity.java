@@ -434,16 +434,11 @@ public class LoginActivity extends AppCompatActivity {
     //把JSON格式的字符串解析成用户对象
     public User json2Object(String jsonStr) throws JSONException {
         User user = new User();
-        JSONObject jsonObject = new JSONObject(jsonStr);
-        user.setId(jsonObject.getInt("id"));
-        user.setNickname(jsonObject.getString("nickname"));
-        user.setPhoneNumber(jsonObject.getString("phonenumber"));
-        user.setPassword(jsonObject.getString("password"));
-        user.setImage(jsonObject.getString("image"));
-        user.setQqNumber(jsonObject.getString("qqnumber"));
-        user.setWeChatNumber(jsonObject.getString("wechatnumber"));
-        user.setGrade(jsonObject.getString("grade"));
-        user.setSex(jsonObject.getString("sex"));
+        if(!TextUtils.isEmpty(jsonStr)){
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            user.setId(jsonObject.getInt("id"));
+            user.setPhoneNumber(jsonObject.getString("phoneNumber"));
+        }
         return user;
     }
 
@@ -457,7 +452,7 @@ public class LoginActivity extends AppCompatActivity {
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserLoginServlet?phoneNumber="+etphone)
+                .url(IP.CONSTANT+"UserLoginServlet?phoneNumber="+etphone.getText().toString())
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应
@@ -472,18 +467,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功时回调
                 Log.e("登录请求结果","成功");
-                //从服务器端获取到JSON格式字符串
-                InputStream is = response.body().byteStream();
-                byte[] buffer = new byte[256];
-                int len = is.read(buffer);
-
-                String jsonString = new String(buffer,0,len);
+               //从服务器端获取到JSON格式字符串
+                String jsonString = response.body().string();
+                Log.e("jsonString",jsonString);
                 try {
                     LoginActivity.user = json2Object(jsonString);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                is.close();
             }
         });
     }
