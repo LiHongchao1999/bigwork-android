@@ -125,7 +125,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     //登录逻辑
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
-        //请求体是普通字符串
+        //请求体是字符串
         User user = new User(etphone.getText().toString());
         Log.e("etphone",etphone.getText().toString());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
