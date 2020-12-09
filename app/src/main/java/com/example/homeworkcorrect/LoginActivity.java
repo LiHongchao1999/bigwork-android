@@ -456,7 +456,7 @@ public class LoginActivity extends AppCompatActivity {
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserLoginServlet")
+                .url(IP.CONSTANT+"UserLoginServlet?phoneNumber="+etphone)
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应

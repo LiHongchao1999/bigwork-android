@@ -31,7 +31,7 @@ import okhttp3.Response;
 public class LoginWithPasswordActivity extends AppCompatActivity {
     EditText etphone;
     private OkHttpClient okHttpClient;
-    boolean flag;
+    User temUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +77,11 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     postLogin();
-                    if(flag==true){
+                    if(temUser!=null){
                         Intent intent = new Intent(LoginWithPasswordActivity.this,
                                 MainActivity.class);
                         startActivity(intent);
-                    }else if(flag==false){
+                    }else if(temUser==null){
                         Toast.makeText(getApplicationContext(), "用户名或密码错误",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -153,7 +153,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                 int len = is.read(buffer);
                 String jsonString = new String(buffer,0,len);
                 try {
-                    flag = json2Boolean(jsonString);
+                    temUser = json2Object(jsonString);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
