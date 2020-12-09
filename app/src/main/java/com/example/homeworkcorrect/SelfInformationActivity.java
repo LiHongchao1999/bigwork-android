@@ -21,21 +21,41 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
+import com.example.homeworkcorrect.entity.User;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class SelfInformationActivity extends AppCompatActivity {
+    private OkHttpClient okHttpClient;
     private PopupWindow popupWindow=null;
     private String path;//头像路径
     private CircleImageView headImg;
     private String imgUrl;//拍照后图片地址
+    private String nickname;
+    private String sex;
+    private String phonenum;
+    private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +104,13 @@ public class SelfInformationActivity extends AppCompatActivity {
                 Intent intent4 = new Intent();
                 intent4.setClass(SelfInformationActivity.this,PhoneNumberActivity.class);
                 startActivityForResult(intent4,1);
+                break;
+            case R.id.bt_saveInfo://向服务器端提交一次性用户信息
+                try {
+                    postChangeUserInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -160,7 +187,7 @@ public class SelfInformationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){
-            String nickname = data.getStringExtra("nickname");
+            nickname = data.getStringExtra("nickname");
             Log.e("nickname",nickname);
             TextView tvnick = findViewById(R.id.tv_nickname);
             tvnick.setText(nickname);
@@ -170,7 +197,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             TextView tvreal  = findViewById(R.id.tv_realname);
             tvreal.setText(realname);
         }else if(requestCode==1&&resultCode==4){
-            String sex=data.getStringExtra("sex");
+            sex=data.getStringExtra("sex");
             Log.e("sex",sex);
             TextView tvsex = findViewById(R.id.tv_sex);
             tvsex.setText(sex);
@@ -180,10 +207,15 @@ public class SelfInformationActivity extends AppCompatActivity {
             TextView tvidentity = findViewById(R.id.tv_identity);
             tvidentity.setText(identity);
         }else if(requestCode==1&&resultCode==6){
-            String phonenum = data.getStringExtra("phonenum");
+            phonenum = data.getStringExtra("phonenum");
             Log.e("phonenum",phonenum);
             TextView tvphone = findViewById(R.id.tv_phonenum);
             tvphone.setText(phonenum);
+        }else if(requestCode==1&&resultCode==7){
+            password = data.getStringExtra("password");
+            Log.e("password",password);
+            TextView tvpassword = findViewById(R.id.tv_password);
+            tvpassword.setText(password);
         }
         if (requestCode==10 &&resultCode==RESULT_OK){
             //获取到图片
@@ -207,5 +239,43 @@ public class SelfInformationActivity extends AppCompatActivity {
             headImg.setImageBitmap(bitmap);
             UserCache.userImg=imgUrl;
         }
+    }
+
+    //将对象转换为JSON类型数据
+    public String object2JSON(User user) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("nickname",user.getNickname());
+        jsonObject.put("sex",user.getSex());
+        jsonObject.put("img",user.getImage());
+        return jsonObject.toString();
+    }
+
+    //登录逻辑
+    public void postChangeUserInfo() throws JSONException {
+        //2.创建Request请求对象
+        //请求体是普通字符串
+        User user = new User(nickname,phonenum,path,sex,password);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
+        //3.创建Call对象
+        Request request = new Request.Builder()
+                .post(requestBody)//请求方式为POST
+                .url(IP.CONSTANT)
+                .build();
+        final Call call = okHttpClient.newCall(request);
+        //4.提交请求并返回响应
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时回调
+                Log.e("登录请求结果","失败");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功时回调
+                Log.e("登录请求结果","成功");
+
+            }
+        });
     }
 }

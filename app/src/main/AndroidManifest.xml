@@ -63,11 +63,15 @@
         </activity>
 
         <activity android:name=".WrongQuestionDetailActivity"></activity>
+        <activity android:name=".AlterPasswordActivity"></activity>
+        <activity android:name=".WrongQuestionDetailActivity" />
         <activity android:name=".AddErrorBookActivity" />
         <activity android:name=".ErrorTopicBookActivity" />
         <activity android:name=".HomeWorkCorrectDetail" />
 
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -99,7 +103,7 @@
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".Camera2Activity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SelfInformationActivity" />
         <activity android:name=".SexActivity" />
         <activity android:name=".PhoneNumberActivity" />

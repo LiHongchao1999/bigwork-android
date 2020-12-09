@@ -1,9 +1,12 @@
 package com.example.homeworkcorrect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +34,10 @@ import okhttp3.Response;
 
 public class LoginWithPasswordActivity extends AppCompatActivity {
     EditText etphone;
+    EditText etpassword;
     private OkHttpClient okHttpClient;
     User temUser;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         final ImageView ivprotocol = findViewById(R.id.iv_protocol);
         final Button btpassword = findViewById(R.id.bt_loginwithpass);
         etphone = findViewById(R.id.et_numberwithpassword);
+        etpassword = findViewById(R.id.et_password);
         ImageView ivclose = findViewById(R.id.iv_close);
         ivclose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +84,6 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     postLogin();
-                    if(temUser!=null){
-                        Intent intent = new Intent(LoginWithPasswordActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                    }else if(temUser==null){
-                        Toast.makeText(getApplicationContext(), "用户名或密码错误",
-                                Toast.LENGTH_SHORT).show();
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -94,12 +92,25 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
 
     }
 
+    private Handler mainHandler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            int i=msg.what;
+            switch(i){
+                case 0:
+                    Toast.makeText(getApplicationContext(), "用户名或密码错误",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+
+
     //将对象转换为JSON类型数据
     public String object2JSON(User user) throws JSONException{
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nickname",user.getNickname());
-        jsonObject.put("sex",user.getSex());
-        jsonObject.put("img",user.getImage());
+        jsonObject.put("phoneNumber",user.getPhoneNumber());
+        jsonObject.put("password",user.getPassword());
         return jsonObject.toString();
     }
     //把JSON格式的字符串解析成boolean
@@ -112,14 +123,8 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         User user = new User();
         JSONObject jsonObject = new JSONObject(jsonStr);
         user.setId(jsonObject.getInt("id"));
-        user.setNickname(jsonObject.getString("nickname"));
-        user.setPhoneNumber(jsonObject.getString("phonenumber"));
+        user.setPhoneNumber(jsonObject.getString("phoneNumber"));
         user.setPassword(jsonObject.getString("password"));
-        user.setImage(jsonObject.getString("image"));
-        user.setQqNumber(jsonObject.getString("qqnumber"));
-        user.setWeChatNumber(jsonObject.getString("wechatnumber"));
-        user.setGrade(jsonObject.getString("grade"));
-        user.setSex(jsonObject.getString("sex"));
         return user;
     }
 
@@ -127,13 +132,13 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
         //请求体是字符串
-        User user = new User(etphone.getText().toString());
-        Log.e("etphone",etphone.getText().toString());
+        User user = new User(etphone.getText().toString(),etpassword.getText().toString());
+        Log.e("PhoneAndPassword",etphone.getText().toString()+etpassword.getText().toString());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserRegisteredServlet")
+                .url(IP.CONSTANT+"UserLoginServlet")
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应
@@ -149,12 +154,23 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                 //请求成功时回调
                 Log.e("登录请求结果","成功");
                 //从服务器端获取到JSON格式字符串
-                InputStream is = response.body().byteStream();
-                byte[] buffer = new byte[256];
-                int len = is.read(buffer);
-                String jsonString = new String(buffer,0,len);
+                String jsonString = response.body().string();
                 try {
-                    temUser = json2Object(jsonString);
+                    JSONObject jsonObject = new JSONObject(jsonString);
+                    Log.e("jsonString",jsonString);
+                    id = jsonObject.getInt("id");
+                    if (id!=0){
+                        Log.e("id",id+"");
+                        temUser = json2Object(jsonString);
+                        LoginActivity.user=temUser;
+                        Intent intent = new Intent(LoginWithPasswordActivity.this,
+                                MainActivity.class);
+                        startActivity(intent);
+                    }else if (id==0){
+                        Message message = new Message();
+                        message.what=0;
+                        mainHandler.sendMessage(message);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
