@@ -11,8 +11,26 @@ public class User {
     private String weChatNumber;//微信号码
     private String grade;//年级
     private String sex;//性别
+    private int chat_id;//聊天id
+    private String chat_token;//聊天token
 
     public User() {
+    }
+
+    public int getChat_id() {
+        return chat_id;
+    }
+
+    public void setChat_id(int chat_id) {
+        this.chat_id = chat_id;
+    }
+
+    public String getChat_token() {
+        return chat_token;
+    }
+
+    public void setChat_token(String chat_token) {
+        this.chat_token = chat_token;
     }
 
     public User(String phoneNumber) {
@@ -75,18 +93,28 @@ public class User {
         this.grade = grade;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
+                ", qqNumber='" + qqNumber + '\'' +
+                ", weChatNumber='" + weChatNumber + '\'' +
+                ", grade='" + grade + '\'' +
+                ", sex='" + sex + '\'' +
+                ", chat_id=" + chat_id +
+                ", chat_token='" + chat_token + '\'' +
+                '}';
+    }
 
     public String getSex() {
         return sex;
     }
     public void setSex(String sex) {
         this.sex = sex;
-    }
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", nickname=" + nickname + ", phoneNumber=" + phoneNumber + ", password=" + password
-                + ", image=" + image + ", qqNumber=" + qqNumber + ", weChatNumber=" + weChatNumber + ", grade=" + grade
-                + ", sex=" + sex + "]";
     }
 
 }
