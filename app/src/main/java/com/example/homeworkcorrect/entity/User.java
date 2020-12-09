@@ -15,6 +15,14 @@ public class User {
     public User() {
     }
 
+    public User(String nickname, String phoneNumber, String image, String sex,String password) {
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.sex = sex;
+        this.password = password;
+    }
+
     public User(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
