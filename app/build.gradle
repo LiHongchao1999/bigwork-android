@@ -8,6 +8,14 @@ MobSDK {
 }
 
 android {
+    productFlavors {
+        dev {
+            minSdkVersion 21
+        }
+        prod {
+            minSdkVersion 14
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -30,9 +38,27 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // 保证其他的lib没有被preDex
+    dexOptions {
+        preDexLibraries = false
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
+        }
+    }
+    // Specifies a flavor dimension.
+    flavorDimensions "color"
+    productFlavors {
+        red {
+            // Assigns this product flavor to the 'color' flavor dimension.
+            // This step is optional if you are using only one dimension.
+            dimension "color"
+
+        }
+        blue {
+            dimension "color"
+
         }
     }
 }

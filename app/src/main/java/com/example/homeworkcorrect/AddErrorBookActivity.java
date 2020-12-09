@@ -1,12 +1,6 @@
 package com.example.homeworkcorrect;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterResult;
-import com.example.homeworkcorrect.adapter.CustomAdapterSelfResult;
+import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.WrongQuestion;
 import com.google.gson.Gson;
@@ -51,7 +45,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
     private ScrollableGridView gridView;//老师的
     private ScrollableGridView gridView1;//自己上传的
     private CustomAdapterResult adapter;
-    private CustomAdapterSelfResult selfResult;
+    private CustomImgListAdapter selfResult;
     private List<String> selfSend;//自己上传的
     private static final String IMG_ADD= "add"; //添加图片
     private WrongQuestion question = new WrongQuestion();
@@ -98,10 +92,17 @@ public class AddErrorBookActivity extends AppCompatActivity {
         //老师返回的
         adapter = new CustomAdapterResult(this,imgs,R.layout.send_img_list_item);
         gridView.setAdapter(adapter);
+        gridView.setHorizontalSpacing(15);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(AddErrorBookActivity.this,imgs,i).show();
+            }
+        });
         //用户返回的
         selfSend = new ArrayList<>();
         selfSend.add(IMG_ADD);//添加
-        selfResult = new CustomAdapterSelfResult(this,selfSend,R.layout.send_img_list_item);
+        selfResult = new CustomImgListAdapter(this,selfSend,R.layout.img_list_item);
         gridView1.setAdapter(selfResult);
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,6 +111,12 @@ public class AddErrorBookActivity extends AppCompatActivity {
                     PictureSelector.create(AddErrorBookActivity.this,
                             PictureSelector.SELECT_REQUEST_CODE)
                             .selectPicture(true);
+                }else{
+                    List<String> urls = new ArrayList<String>();
+                    for(int j=0;j<selfSend.size()-1;j++){
+                        urls.add(selfSend.get(j));
+                    }
+                    new ShowLocalImageDialog(AddErrorBookActivity.this,urls,position).show();
                 }
             }
         });
@@ -124,7 +131,6 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 removeItem();
                 if(pictureBean.isCut()){
                     selfSend.add(pictureBean.getPath());
-                    Log.e("路径",pictureBean.getPath());
                     selfSend.add(IMG_ADD);
                     selfResult.notifyDataSetChanged();
                 }else {

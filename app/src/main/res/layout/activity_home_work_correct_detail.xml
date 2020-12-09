@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0f0f0"
     android:id="@+id/root_detail"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -29,19 +30,23 @@
             android:textColor="@android:color/white"/>
     </RelativeLayout>
     <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:layout_below="@+id/ho1"
         android:id="@+id/ho2"
+        android:background="@drawable/background_circle_submit"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/text_img"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="批改完成的图片："
             android:textColor="#000000"
-            android:textStyle="bold"
             android:textSize="18sp"/>
         <com.example.homeworkcorrect.ScrollableGridView
             android:id="@+id/home_image"
@@ -53,38 +58,51 @@
             android:verticalSpacing="3dp"
             android:numColumns="3"/>
     </RelativeLayout>
-    <TextView
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_circle_submit"
         android:layout_below="@+id/ho2"
-        android:id="@+id/ho3"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="评语"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="18sp"/>
-    <RelativeLayout
-        android:layout_below="@+id/ho3"
-        android:id="@+id/ho4"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/teacher_comment"
-            android:padding="8dp"
-            android:background="@drawable/image_background_style"
+
+            android:id="@+id/ho3"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评语"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="18sp"/>
+        <RelativeLayout
+            android:layout_below="@+id/ho3"
+            android:id="@+id/ho4"
+            android:layout_marginLeft="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="这次作业做得很好"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"/>
-    </RelativeLayout>
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/teacher_comment"
+                android:padding="8dp"
+                android:background="@drawable/image_background_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="这次作业做得很好"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_add_error"
         android:layout_marginTop="3dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/ho4"
+        android:layout_below="@id/line"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:onClick="onClicked"

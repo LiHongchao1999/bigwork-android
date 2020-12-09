@@ -63,8 +63,7 @@
         </activity>
 
         <activity android:name=".WrongQuestionDetailActivity"></activity>
-        <activity android:name=".AlterPasswordActivity"></activity>
-        <activity android:name=".WrongQuestionDetailActivity" />
+        <activity android:name=".LastCorrectActivity"></activity>
         <activity android:name=".AddErrorBookActivity" />
         <activity android:name=".ErrorTopicBookActivity" />
         <activity android:name=".HomeWorkCorrectDetail" />

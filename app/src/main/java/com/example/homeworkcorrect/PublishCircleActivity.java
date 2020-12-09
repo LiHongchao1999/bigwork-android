@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterImageList;
-import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
@@ -127,14 +126,30 @@ public class PublishCircleActivity extends AppCompatActivity {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    List<String> urls = new ArrayList<String>();
-                    for(int j=0;j<imgUrls.size()-1;j++){
-                        urls.add(imgUrls.get(j));
+                    if(i!=imgUrls.size()-1){
+                        List<String> urls = new ArrayList<String>();
+                        for(int j=0;j<imgUrls.size()-1;j++){
+                            urls.add(imgUrls.get(j));
+                        }
+                        new ShowLocalImageDialog(PublishCircleActivity.this,urls,i).show();
+                    }else{
+                        Matisse.from(PublishCircleActivity.this)
+                                .choose(MimeType.ofImage()) //只显示图片
+                                .countable(true) //显示选择的数量
+                                .maxSelectable(9) //最多可选择的数量
+                                .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                                .gridExpectedSize(350) //图片显示在列表中的大小
+                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                                .thumbnailScale(0.8f)//缩放比例
+                                .imageEngine(new GlideEngine()) //使用图片加载引擎
+                                .theme(R.style.Matisse_Dracula) //主题
+                                .capture(false)//是否提供拍照功能
+                                .forResult(100);//设置作为标记的请求码
                     }
-                    new ShowImagesDialog(PublishCircleActivity.this,urls,i).show();
+
                 }
             });
-            new ShowImagesDialog(this,imgUrls,1);
+            new ShowLocalImageDialog(this,imgUrls,1);
             Log.e("所有图片地址",imgUrls.toString());
             customAdapter.notifyDataSetChanged();
         }
@@ -192,7 +207,6 @@ public class PublishCircleActivity extends AppCompatActivity {
 
         circle.setSendImg(imgUrls);
         RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
-        Log.e("我穿了该有的字段了","hhh");
         Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddCircleServlet").build();
         Call call=okHttpClient.newCall(request);
         call.enqueue(new Callback() {

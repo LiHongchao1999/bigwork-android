@@ -14,17 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.HomeWorkCorrectDetail;
-import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.adapter.HomeworkAdapter;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Homework;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,14 +47,16 @@ public class HomeworkFragment extends Fragment {
         getViews();
         this.okHttpClient = new OkHttpClient();
         getAllHomework();
+        lvHomework.setHorizontalSpacing(20);
+        lvHomework.setVerticalSpacing(20);
         lvHomework.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //点击跳转到作业详情页
                 if(list.get(position).getTag().equals("待批改")){
-                    Toast.makeText(getContext(),"当前作业正在等待被修改",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"当前作业正在等待被修改",Toast.LENGTH_SHORT).show();
                 }else if(list.get(position).getTag().equals("批改中")){
-                    Toast.makeText(getContext(),"当前作业正在被修改",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"当前作业正在被修改",Toast.LENGTH_SHORT).show();
                 }else if(list.get(position).getTag().equals("批改完成")){
                     Log.e("点击",position+"");
                     Log.e("1111",list.get(position).getId()+"");

@@ -1,9 +1,11 @@
 package com.example.homeworkcorrect.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -58,7 +60,12 @@ public class CustomAdapterResult extends BaseAdapter {
         }
         ImageView imageView = convertView.findViewById(R.id.send_img);
         RequestOptions options = new RequestOptions().bitmapTransform(new RoundedCorners(25));//图片圆角为30
-        Glide.with(convertView).load(IP.CONSTANT+"images/"+imgs.get(position)).apply(options).into(imageView);
+        final ObjectAnimator anim = ObjectAnimator.ofInt(imageView, "ImageLevel", 0,10000);
+        anim.setDuration(3000);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(ObjectAnimator.INFINITE);
+        anim.start();
+        Glide.with(convertView).load(IP.CONSTANT+"images/"+imgs.get(position)).placeholder(R.drawable.rotate_loading).error(R.drawable.fail).apply(options).into(imageView);
         return convertView;
     }
 }

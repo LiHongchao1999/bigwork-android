@@ -1,10 +1,6 @@
 package com.example.homeworkcorrect;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +8,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RatingBar;
@@ -27,12 +24,7 @@ import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Homework;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,10 +51,10 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                 case 1:
                     String str = msg.obj.toString();
                     if(str.equals("true")){
-                        Toast.makeText(HomeWorkCorrectDetail.this,"评分成功",Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeWorkCorrectDetail.this,"评分成功",Toast.LENGTH_SHORT).show();
                         homework.setScored("true");
                     }else{
-                        Toast.makeText(HomeWorkCorrectDetail.this,"评分失败",Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeWorkCorrectDetail.this,"评分失败",Toast.LENGTH_SHORT).show();
                         homework.setGrade(0);
                     }
                     break;
@@ -84,6 +76,14 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
         homework = gson.fromJson(str,Homework.class);
         adapter = new CustomAdapterResult(this,homework.getResult_image(),R.layout.send_img_list_item);
         gridView.setAdapter(adapter);
+        gridView.setHorizontalSpacing(15);
+        gridView.setVerticalSpacing(15);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(HomeWorkCorrectDetail.this,homework.getResult_image(),i).show();
+            }
+        });
         comment.setText(homework.getResult_text());
     }
     private void getViews() {
@@ -143,6 +143,7 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                     Log.e("星级评分为",(int)rating+"");
                     grade = (int)rating;
                     Log.e("Grade",grade+"");
+
                 }
             });
             btn.setOnClickListener(new View.OnClickListener() {

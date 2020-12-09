@@ -11,7 +11,7 @@ public class User {
     private String weChatNumber;//微信号码
     private String grade;//年级
     private String sex;//性别
-    private int chat_id;//聊天id
+    private String chat_id;//聊天id
     private String chat_token;//聊天token
 
     public User() {
@@ -25,11 +25,11 @@ public class User {
         this.password = password;
     }
 
-    public int getChat_id() {
+    public String getChat_id() {
         return chat_id;
     }
 
-    public void setChat_id(int chat_id) {
+    public void setChat_id(String chat_id) {
         this.chat_id = chat_id;
     }
 
@@ -121,7 +121,7 @@ public class User {
                 ", weChatNumber='" + weChatNumber + '\'' +
                 ", grade='" + grade + '\'' +
                 ", sex='" + sex + '\'' +
-                ", chat_id=" + chat_id +
+                ", chat_id='" + chat_id +'\''+
                 ", chat_token='" + chat_token + '\'' +
                 '}';
     }

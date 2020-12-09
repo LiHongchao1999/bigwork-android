@@ -6,7 +6,7 @@
     <ImageView
         android:layout_gravity="center"
         android:id="@+id/send_img"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="123dp"
+        android:layout_height="123dp"
         android:scaleType="centerCrop"/>
 </LinearLayout>

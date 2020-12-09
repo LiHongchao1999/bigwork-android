@@ -71,7 +71,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new ShowImagesDialog(SubmitHomeWorkActivtiy.this,photoList,i).show();
+                new ShowLocalImageDialog(SubmitHomeWorkActivtiy.this,photoList,i).show();
             }
         });
 
@@ -277,9 +277,6 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
-                Log.e("i的值",i+"");
-                Log.e("size的值",photoList.size()+"");
 
                 if(i==photoList.size()-1){
                     submitHomeworkInformation();

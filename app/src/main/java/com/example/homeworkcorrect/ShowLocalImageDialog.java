@@ -18,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.adapter.ShowImagesAdapter;
-import com.example.homeworkcorrect.cache.IP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class ShowImagesDialog extends Dialog {
+public class ShowLocalImageDialog extends Dialog {
     private View mView ;
     private Context mContext;
     private ShowImagesViewPager mViewPager;
@@ -36,7 +35,7 @@ public class ShowImagesDialog extends Dialog {
     private List<View> mViews;
     private ShowImagesAdapter mAdapter;
     private int current;
-    public ShowImagesDialog(@NonNull Context context, List<String> imgUrls,int i) {
+    public ShowLocalImageDialog(@NonNull Context context, List<String> imgUrls,int i) {
         super(context, R.style.transparentBgDialog);
         this.mContext = context;
         this.mImgUrls = imgUrls;
@@ -94,7 +93,7 @@ public class ShowImagesDialog extends Dialog {
             anim.start();
 
             Glide.with(mContext)
-                    .load(IP.CONSTANT+"images/"+mImgUrls.get(i))
+                    .load(mImgUrls.get(i))
                     .placeholder(R.drawable.rotate_loading)
                     .error(R.drawable.fail)
                     .into(photoView);
@@ -123,3 +122,4 @@ public class ShowImagesDialog extends Dialog {
         });
     }
 }
+

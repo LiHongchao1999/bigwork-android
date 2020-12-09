@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.graphics.RectF;
-import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
@@ -37,10 +36,9 @@ public class RoundRectLayout extends RelativeLayout {
     }
 
     private void init(){
-        setBackgroundDrawable(new ColorDrawable(0x33ffffff));
         mPath = new Path();
         mPath.setFillType(Path.FillType.EVEN_ODD);
-        setCornerRadius(40);
+        setCornerRadius(20);
     }
 
     /**

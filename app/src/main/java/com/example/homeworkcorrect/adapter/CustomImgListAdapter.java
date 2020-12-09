@@ -55,9 +55,15 @@ public class CustomImgListAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.checkBox.setVisibility(View.VISIBLE);
-        Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
-        Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
+        if(imgs.get(position).equals("add")){
+            viewHolder.checkBox.setVisibility(View.GONE);
+            Glide.with(convertView).load(R.drawable.add_img).into(viewHolder.imageView);
+        }else{
+            viewHolder.checkBox.setVisibility(View.VISIBLE);
+            Bitmap bitmap = BitmapFactory.decodeFile(imgs.get(position));
+            Glide.with(convertView).load(bitmap).into(viewHolder.imageView);
+        }
+
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

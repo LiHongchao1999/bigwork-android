@@ -3,7 +3,6 @@ package com.example.homeworkcorrect;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,23 +11,15 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.example.homeworkcorrect.adapter.HomeworkAdapter;
 import com.example.homeworkcorrect.cache.IP;
-import com.example.homeworkcorrect.entity.Homework;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,10 +34,8 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /*
@@ -76,7 +65,7 @@ public class ConversationListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         okHttpClient = new OkHttpClient();
-        String token = "uz3sI8B+jMzHJq0T9NZX3v6UeDRw2XjWvAsaXryD+a85hF2WyKf5+g==@sknu.cn.rongnav.com;sknu.cn.rongcfg.com";
+        String token = "S/olglFQAxeo50qVIHRbZiL3lCBdzczXPZajPzjH+183Tf0LYdgpSQ==@sknu.cn.rongnav.com;sknu.cn.rongcfg.com";
               RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
             /**
              * 数据库回调
@@ -118,7 +107,7 @@ public class ConversationListActivity extends FragmentActivity {
         // 是否缓存用户信息. true 缓存, false 不缓存
         // 1. <span style="color:red">当设置 true 后, 优先从缓存中获取用户信息.
         // 2. 更新用户信息, 需调用 RongIM.getInstance().refreshUserInfoCache(userInfo)
-        boolean isCacheUserInfo = true;
+        boolean isCacheUserInfo = false;
         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
             /**
              * 获取设置用户信息. 通过返回的 userId 来封装生产用户信息.
@@ -127,9 +116,9 @@ public class ConversationListActivity extends FragmentActivity {
             @Override
             public UserInfo getUserInfo(String userId) {
                 //根据userId去获取服务端的用户的昵称和头像
-                UserInfo info = new UserInfo();
-                Thread.yield();
-                return findUserById(userId);
+                Log.e("123",userId);
+                findUserById(userId);
+                return null;
             }
 
         }, isCacheUserInfo);
@@ -158,14 +147,11 @@ public class ConversationListActivity extends FragmentActivity {
     /*
     * 从服务端获取用户昵称和头像
     * */
-    private UserInfo findUserById(String userId) {
+    private void findUserById(String userId) {
         //请求体是普通的字符串
-        RequestBody requestBody = RequestBody.create(MediaType.parse(
-                "text/plain;charset=utf-8"),"");
         //3、创建请求对象
-        Request request = new Request.Builder()
-                .post(requestBody)  //调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id=10000")
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = okHttpClient.newCall(request);
@@ -181,7 +167,10 @@ public class ConversationListActivity extends FragmentActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
-                Log.e("异步请求的结果",str);
+                Log.e("123",str);
+                User user  = new Gson().fromJson(str,User.class);
+                UserInfo info = new UserInfo(userId,user.getNickname(),null);
+                runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
                 //不能直接修改用户界面
                 //如果要修改用户界面需要使用Handler 或者使用EventBus
             }
