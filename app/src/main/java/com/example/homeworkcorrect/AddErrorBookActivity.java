@@ -173,6 +173,23 @@ public class AddErrorBookActivity extends AppCompatActivity {
                     uploadImagesOfHomework(i);
                 }
                 break;
+            case R.id.btn_submit_www:
+                //赋值
+                if(editText.getText().toString() == null|| editText.getText().toString().equals("") ){
+                    question.setResult_text_student("");
+                }else{
+                    question.setResult_image(selfSend);
+                }
+                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date curDate1 =  new Date(System.currentTimeMillis());
+                question.setUpdate_time(formatter1.format(curDate1)+"");
+                Log.e("当前时间",formatter1.format(curDate1));
+                question.setResult_text_student(editText.getText().toString());
+                //上传图片到服务器
+                for(int i=0;i<selfSend.size();i++){
+                    uploadImagesOfHomework(i);
+                }
+                break;
         }
     }
     private void submitErrorInformation() {
@@ -191,7 +208,6 @@ public class AddErrorBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功时回调的方法
-                Log.e("异步请求的结果",response.body().string());
                 Message msg = new Message();
                 msg.what=1;
                 msg.obj = response.body().string();

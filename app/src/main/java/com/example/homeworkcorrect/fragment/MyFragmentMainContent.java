@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +23,13 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 
+
 import com.example.homeworkcorrect.Camera2Activity;
-import com.example.homeworkcorrect.InformationActivity;
+import com.example.homeworkcorrect.ConversationListActivity;
 import com.example.homeworkcorrect.R;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 
 public class MyFragmentMainContent extends Fragment {
@@ -33,19 +39,21 @@ public class MyFragmentMainContent extends Fragment {
     private ImageView ring;
     private ImageView rotate;
     private ImageView advertise;
+    private TextView mUnreadNumView;//消息个数
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_mymaincontent,
                 container,
                 false);
+        //初始化融云
+        initRongMessage();
         getViews();
         combineChange();
         MyListener listener=new MyListener();
         llcamera.setOnClickListener(listener);
         llrecommand.setOnClickListener(listener);
         ring.setOnClickListener(listener);
-
         llrecommand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,8 +67,42 @@ public class MyFragmentMainContent extends Fragment {
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
             }
         });
+
         return view;
     }
+    /*
+     * 融云消息接收，及初始化
+     */
+    private void initRongMessage() {
+        final Conversation.ConversationType[] conversationTypes = {Conversation.ConversationType.PRIVATE, Conversation.ConversationType.DISCUSSION,
+                Conversation.ConversationType.GROUP, Conversation.ConversationType.SYSTEM,
+                Conversation.ConversationType.PUBLIC_SERVICE, Conversation.ConversationType.APP_PUBLIC_SERVICE};
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RongIM.getInstance().setOnReceiveUnreadCountChangedListener(mCountListener, conversationTypes);
+            }
+        }, 500);
+    }
+    /*
+    * 设置接收到消息的个数
+    * */
+    public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
+        @Override
+        public void onMessageIncreased(int count) {
+            if (count == 0) {
+                mUnreadNumView.setVisibility(View.INVISIBLE);
+            } else if (count > 0 && count < 100) {
+                mUnreadNumView.setVisibility(View.VISIBLE);
+                mUnreadNumView.setText(count + "");
+            } else {
+                mUnreadNumView.setVisibility(View.VISIBLE);
+                mUnreadNumView.setText(R.string.no_read_message);
+            }
+        }
+    };
     public class MyListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
@@ -70,7 +112,8 @@ public class MyFragmentMainContent extends Fragment {
                     startActivity(intentc);
                     break;
                 case R.id.iv_ring:
-                    Intent intent = new Intent(getContext(), InformationActivity.class);
+                    //跳转到会话列表页面
+                    Intent intent = new Intent(getContext(), ConversationListActivity.class);
                     startActivity(intent);
                     break;
             }
@@ -85,6 +128,7 @@ public class MyFragmentMainContent extends Fragment {
        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
        circularBitmapDrawable.setCornerRadius(200);
        advertise.setImageDrawable(circularBitmapDrawable);
+       mUnreadNumView = view.findViewById(R.id.num_msg);
     }
     public void combineChange(){
 

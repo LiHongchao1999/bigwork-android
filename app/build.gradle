@@ -17,10 +17,9 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -39,6 +38,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+    api 'cn.rongcloud.sdk:im_lib:2.10.5'
+    api 'cn.rongcloud.sdk:im_kit:2.10.5'
     //裁剪
     implementation 'com.github.wildma:PictureSelector:2.1.0'
     //
@@ -82,10 +84,18 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.commit451:PhotoView:1.2.4'
 }
-repositories {
-    mavenCentral()
-    maven {
-        url 'https://maven.google.com'
+allprojects{
+    repositories {
+        mavenCentral()
+        maven {url  "https://dl.bintray.com/rongcloud/maven"}
+        maven {
+            url 'https://maven.google.com'
+        }
+        maven { url "https://jitpack.io" }
+        jcenter()
     }
-    maven { url "https://jitpack.io" }
 }
+
+
+
+
