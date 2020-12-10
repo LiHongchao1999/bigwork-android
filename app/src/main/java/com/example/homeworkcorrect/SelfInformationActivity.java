@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +59,10 @@ public class SelfInformationActivity extends AppCompatActivity {
     private String sex;
     private String phonenum;
     private String password;
+    private TextView tvnickname;
+    private TextView tvsex;
+    private TextView tvphonenum;
+    private TextView tvpassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +73,12 @@ public class SelfInformationActivity extends AppCompatActivity {
         }else{
             Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
             headImg.setImageBitmap(bitmap);
-}
-
+        }
+        User user = LoginActivity.user;
+        tvnickname.setText(user.getNickname());
+        tvphonenum.setText(user.getPhoneNumber());
+        tvsex.setText(user.getSex());
+        tvpassword.setText(user.getPassword());
     }
 
     public void onClicked(View view){
@@ -156,6 +167,19 @@ public class SelfInformationActivity extends AppCompatActivity {
         RelativeLayout root = findViewById(R.id.root);
         popupWindow.showAtLocation(root,Gravity.NO_GRAVITY,0,0);
     }
+
+    private Handler mainHandler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            int i=msg.what;
+            switch(i){
+                case 0:
+                    Toast.makeText(getApplicationContext(), "保存成功",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -255,6 +279,10 @@ public class SelfInformationActivity extends AppCompatActivity {
         //2.创建Request请求对象
         //请求体是普通字符串
         User user = new User(nickname,phonenum,path,sex,password);
+        LoginActivity.user.setNickname(nickname);
+        LoginActivity.user.setPhoneNumber(phonenum);
+        LoginActivity.user.setSex(sex);
+        LoginActivity.user.setPassword(password);
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
         //3.创建Call对象
         Request request = new Request.Builder()
@@ -274,6 +302,9 @@ public class SelfInformationActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功时回调
                 Log.e("登录请求结果","成功");
+                Message message = new Message();
+                message.what=0;
+                mainHandler.sendMessage(message);
 
             }
         });

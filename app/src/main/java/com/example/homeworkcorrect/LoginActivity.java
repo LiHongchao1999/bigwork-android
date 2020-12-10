@@ -438,6 +438,30 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(jsonStr);
             user.setId(jsonObject.getInt("id"));
             user.setPhoneNumber(jsonObject.getString("phoneNumber"));
+            if(jsonObject.getString("nickname")!=null){
+                user.setNickname(jsonObject.getString("nickname"));
+            }
+            if(jsonObject.getString("password")!=null){
+                user.setPassword(jsonObject.getString("password"));
+            }
+            if(jsonObject.getString("image")!=null){
+                user.setImage(jsonObject.getString("nickname"));
+            }
+            if (jsonObject.getString("qqNumber")!=null){
+                user.setQqNumber(jsonObject.getString("qqNumber"));
+            }
+            if(jsonObject.getString("grade")!=null){
+                user.setGrade(jsonObject.getString("grade"));
+            }
+            if(jsonObject.getString("sex")!=null){
+                user.setSex(jsonObject.getString("sex"));
+            }
+            if(jsonObject.getString("chat_id")!=null){
+                user.setChat_id(jsonObject.getString("chat_id"));
+            }
+            if(jsonObject.getString("chat_token")!=null){
+                user.setChat_token(jsonObject.getString("chat_token"));
+            }
         }
         return user;
     }

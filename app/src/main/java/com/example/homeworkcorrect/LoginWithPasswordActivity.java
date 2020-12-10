@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.homeworkcorrect.cache.IP;
@@ -37,6 +38,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     EditText etpassword;
     private OkHttpClient okHttpClient;
     User temUser;
+    TextView tvnickname;
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         etphone = findViewById(R.id.et_numberwithpassword);
         etpassword = findViewById(R.id.et_password);
         ImageView ivclose = findViewById(R.id.iv_close);
+
         ivclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +128,30 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         user.setId(jsonObject.getInt("id"));
         user.setPhoneNumber(jsonObject.getString("phoneNumber"));
         user.setPassword(jsonObject.getString("password"));
+        if(jsonObject.getString("nickname")!=null){
+            user.setNickname(jsonObject.getString("nickname"));
+        }
+        if(jsonObject.getString("image")!=null){
+            user.setImage(jsonObject.getString("nickname"));
+        }
+        if (jsonObject.getString("qqNumber")!=null){
+            user.setQqNumber(jsonObject.getString("qqNumber"));
+        }
+        if(jsonObject.getString("grade")!=null){
+            user.setGrade(jsonObject.getString("grade"));
+        }
+        if(jsonObject.getString("sex")!=null){
+            user.setSex(jsonObject.getString("sex"));
+        }
+        if(jsonObject.getString("chat_id")!=null){
+            user.setChat_id(jsonObject.getString("chat_id"));
+        }
+        if(jsonObject.getString("chat_token")!=null){
+            user.setChat_token(jsonObject.getString("chat_token"));
+        }
+        if(jsonObject.getString("weChatNumber")!=null){
+            user.setWeChatNumber(jsonObject.getString("weChatNumber"));
+        }
         return user;
     }
 
