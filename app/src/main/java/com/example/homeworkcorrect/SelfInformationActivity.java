@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.User;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
+import com.google.gson.Gson;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -41,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -53,37 +56,63 @@ public class SelfInformationActivity extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private PopupWindow popupWindow=null;
     private String path;//头像路径
-    private CircleImageView headImg;
+    private CircleImageView headImg; //头像
+    private TextView nickName;//昵称
+    private TextView sex;//性别
+    private TextView phone;//手机号
     private String imgUrl;//拍照后图片地址
-    private String nickname;
-    private String sex;
-    private String phonenum;
-    private String password;
-    private TextView tvnickname;
-    private TextView tvsex;
-    private TextView tvphonenum;
-    private TextView tvpassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_information);
+        okHttpClient = new OkHttpClient();
+        //从服务端获取信息
+        getUserInfo();
+        //获取控件引用
+        getViews();
+    }
+    /*
+    * 获取控件引用
+    * */
+    private void getViews() {
         headImg = findViewById(R.id.tv_head_img);
-        if("".equals(UserCache.userImg) || UserCache.userImg==null){
-            headImg.setImageDrawable(getResources().getDrawable(R.drawable.head));
-        }else{
-            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
-            headImg.setImageBitmap(bitmap);
-        }
-        User user = LoginActivity.user;
-        tvnickname.setText(user.getNickname());
-        tvphonenum.setText(user.getPhoneNumber());
-        tvsex.setText(user.getSex());
-        tvpassword.setText(user.getPassword());
+        nickName = findViewById(R.id.tv_nickname);
+        sex = findViewById(R.id.tv_sex);
+        phone = findViewById(R.id.tv_phonenum);
+    }
+
+    /*
+    * 访问服务端获取信息
+    * */
+    private void getUserInfo() {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetUserInfoServlet?id="+UserCache.userId)
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = new OkHttpClient().newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("用户的个人信息",str);
+
+            }
+        });
     }
 
     public void onClicked(View view){
         switch (view.getId()){
-            case R.id.self_return:
+            case R.id.self_return://点击返回
                 Intent intent8 = new Intent();
                 setResult(20,intent8);
                 finish();
@@ -96,20 +125,10 @@ public class SelfInformationActivity extends AppCompatActivity {
                 intent.setClass(SelfInformationActivity.this,NickNameActivity.class);
                 startActivityForResult(intent,1);
                 break;
-            case R.id.change_real_name://点击修改真实姓名
-                Intent intent1 = new Intent();
-                intent1.setClass(SelfInformationActivity.this,RealNameActivity.class);
-                startActivityForResult(intent1,1);
-                break;
             case R.id.change_sex://点击修改性别
                 Intent intent2 = new Intent();
                 intent2.setClass(SelfInformationActivity.this,SexActivity.class);
                 startActivityForResult(intent2,1);
-                break;
-            case R.id.change_id_card://点击修改身份证号
-                Intent intent3 = new Intent();
-                intent3.setClass(SelfInformationActivity.this,IdentityNumberActivity.class);
-                startActivityForResult(intent3,1);
                 break;
             case R.id.change_phone://点击修改电话
                 Intent intent4 = new Intent();
@@ -164,7 +183,7 @@ public class SelfInformationActivity extends AppCompatActivity {
         //设置视图当中控件的属性和监听器
         popupWindow.setContentView(view);
         //显示PopupWindow（必须指定显示的位置）
-        RelativeLayout root = findViewById(R.id.root);
+        LinearLayout root = findViewById(R.id.root);
         popupWindow.showAtLocation(root,Gravity.NO_GRAVITY,0,0);
     }
 
@@ -210,36 +229,14 @@ public class SelfInformationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1&&resultCode==2){
-            nickname = data.getStringExtra("nickname");
-            Log.e("nickname",nickname);
-            TextView tvnick = findViewById(R.id.tv_nickname);
-            tvnick.setText(nickname);
-        }else if(requestCode==1&&resultCode==3){
-            String realname = data.getStringExtra("realname");
-            Log.e("realname",realname);
-            TextView tvreal  = findViewById(R.id.tv_realname);
-            tvreal.setText(realname);
-        }else if(requestCode==1&&resultCode==4){
-            sex=data.getStringExtra("sex");
-            Log.e("sex",sex);
-            TextView tvsex = findViewById(R.id.tv_sex);
-            tvsex.setText(sex);
-        }else if(requestCode==1&&resultCode==5){
-            String identity = data.getStringExtra("identity");
-            Log.e("identity",identity);
-            TextView tvidentity = findViewById(R.id.tv_identity);
-            tvidentity.setText(identity);
-        }else if(requestCode==1&&resultCode==6){
-            phonenum = data.getStringExtra("phonenum");
-            Log.e("phonenum",phonenum);
-            TextView tvphone = findViewById(R.id.tv_phonenum);
-            tvphone.setText(phonenum);
-        }else if(requestCode==1&&resultCode==7){
-            password = data.getStringExtra("password");
-            Log.e("password",password);
-            TextView tvpassword = findViewById(R.id.tv_password);
-            tvpassword.setText(password);
+        if(requestCode==1&&resultCode==2){ //修改昵称
+
+        }else if(requestCode==1&&resultCode==4){//修改性别
+
+        }else if(requestCode==1&&resultCode==6){//修改点好
+
+        }else if(requestCode==1&&resultCode==7){//修改密码
+
         }
         if (requestCode==10 &&resultCode==RESULT_OK){
             //获取到图片
@@ -264,26 +261,14 @@ public class SelfInformationActivity extends AppCompatActivity {
             UserCache.userImg=imgUrl;
         }
     }
-
-    //将对象转换为JSON类型数据
-    public String object2JSON(User user) throws JSONException{
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("nickname",user.getNickname());
-        jsonObject.put("sex",user.getSex());
-        jsonObject.put("img",user.getImage());
-        return jsonObject.toString();
-    }
-
-    //登录逻辑
+    /*
+    * 向服务器发送修改的内容
+    * */
     public void postChangeUserInfo() throws JSONException {
         //2.创建Request请求对象
         //请求体是普通字符串
-        User user = new User(nickname,phonenum,path,sex,password);
-        LoginActivity.user.setNickname(nickname);
-        LoginActivity.user.setPhoneNumber(phonenum);
-        LoginActivity.user.setSex(sex);
-        LoginActivity.user.setPassword(password);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),"");
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST

@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +29,21 @@ import androidx.fragment.app.Fragment;
 import com.example.homeworkcorrect.Camera2Activity;
 import com.example.homeworkcorrect.ConversationListActivity;
 import com.example.homeworkcorrect.R;
+import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.entity.User;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class MyFragmentMainContent extends Fragment {
@@ -40,6 +54,24 @@ public class MyFragmentMainContent extends Fragment {
     private ImageView rotate;
     private ImageView advertise;
     private TextView mUnreadNumView;//消息个数
+    private ImageView sendMsg;//发送消息
+    private UserInfo userInfo;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    UserInfo info = (UserInfo) msg.obj;
+                    RongIM.getInstance().refreshUserInfoCache(info);
+                    Conversation.ConversationType conversationType  = Conversation.ConversationType.PRIVATE;;
+                    RongIM.getInstance().startConversation(getContext() , conversationType, info.getUserId(), info.getName(), null);
+                    break;
+                case 2:
+                    RongIM.getInstance().setCurrentUserInfo(userInfo);
+                    break;
+            }
+        }
+    };
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,6 +86,7 @@ public class MyFragmentMainContent extends Fragment {
         llcamera.setOnClickListener(listener);
         llrecommand.setOnClickListener(listener);
         ring.setOnClickListener(listener);
+        sendMsg.setOnClickListener(listener);
         llrecommand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,8 +100,77 @@ public class MyFragmentMainContent extends Fragment {
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
             }
         });
-
+        String token = "S/olglFQAxeo50qVIHRbZiL3lCBdzczXPZajPzjH+183Tf0LYdgpSQ==@sknu.cn.rongnav.com;sknu.cn.rongcfg.com";
+        RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
+            /**
+             * 数据库回调
+             * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
+             */
+            @Override
+            public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+                Log.e("OnDatabaseOpened","数据库打开");
+            }
+            /**
+             * token 无效
+             */
+            @Override
+            public void onTokenIncorrect() {
+                Log.e("onTokenIncorrect","无效");
+            }
+            /**
+             * 成功回调
+             * @param userId 当前用户 ID
+             */
+            @Override
+            public void onSuccess(String userId) {
+                Log.e("onSuccess",userId+"xcy");
+                //设置当前用户信息
+                findCurrentUserById(userId);
+                //获取用户token
+               /* showConversationList()*/;
+            }
+            /**
+             * 错误回调
+             * @param errorCode 错误码
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.e("onError",errorCode+"");
+            }
+        });
         return view;
+    }
+    /*
+     * 从服务端获取当前用户昵称和头像
+     * */
+    private void findCurrentUserById(String userId) {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = new OkHttpClient().newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("123",str);
+                User user  = new Gson().fromJson(str,User.class);
+                userInfo = new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                Message msg = new Message();
+                msg.what=2;
+                handler.sendMessage(msg);
+            }
+        });
     }
     /*
      * 融云消息接收，及初始化
@@ -116,8 +218,45 @@ public class MyFragmentMainContent extends Fragment {
                     Intent intent = new Intent(getContext(), ConversationListActivity.class);
                     startActivity(intent);
                     break;
+                case R.id.send_msg_www:
+                    findUserById("user_1607506987137");
+                    break;
             }
         }
+    }
+    /*
+     * 从服务端获取用户昵称和头像
+     * */
+    private void findUserById(String userId) {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = new OkHttpClient().newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("123",str);
+                User user  = new Gson().fromJson(str,User.class);
+                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                Log.e("info",info.toString());
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj=info;
+               handler.sendMessage(msg);
+            }
+        });
     }
     public void getViews(){
        llcamera=view.findViewById(R.id.ll_camera);
@@ -129,6 +268,7 @@ public class MyFragmentMainContent extends Fragment {
        circularBitmapDrawable.setCornerRadius(200);
        advertise.setImageDrawable(circularBitmapDrawable);
        mUnreadNumView = view.findViewById(R.id.num_msg);
+       sendMsg = view.findViewById(R.id.send_msg_www);
     }
     public void combineChange(){
 

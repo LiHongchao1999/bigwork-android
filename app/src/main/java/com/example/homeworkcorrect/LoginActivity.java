@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 import com.tencent.connect.UserInfo;
@@ -56,8 +57,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    public static User user;
-
     private OkHttpClient okHttpClient;
     String APPKEY = "31a00794f87b0";
     String APPSECRET = "bee3fce1f9f4866b8c7fe62b3a58e701";
@@ -85,6 +84,20 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("nickname",nickName);
                     setResult(150,intent);
                     finish();
+                    break;
+                case 2://手机号登录
+                    String str1 = msg.obj.toString();
+                    Gson gson = new Gson();
+                    User user = gson.fromJson(str1,User.class);
+                    UserCache.userId = user.getId();
+                    UserCache.chat_token = user.getChat_token();
+                    UserCache.userName = user.getNickname();
+                    UserCache.userImg = user.getImage();
+                    //跳转到个人页面
+                    Intent intent1 = new Intent();
+                    setResult(160,intent1);
+                    finish();
+                    break;
             }
         }
     };
@@ -97,28 +110,25 @@ public class LoginActivity extends AppCompatActivity {
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
 
-        //获取用户的ip
+        /*//获取用户的ip
         userIp = getIPAddress();
-        Log.e("ip",userIp);
+        Log.e("ip",userIp);*/
         //获取控件
-        etphone = findViewById(R.id.et_phone);
-        etCode = findViewById(R.id.et_Code);
-        tvlogin = findViewById(R.id.tv_login);
-        btCode = findViewById(R.id.bt_getcode);
+        getViews();
         btCode.setText("获取验证码");
 //        调用mob开发者服务
         MobSDK.submitPolicyGrantResult(true, null);
 
 //        初始化短信SDK
         initSDK();
-
-        tvlogin.setOnClickListener(new View.OnClickListener() {
+        tvlogin.setOnClickListener(new View.OnClickListener() {//跳转到账号密码登录页面
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, LoginWithPasswordActivity.class);
                 startActivity(intent);
             }
         });
+        //qq登录
         qqLogin = findViewById(R.id.qq_login);
         tencent = Tencent.createInstance("101920560",this.getApplicationContext());
         qqLogin.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +142,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    /*
+    * 获取控件
+    * */
+    private void getViews() {
+        etphone = findViewById(R.id.et_phone); //手机号
+        etCode = findViewById(R.id.et_Code);   //验证码
+        tvlogin = findViewById(R.id.tv_login);  //账号密码登录
+        btCode = findViewById(R.id.bt_getcode); //获取验证码
+        login = findViewById(R.id.bt_Login);//登录
+    }
+
     private class BaseUiListener implements IUiListener{
         @Override
         public void onComplete(Object o) {
@@ -274,6 +295,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(judgePhoneNums(phoneNums)&&etCode.getText().toString().length()==4){
                     SMSSDK.submitVerificationCode("86",phoneNums, etCode
                             .getText().toString());
+
                 }else if(etCode.getText().toString().length()!=4){
                 Toast.makeText(getApplicationContext(), "验证码位数错误",
                         Toast.LENGTH_SHORT).show();
@@ -309,9 +331,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         Toast.makeText(getApplicationContext(), "提交验证码成功",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
+                        //验证码成功，向服务器进行发送，获取当前用户信息
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
                                 Toast.LENGTH_SHORT).show();
@@ -431,41 +451,6 @@ public class LoginActivity extends AppCompatActivity {
         return jsonObject.toString();
     }
 
-    //把JSON格式的字符串解析成用户对象
-    public User json2Object(String jsonStr) throws JSONException {
-        User user = new User();
-        if(!TextUtils.isEmpty(jsonStr)){
-            JSONObject jsonObject = new JSONObject(jsonStr);
-            user.setId(jsonObject.getInt("id"));
-            user.setPhoneNumber(jsonObject.getString("phoneNumber"));
-            if(jsonObject.getString("nickname")!=null){
-                user.setNickname(jsonObject.getString("nickname"));
-            }
-            if(jsonObject.getString("password")!=null){
-                user.setPassword(jsonObject.getString("password"));
-            }
-            if(jsonObject.getString("image")!=null){
-                user.setImage(jsonObject.getString("nickname"));
-            }
-            if (jsonObject.getString("qqNumber")!=null){
-                user.setQqNumber(jsonObject.getString("qqNumber"));
-            }
-            if(jsonObject.getString("grade")!=null){
-                user.setGrade(jsonObject.getString("grade"));
-            }
-            if(jsonObject.getString("sex")!=null){
-                user.setSex(jsonObject.getString("sex"));
-            }
-            if(jsonObject.getString("chat_id")!=null){
-                user.setChat_id(jsonObject.getString("chat_id"));
-            }
-            if(jsonObject.getString("chat_token")!=null){
-                user.setChat_token(jsonObject.getString("chat_token"));
-            }
-        }
-        return user;
-    }
-
     //登录逻辑
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
@@ -494,11 +479,10 @@ public class LoginActivity extends AppCompatActivity {
                //从服务器端获取到JSON格式字符串
                 String jsonString = response.body().string();
                 Log.e("jsonString",jsonString);
-                try {
-                    LoginActivity.user = json2Object(jsonString);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Message msg = new Message();
+                msg.what=2;
+                msg.obj = jsonString;
+                handler1.sendMessage(msg);
             }
         });
     }

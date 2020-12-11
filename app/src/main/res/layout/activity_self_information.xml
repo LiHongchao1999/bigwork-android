@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
+    android:orientation="vertical"
     android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <RelativeLayout
@@ -38,7 +39,6 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/change_img"
-        android:layout_below="@+id/sec"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
@@ -73,7 +73,6 @@
     <RelativeLayout
         android:id="@+id/change_nickname"
         android:onClick="onClicked"
-        android:layout_below="@+id/change_img"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
@@ -108,45 +107,8 @@
             android:src="@drawable/right" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/change_real_name"
-        android:onClick="onClicked"
-        android:layout_below="@+id/change_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="真实姓名"
-            android:textSize="18dp"
-            android:textColor="@android:color/black"/>
-        <TextView
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/tv_realname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#778899"
-            android:text="薛程元"/>
-        <ImageView
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/right"/>
-    </RelativeLayout>
-    <RelativeLayout
         android:id="@+id/change_sex"
         android:onClick="onClicked"
-        android:layout_below="@+id/change_real_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
@@ -180,46 +142,8 @@
             android:src="@drawable/right" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/change_id_card"
-        android:onClick="onClicked"
-        android:layout_below="@+id/change_sex"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp">
-        <TextView
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="身份证号码"
-            android:textSize="18dp"
-            android:textColor="@android:color/black"/>
-        <TextView
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/tv_identity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="#778899"
-            android:text="110112"/>
-        <ImageView
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/right"
-            />
-    </RelativeLayout>
-    <RelativeLayout
         android:id="@+id/change_phone"
         android:onClick="onClicked"
-        android:layout_below="@+id/change_id_card"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
@@ -255,7 +179,6 @@
     <RelativeLayout
         android:id="@+id/change_password"
         android:onClick="onClicked"
-        android:layout_below="@+id/change_phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
@@ -267,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="账号密码"
+            android:text="密码"
             android:textSize="18dp"
             android:textColor="@android:color/black"/>
         <TextView
@@ -288,4 +211,4 @@
             android:layout_height="wrap_content"
             android:src="@drawable/right" />
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

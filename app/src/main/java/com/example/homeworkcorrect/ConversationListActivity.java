@@ -1,8 +1,5 @@
 package com.example.homeworkcorrect;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,21 +8,14 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Random;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -45,17 +35,13 @@ public class ConversationListActivity extends FragmentActivity {
     private User currentUser;
     private OkHttpClient okHttpClient;
     private boolean isSelect;//判断是否查询成功
-    private String path;
     private UserInfo userInfo;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
                 case 1:
-                    String str = msg.obj.toString();
-                    Gson gson = new Gson();
-                    currentUser = gson.fromJson(str,User.class);
-                    isSelect = true;
+                    RongIM.getInstance().setCurrentUserInfo(userInfo);
                     break;
             }
         }
@@ -65,42 +51,7 @@ public class ConversationListActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         okHttpClient = new OkHttpClient();
-        String token = "S/olglFQAxeo50qVIHRbZiL3lCBdzczXPZajPzjH+183Tf0LYdgpSQ==@sknu.cn.rongnav.com;sknu.cn.rongcfg.com";
-              RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
-            /**
-             * 数据库回调
-             * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
-             */
-            @Override
-            public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
-                Log.e("OnDatabaseOpened","数据库打开");
-            }
-            /**
-             * token 无效
-             */
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("onTokenIncorrect","无效");
-            }
-            /**
-             * 成功回调
-             * @param userId 当前用户 ID
-             */
-            @Override
-            public void onSuccess(String userId) {
-                Log.e("onSuccess",userId+"xcy");
-                //获取用户token
-                showConversationList();
-            }
-            /**
-             * 错误回调
-             * @param errorCode 错误码
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("onError",errorCode+"");
-            }
-        });
+    showConversationList();
 
     }
     private void showConversationList() {
@@ -169,50 +120,43 @@ public class ConversationListActivity extends FragmentActivity {
                 String str = response.body().string();//字符串数据
                 Log.e("123",str);
                 User user  = new Gson().fromJson(str,User.class);
-                UserInfo info = new UserInfo(userId,user.getNickname(),null);
+                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                Log.e("info",info.toString());
                 runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
-                //不能直接修改用户界面
-                //如果要修改用户界面需要使用Handler 或者使用EventBus
             }
         });
     }
-
-    private String saveImage(Bitmap image) {
-        String saveImagePath = null;
-        Random random = new Random();
-        String imageFileName = System.currentTimeMillis() + ".jpg";
-        String dirName = "images";
-        File storageDir = new File(this.getFilesDir(), dirName);
-        boolean success = true;
-        if (!storageDir.exists()) {
-            success = storageDir.mkdirs();
-            Log.e("尝试创建文件夹", success + "");
-        }
-        if (success) {
-            File imageFile = new File(storageDir, imageFileName);
-            saveImagePath = imageFile.getAbsolutePath();
-            try {
-                OutputStream fout = new FileOutputStream(imageFile);
-                image.compress(Bitmap.CompressFormat.JPEG, 100, fout);
-                fout.close();
-            } catch (Exception e) {
+    /*
+     * 从服务端获取当前用户昵称和头像
+     * */
+    private void findCurrentUserById(String userId) {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = okHttpClient.newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
                 e.printStackTrace();
             }
-        }
-        return saveImagePath;
-    }
-    public void requestAllPower() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("123",str);
+                User user  = new Gson().fromJson(str,User.class);
+                userInfo = new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                Message msg = new Message();
+                msg.what=1;
+                handler.sendMessage(msg);
             }
-        }
+        });
     }
     public void onClicked(View view) {
         switch (view.getId()){

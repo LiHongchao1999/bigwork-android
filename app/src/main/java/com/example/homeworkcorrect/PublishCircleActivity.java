@@ -55,11 +55,22 @@ public class PublishCircleActivity extends AppCompatActivity {
     private EditText content;//输入的内容
     private CustomAdapterImageList customAdapter;
     private OkHttpClient okHttpClient;
+    private Circle circle;//发表的对象
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
                 case 1:
+                    boolean a = (boolean) msg.obj;
+                    if(a){//发表成功
+                        Intent intent = new Intent();
+                        Gson gson =new Gson();
+                        String str = gson.toJson(circle);
+                        intent.putExtra("circle",str);
+                        //设置返回数据
+                        setResult(150,intent);
+                        finish();
+                    }
                     break;
             }
         }
@@ -187,24 +198,18 @@ public class PublishCircleActivity extends AppCompatActivity {
                     }
                     Log.e("执行了上传图片的方法","i="+i);
                 }
-                Intent intent = new Intent();
-                Circle circle = new Circle();
-                //设置返回数据
-                setResult(150,intent);
-                finish();
                 break;
         }
     }
     public void submitPublishCircle(){
-        Circle circle=new Circle();
+        circle = new Circle();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
         circle.setTime(formatter.format(date));
-        circle.setCommentSize(10);
+        circle.setCommentSize(0);
         circle.setContent(content.getText().toString());
-        circle.setForwardSize(10);
-        circle.setLikeSize(10);
-
+        circle.setForwardSize(0);
+        circle.setLikeSize(0);
         circle.setSendImg(imgUrls);
         RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
         Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddCircleServlet").build();
@@ -217,7 +222,13 @@ public class PublishCircleActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e("异步请求的结果",response.body().string());
+                String str = response.body().string();
+                Gson gson = new Gson();
+                boolean a = gson.fromJson(str,boolean.class);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj=a;
+                handler.sendMessage(msg);
             }
         });
     }

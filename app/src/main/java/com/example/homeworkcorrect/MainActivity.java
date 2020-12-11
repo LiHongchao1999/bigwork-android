@@ -1,7 +1,9 @@
 package com.example.homeworkcorrect;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,17 +44,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //获取控件
         getViews();
-        //获取fragment对象
+        // 获取fragment对象
         mainContent = new MyFragmentMainContent();
         onlineShopFragment = new OnlineShopFragment();
         parentCircleFragment = new ParentCircleFragment();
         myFragment = new MyFragment();
         homeworkFragment = new HomeworkFragment();
-        //设置当前页
-        changeTeb(mainContent);
-        currentFragment = mainContent;
-        mainImg.setImageResource(R.drawable.main1);
-        mainText.setTextColor(Color.rgb(240,128,128));
+        // 获取Intent
+        Intent intent = getIntent();
+        String mime = intent.getStringExtra("mine");
+        Log.e("mime",mime+"52");
+        if(mime!=null && mime.equals("1")){
+            changeTeb(myFragment);
+            currentFragment = myFragment;
+            mineImg.setImageResource(R.drawable.my1);
+            mineText.setTextColor(Color.rgb(240,128,128));
+        }else{
+            //设置当前页
+            changeTeb(mainContent);
+            currentFragment = mainContent;
+            mainImg.setImageResource(R.drawable.main1);
+            mainText.setTextColor(Color.rgb(240,128,128));
+        }
     }
     private void getViews() {
         mainImg = findViewById(R.id.main_img);

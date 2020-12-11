@@ -13,10 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.R;
 
 import com.example.homeworkcorrect.ScrollableGridView;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
 
@@ -25,7 +27,6 @@ import java.util.List;
 
 public class CustomCircleAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Bitmap> bitmaps;
     private List<Circle> circles = new ArrayList<>();
     private int itemLayoutRes;
     public CustomCircleAdapter(Context mContext, List<Circle> circles, int msg_list_item) {
@@ -57,7 +58,7 @@ public class CustomCircleAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder;
+        ViewHolder viewHolder;
         //convertView每个item的视图对象
         //加载item的布局文件
         if(convertView==null) {
@@ -81,16 +82,12 @@ public class CustomCircleAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         //给控件赋值
-        for(int i=0;i<circles.get(position).getSendImg().size();i++){
-            Bitmap bitmap=BitmapFactory.decodeFile(circles.get(position).getSendImg().get(i));
-            bitmaps.add(bitmap);
-        }
-        Bitmap bitmap=BitmapFactory.decodeFile(circles.get(position).getUserImg());
-        viewHolder.userImg.setImageBitmap(bitmap);
+        Glide.with(mContext).load(IP.CONSTANT+"images/"+circles.get(position).getUserImg())
+                .into(viewHolder.userImg);
         viewHolder.nickName.setText(circles.get(position).getUserName());
         viewHolder.sendTime.setText(circles.get(position).getTime());
         viewHolder.content.setText(circles.get(position).getContent());
-        viewHolder.gridView.setAdapter(new CustomSendImgAdapter(mContext,bitmaps,R.layout.send_img_list_item));
+        viewHolder.gridView.setAdapter(new CircleImgListAdapter(mContext,circles.get(position).getSendImg(),R.layout.send_img_list_item));
         viewHolder.forwardSize.setText(circles.get(position).getForwardSize()+"");
         viewHolder.commentSize.setText(circles.get(position).getCommentSize()+"");
         viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");
