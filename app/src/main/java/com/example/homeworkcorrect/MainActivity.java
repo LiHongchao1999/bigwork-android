@@ -3,6 +3,7 @@ package com.example.homeworkcorrect;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +37,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView assignmentText;
     private TextView parentText;
     private TextView mineText;
+    private TranslateAnimation translateAnimation;
+    private TranslateAnimation translateAnimation1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        translateAnimation = new TranslateAnimation(0,0,0,-20);
+        translateAnimation.setFillAfter(true);
+        translateAnimation.setDuration(100);
+        translateAnimation1 = new TranslateAnimation(0,0,0,0);
+        translateAnimation1.setFillAfter(true);
+        translateAnimation1.setDuration(100);
         //获取控件
         getViews();
         //获取fragment对象
@@ -52,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         changeTeb(mainContent);
         currentFragment = mainContent;
         mainImg.setImageResource(R.drawable.main1);
-        mainText.setTextColor(Color.rgb(240,128,128));
+        mainImg.startAnimation(translateAnimation);
+        mainText.setTextColor(Color.rgb(79,193,233));
     }
     private void getViews() {
         mainImg = findViewById(R.id.main_img);
@@ -88,67 +98,92 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main://主页
                 changeTeb(mainContent);
                 mainImg.setImageResource(R.drawable.main1);
-                mainText.setTextColor(Color.rgb(240,128,128));
+                mainImg.startAnimation(translateAnimation);
+                mainText.setTextColor(Color.rgb(79,193,233));
                 shopImg.setImageResource(R.drawable.shop);
+                shopImg.startAnimation(translateAnimation1);
                 shopText.setTextColor(Color.BLACK);
                 assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentImg.startAnimation(translateAnimation1);
                 assignmentText.setTextColor(Color.BLACK);
                 parentImg.setImageResource(R.drawable.friend);
+                parentImg.startAnimation(translateAnimation1);
                 parentText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.my);
+                mineImg.startAnimation(translateAnimation1);
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.shop: //商城
                 changeTeb(onlineShopFragment);
                 mainImg.setImageResource(R.drawable.main);
+                mainImg.startAnimation(translateAnimation1);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop1);
-                shopText.setTextColor(Color.rgb(240,128,128));
+                shopImg.startAnimation(translateAnimation);
+                shopText.setTextColor(Color.rgb(79,193,233));
                 assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentImg.startAnimation(translateAnimation1);
                 assignmentText.setTextColor(Color.BLACK);
                 parentImg.setImageResource(R.drawable.friend);
+                parentImg.startAnimation(translateAnimation1);
                 parentText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.my);
+                mineImg.startAnimation(translateAnimation1);
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.assignment: //作业
                 changeTeb(homeworkFragment);
                 mainImg.setImageResource(R.drawable.main);
+                mainImg.startAnimation(translateAnimation1);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop);
+                shopImg.startAnimation(translateAnimation1);
                 shopText.setTextColor(Color.BLACK);
                 assignmentImg.setImageResource(R.drawable.assignment1);
-                assignmentText.setTextColor(Color.rgb(240,128,128));
+                assignmentImg.startAnimation(translateAnimation);
+                assignmentText.setTextColor(Color.rgb(79,193,233));
                 parentImg.setImageResource(R.drawable.friend);
+                parentImg.startAnimation(translateAnimation1);
                 parentText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.my);
+                mineImg.startAnimation(translateAnimation1);
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.parent_circle: //家长圈
-               changeTeb(parentCircleFragment);
+                changeTeb(parentCircleFragment);
                 mainImg.setImageResource(R.drawable.main);
+                mainImg.startAnimation(translateAnimation1);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop);
+                shopImg.startAnimation(translateAnimation1);
                 shopText.setTextColor(Color.BLACK);
                 assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentImg.startAnimation(translateAnimation1);
                 assignmentText.setTextColor(Color.BLACK);
-                parentImg.setImageResource(R.drawable.friends1);
-                parentText.setTextColor(Color.rgb(240,128,128));
+                parentImg.setImageResource(R.drawable.friend1);
+                parentImg.startAnimation(translateAnimation);
+                parentText.setTextColor(Color.rgb(79,193,233));
                 mineImg.setImageResource(R.drawable.my);
+                mineImg.startAnimation(translateAnimation1);
                 mineText.setTextColor(Color.BLACK);
                 break;
             case R.id.mine: //我的
                 changeTeb(myFragment);
                 mainImg.setImageResource(R.drawable.main);
+                mainImg.startAnimation(translateAnimation1);
                 mainText.setTextColor(Color.BLACK);
                 shopImg.setImageResource(R.drawable.shop);
+                shopImg.startAnimation(translateAnimation1);
                 shopText.setTextColor(Color.BLACK);
                 assignmentImg.setImageResource(R.drawable.assignment);
+                assignmentImg.startAnimation(translateAnimation1);
                 assignmentText.setTextColor(Color.BLACK);
                 parentImg.setImageResource(R.drawable.friend);
+                parentImg.startAnimation(translateAnimation1);
                 parentText.setTextColor(Color.BLACK);
                 mineImg.setImageResource(R.drawable.my1);
-                mineText.setTextColor(Color.rgb(240,128,128));
+                mineImg.startAnimation(translateAnimation);
+                mineText.setTextColor(Color.rgb(79,193,233));
                 break;
         }
     }

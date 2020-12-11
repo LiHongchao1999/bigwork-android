@@ -1,16 +1,19 @@
 package com.example.homeworkcorrect.fragment;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.homeworkcorrect.HomeWorkCorrectDetail;
@@ -38,7 +41,8 @@ public class HomeworkFragment extends Fragment {
     private ScrollableGridView lvHomework; //作业列表
     private HomeworkAdapter homeworkAdapter;
     private ArrayList<Homework> list;//作业
-
+    private ScrollView scrollView;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +73,18 @@ public class HomeworkFragment extends Fragment {
                 }
             }
         });
+//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//                if (i3 < i1 && ((i1 - i3) > 5)) {// 向上
+//                    getActivity().findViewById(R.id.tabs).setVisibility(View.INVISIBLE);
+//
+//                } else if (i3 > i1 && (i3 - i1) > 5) {// 向下
+//                    getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+//
+//                }
+//            }
+//        });
         return view;
     }
 
@@ -83,6 +99,7 @@ public class HomeworkFragment extends Fragment {
     * */
     private void getViews() {
         lvHomework = view.findViewById(R.id.lv_homework);
+        scrollView = view.findViewById(R.id.scrollView);
     }
 
     @Override
