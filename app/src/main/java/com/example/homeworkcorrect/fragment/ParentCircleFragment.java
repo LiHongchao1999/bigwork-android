@@ -193,14 +193,14 @@ public class ParentCircleFragment extends Fragment {
             String str = data.getStringExtra("circle");
             Log.e("接收到发表的动态信息",str);
             Circle circle = new Gson().fromJson(str,Circle.class);
-            circles.add(0,circle);
+            circles.add(circle);
             circleAdapter.notifyDataSetChanged();
         }
         if(requestCode==200 && resultCode==250){//接收到发表的图片动态信息
             String str = data.getStringExtra("circle");
             Log.e("接收到发表的图片信息",str);
             Circle circle = new Gson().fromJson(str,Circle.class);
-            circles.add(0,circle);
+            circles.add(circle);
             circleAdapter.notifyDataSetChanged();
         }
         if(requestCode==300 && resultCode==350){//接收到发表的视频动态信息

@@ -1,6 +1,7 @@
 package com.example.homeworkcorrect.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.homeworkcorrect.HisselfInfoActivity;
 import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.R;
 
@@ -21,6 +23,7 @@ import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +87,18 @@ public class CustomCircleAdapter extends BaseAdapter {
         //给控件赋值
         Glide.with(mContext).load(IP.CONSTANT+"images/"+circles.get(position).getUserImg())
                 .into(viewHolder.userImg);
+        //给头像绑定单机事件
+        viewHolder.userImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击头像 跳转到其个人信息页面
+                Intent intent =new Intent(mContext, HisselfInfoActivity.class);
+                Gson gson = new Gson();
+                String str = gson.toJson(circles.get(position));
+                intent.putExtra("self",str);
+                mContext.startActivity(intent);
+            }
+        });
         viewHolder.nickName.setText(circles.get(position).getUserName());
         viewHolder.sendTime.setText(circles.get(position).getTime());
         viewHolder.content.setText(circles.get(position).getContent());

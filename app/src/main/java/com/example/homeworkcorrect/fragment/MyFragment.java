@@ -109,7 +109,6 @@ public class MyFragment extends Fragment {
                 if(login.getText().toString()==null || login.getText().toString().equals("")) {
                     Intent intent = new Intent(getContext(), SelfInformationActivity.class);
                     startActivityForResult(intent,10);
-
                 }
             }
         });

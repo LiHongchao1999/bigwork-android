@@ -169,6 +169,8 @@ public class PublishImageActivity extends AppCompatActivity {
         circle = new Circle();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
+        circle.setUserImg(UserCache.userImg);
+        circle.setUserName(UserCache.userName);
         circle.setTime(formatter.format(date));
         circle.setCommentSize(0);
         circle.setContent(content.getText().toString());
