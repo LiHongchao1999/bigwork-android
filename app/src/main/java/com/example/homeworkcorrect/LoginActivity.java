@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserCache.chat_token = user.getChat_token();
                     UserCache.userName = user.getNickname();
                     UserCache.userImg = user.getImage();
+                    UserCache.chat_id = user.getChat_id();
                     //跳转到个人页面
                     Intent intent1 = new Intent();
                     setResult(160,intent1);

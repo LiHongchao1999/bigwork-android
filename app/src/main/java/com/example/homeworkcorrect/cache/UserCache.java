@@ -5,4 +5,5 @@ public class UserCache {
     public static String userName;//用户名
     public static String userImg;
     public static String chat_token;
+    public static String chat_id;
 }

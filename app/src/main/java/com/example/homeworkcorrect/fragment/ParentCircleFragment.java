@@ -126,7 +126,6 @@ public class ParentCircleFragment extends Fragment {
                 //请求失败时候回调
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调

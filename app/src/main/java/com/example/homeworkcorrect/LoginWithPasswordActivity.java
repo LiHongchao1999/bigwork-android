@@ -51,6 +51,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                     UserCache.chat_token = user.getChat_token();
                     UserCache.userName = user.getNickname();
                     UserCache.userImg = user.getImage();
+                    UserCache.chat_id = user.getChat_id();
                     //跳转到个人页面
                     Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

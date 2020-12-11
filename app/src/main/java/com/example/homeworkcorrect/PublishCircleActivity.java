@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterImageList;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.filter.GifSizeFilter;
 import com.google.gson.Gson;
@@ -211,6 +212,8 @@ public class PublishCircleActivity extends AppCompatActivity {
         circle.setForwardSize(0);
         circle.setLikeSize(0);
         circle.setSendImg(imgUrls);
+        circle.setUserId(UserCache.userId);
+        circle.setChatId(UserCache.chat_id);
         RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
         Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddCircleServlet").build();
         Call call=okHttpClient.newCall(request);

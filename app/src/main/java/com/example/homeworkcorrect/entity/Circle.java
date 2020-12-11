@@ -7,6 +7,7 @@ import java.util.List;
 public class Circle {
     private int id;
     private int userId;//用户id
+    private String chatId;//chatId
     private String userImg; //用户头像
     private String userName;  //用户名
     private String time;  //发表的时间
@@ -19,6 +20,13 @@ public class Circle {
     public Circle() {
     }
 
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
     public int getId() {
         return id;
