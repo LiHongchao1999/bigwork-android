@@ -162,23 +162,6 @@ public class AddErrorBookActivity extends AppCompatActivity {
             case R.id.add_error_return:
                 finish();
                 break;
-            case R.id.add_error_keep:
-                //赋值
-                if(editText.getText().toString() == null|| editText.getText().toString().equals("") ){
-                    question.setResult_text_student("");
-                }else{
-                    question.setResult_image(selfSend);
-                }
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                Date curDate =  new Date(System.currentTimeMillis());
-                question.setUpdate_time(formatter.format(curDate)+"");
-                Log.e("当前时间",formatter.format(curDate));
-                question.setResult_text_student(editText.getText().toString());
-                //上传图片到服务器
-                for(int i=0;i<selfSend.size();i++){
-                    uploadImagesOfHomework(i);
-                }
-                break;
             case R.id.btn_submit_www:
                 //赋值
                 if(editText.getText().toString() == null|| editText.getText().toString().equals("") ){

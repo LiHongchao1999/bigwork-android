@@ -5,10 +5,10 @@
     android:id="@+id/root_detail"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/ho1"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
         <ImageView
             android:layout_alignParentLeft="true"
@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="作业详情"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"/>
-    </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
@@ -40,45 +40,112 @@
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/text_img"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="批改完成的图片："
-            android:textColor="#000000"
-            android:textSize="18sp"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/correcticon"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/text_img"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="批改结果："
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
         <com.example.homeworkcorrect.ScrollableGridView
             android:id="@+id/home_image"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/text_img"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/line1"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:verticalSpacing="3dp"
             android:numColumns="3"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:layout_below="@+id/ho2"
+        android:id="@+id/ho10"
+        android:background="@drawable/background_circle_submit"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:src="@drawable/resulticon" />
+            <TextView
+                android:id="@+id/explain"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="教师解析："
+                android:textColor="#000000"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <com.example.homeworkcorrect.ScrollableGridView
+            android:id="@+id/explain_image"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/line2"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:verticalSpacing="3dp"
+            android:numColumns="3"/>
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/line"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background_circle_submit"
-        android:layout_below="@+id/ho2"
+        android:layout_below="@id/ho10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:orientation="vertical">
-        <TextView
-
-            android:id="@+id/ho3"
-            android:layout_marginTop="10dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="评语"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="18sp"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_gravity="center"
+                android:layout_height="25dp"
+                android:src="@drawable/evaluateicon"/>
+            <TextView
+                android:id="@+id/ho3"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="教师评语："
+                android:textColor="@android:color/black"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_below="@+id/ho3"
             android:id="@+id/ho4"
@@ -118,6 +185,7 @@
             android:onClick="onClicked"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView

@@ -1,11 +1,12 @@
 package com.example.homeworkcorrect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.adapter.CustomAdapterResult;
 import com.example.homeworkcorrect.entity.WrongQuestion;
@@ -28,13 +29,24 @@ public class WrongQuestionDetailActivity extends AppCompatActivity {
         String str = intent.getStringExtra("question");
         Gson gson = new Gson();
         question = gson.fromJson(str,WrongQuestion.class);
-        Log.e("获取到的数据111",question.toString());
         //赋值
         comment.setText(question.getResult_text_student());
         result = new CustomAdapterResult(this,question.getHomework_image(),R.layout.send_img_list_item);
         gridView.setAdapter(result);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(WrongQuestionDetailActivity.this,question.getHomework_image(),i).show();
+            }
+        });
         result1 = new CustomAdapterResult(this,question.getResult_image(),R.layout.send_img_list_item);
         gridView1.setAdapter(result1);
+        gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(WrongQuestionDetailActivity.this,question.getResult_image(),i).show();
+            }
+        });
     }
 
     private void getViews() {

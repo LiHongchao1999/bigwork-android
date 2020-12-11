@@ -1,119 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
+    android:background="#f0f0f0"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#f0f0f0"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-        <RelativeLayout
+
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary">
+
             <ImageView
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dp"
-                android:layout_centerVertical="true"
                 android:id="@+id/add_error_return"
-                android:onClick="onClicked"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/back"/>
-            <TextView
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/back"
+                android:onClick="onClicked" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="添加错题"
-                android:textSize="20dp"
-                android:textColor="@android:color/white"/>
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp"
+                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:id="@+id/add_error_keep"
-                android:onClick="onClicked"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/keep1"/>
-        </RelativeLayout>
+                android:layout_gravity="center"
+                android:text="添加错题"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
+
         <RelativeLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:background="@drawable/gridview_background">
-            <TextView
-                android:id="@+id/corrected_text"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/gridview_background"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="批改后作业"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"/>
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/correcticon" />
+
+                <TextView
+                    android:id="@+id/correct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="批改结果："
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <com.example.homeworkcorrect.ScrollableGridView
-                android:layout_below="@+id/corrected_text"
-                android:padding="5dp"
                 android:id="@+id/teacher_result_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:verticalSpacing="5dp"
-                android:numColumns="3" />
+                android:layout_below="@+id/line3"
+                android:numColumns="3"
+                android:padding="5dp"
+                android:verticalSpacing="5dp" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="15dp"
+            android:id="@+id/ho10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/ho2"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:background="@drawable/gridview_background">
-            <TextView
-                android:id="@+id/correcting_text"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="进行订正"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"/>
-            <com.example.homeworkcorrect.ScrollableGridView
-                android:layout_below="@+id/correcting_text"
-                android:id="@+id/self_result_img"
-                android:padding="5dp"
+            android:layout_marginBottom="10dp"
+
+            android:background="@drawable/background_circle_submit"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/line2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:verticalSpacing="5dp"
-                android:numColumns="3" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/resulticon" />
+
+                <TextView
+                    android:id="@+id/explain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="教师解析："
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <com.example.homeworkcorrect.ScrollableGridView
+                android:id="@+id/explain_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:numColumns="3"
+                android:verticalSpacing="3dp" />
+
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/gridview_background"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/rectify" />
+
+                <TextView
+                    android:id="@+id/correcting_text"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="进行订正："
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <com.example.homeworkcorrect.ScrollableGridView
+                android:id="@+id/self_result_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line4"
+                android:numColumns="3"
+                android:padding="5dp"
+                android:verticalSpacing="5dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/gridview_background">
+
             <EditText
-                android:background="@drawable/correct_text_background"
                 android:id="@+id/correct_self_text"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:padding="5dp"
-                android:hint="填写注释，为你未来的自己提个醒"
+                android:background="@drawable/correct_text_background"
                 android:ems="15"
                 android:gravity="top"
+                android:hint="填写注释，为你未来的自己提个醒"
+                android:padding="5dp"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </RelativeLayout>
+
         <Button
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:id="@+id/btn_submit_www"
-            android:onClick="onClicked"
-            android:layout_width="match_parent"
+            android:background="@drawable/image_background_style1"
+            android:layout_width="200dp"
+            android:textColor="@android:color/white"
             android:layout_height="wrap_content"
-            android:text="加入到错题本"/>
+            android:onClick="onClicked"
+            android:layout_marginBottom="10dp"
+            android:text="加入到错题本" />
     </LinearLayout>
 </ScrollView>

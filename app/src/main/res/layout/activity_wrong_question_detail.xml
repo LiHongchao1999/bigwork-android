@@ -35,51 +35,70 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:background="@drawable/gridview_background">
-                <TextView
-                    android:id="@+id/detail_corrected_text"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="错题"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"/>
+                <LinearLayout
+                    android:id="@+id/line1"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/errors"/>
+                    <TextView
+                        android:id="@+id/detail_corrected_text"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="错题："
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
                 <com.example.homeworkcorrect.ScrollableGridView
-                    android:layout_below="@+id/detail_corrected_text"
-                    android:padding="5dp"
+                    android:layout_below="@id/line1"
                     android:id="@+id/detail_result_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:verticalSpacing="5dp"
                     android:horizontalSpacing="3dp"
-                    android:numColumns="3" />
+                    android:numColumns="3"/>
             </RelativeLayout>
             <RelativeLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:background="@drawable/gridview_background">
-                <TextView
-                    android:id="@+id/details_text"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="订正结果"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"/>
+                <LinearLayout
+                    android:id="@+id/line4"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="27dp"
+                        android:src="@drawable/teachericon"
+                        android:layout_height="27dp" />
+                    <TextView
+                        android:layout_marginLeft="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="教师解析："
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
                 <com.example.homeworkcorrect.ScrollableGridView
-                    android:layout_below="@+id/details_text"
-                    android:id="@+id/detail_self_result_img"
-                    android:padding="5dp"
+                    android:layout_below="@id/line4"
+                    android:id="@+id/detail_teacher_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:verticalSpacing="5dp"
                     android:horizontalSpacing="3dp"
-                    android:numColumns="3" />
+                    android:numColumns="3"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_marginTop="15dp"
@@ -89,15 +108,66 @@
                 android:layout_marginRight="10dp"
                 android:padding="10dp"
                 android:background="@drawable/gridview_background">
-                <TextView
-                    android:id="@+id/self"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/line2"
+                    android:layout_marginBottom="5dp"
                     android:layout_height="wrap_content"
-                    android:text="备注："
-                    android:textSize="16sp"
-                    android:textColor="#CC000000"/>
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/rectify"/>
+                    <TextView
+                        android:id="@+id/details_text"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订正结果："
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
+                <com.example.homeworkcorrect.ScrollableGridView
+                    android:layout_below="@id/line2"
+                    android:id="@+id/detail_self_result_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:verticalSpacing="5dp"
+                    android:horizontalSpacing="3dp"
+                    android:numColumns="3" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:background="@drawable/gridview_background">
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/remark"/>
+                    <TextView
+                        android:id="@+id/self"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注："
+                        android:textSize="18sp"
+                        android:textColor="#CC000000"/>
+                </LinearLayout>
+
                 <EditText
-                    android:layout_below="@+id/self"
+                    android:layout_below="@id/line3"
                     android:background="@drawable/correct_text_background"
                     android:id="@+id/detail_correct_self_text"
                     android:layout_width="match_parent"

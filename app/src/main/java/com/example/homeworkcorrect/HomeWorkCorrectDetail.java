@@ -36,6 +36,7 @@ import okhttp3.Response;
 
 public class HomeWorkCorrectDetail extends AppCompatActivity {
     private ScrollableGridView gridView;//图片列表
+    private ScrollableGridView gridViewExplained;
     private TextView comment;//评语
     private Homework homework;
     private CustomAdapterResult adapter;
@@ -84,10 +85,22 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                 new ShowImagesDialog(HomeWorkCorrectDetail.this,homework.getResult_image(),i).show();
             }
         });
+
+        CustomAdapterResult adapter1 = new CustomAdapterResult(this,homework.getResult_image_teacher(),R.layout.send_img_list_item);
+        gridViewExplained.setAdapter(adapter1);
+        gridViewExplained.setHorizontalSpacing(15);
+        gridViewExplained.setVerticalSpacing(15);
+        gridViewExplained.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                new ShowImagesDialog(HomeWorkCorrectDetail.this,homework.getResult_image(),i).show();
+            }
+        });
         comment.setText(homework.getResult_text());
     }
     private void getViews() {
         gridView = findViewById(R.id.home_image);
+        gridViewExplained = findViewById(R.id.explain_image);
         comment = findViewById(R.id.teacher_comment);
         root = findViewById(R.id.root_detail);
     }
