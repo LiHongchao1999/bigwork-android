@@ -8,7 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,76 +32,69 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.homeworkcorrect.CircleDetailActivity;
+import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.PublishCircleActivity;
 import com.example.homeworkcorrect.PublishImageActivity;
 import com.example.homeworkcorrect.PublishVideoActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.adapter.CustomCircleAdapter;
 import com.example.homeworkcorrect.adapter.CustomSelectAdapter;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.entity.PopWindowEntity;
+import com.example.homeworkcorrect.entity.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.rong.imlib.model.UserInfo;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 public class ParentCircleFragment extends Fragment {
+    private OkHttpClient client;
     private View view;
-    private LinearLayout nearCircle;
-    private LinearLayout freCircle;
+    private LinearLayout nearCircle; //附近圈子
+    private LinearLayout freCircle;  //好友圈子
     private TextView publicSection;
     private ImageView publish;//发表朋友圈
-    private ListView listView;
-    private List<Circle> circles = new ArrayList<>();
+    private MyListView listView;  //动态列表
+    private List<Circle> circles;
     private CustomCircleAdapter circleAdapter;
     private PopupWindow popupWindow;
     private CustomSelectAdapter selectAdapter;
-    private List<PopWindowEntity> list;
+    private List<PopWindowEntity> list; //动态、图片、视频
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
+                    listView.setAdapter(circleAdapter);
+                    break;
+            }
+        }
+    };
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.parent_circle_fragment,container,false);
+        client = new OkHttpClient();
         //获取控件
         getViews();
         list = new ArrayList<>();
         //设置弹出框绑定的listview以及初始化popupwindow
         setListView();
-        //绑定自定义适配器
-//        Bitmap img = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-//
-//        Bitmap img1 = BitmapFactory.decodeResource(getResources(),R.drawable.my1);
-//        Bitmap img2 = BitmapFactory.decodeResource(getResources(),R.drawable.cake04);
-//        Bitmap img3 = BitmapFactory.decodeResource(getResources(),R.drawable.cake03);
-//        Bitmap img4 = BitmapFactory.decodeResource(getResources(),R.drawable.cake02);
-//        List<Bitmap> bitmaps = new ArrayList<>();
-//        bitmaps.add(img1);
-//        bitmaps.add(img2);
-//        bitmaps.add(img3);
-//        bitmaps.add(img4);
-//        Circle circlew = new Circle(img,"sss","2020/02/01 7:15","今天天气不错",bitmaps,10,20,10);
-//        Circle circlea = new Circle(img,"bbb","2020/02/01 7:15","今天天气真好",bitmaps,10,20,10);
-//        Circle circleb = new Circle(img,"www","2020/02/01 7:15","今天天气真SaaS",bitmaps,10,20,10);
-//        Circle circlec = new Circle(img,"ccc","2020/02/01 7:15","今天天气真111",bitmaps,10,20,10);
-//        Circle circled = new Circle(img,"eee","2020/02/01 7:15","今天天气真奥术大师",bitmaps,10,20,10);
-//        Circle circlee = new Circle(img,"zzz","2020/02/01 7:15","今天天气真撒发放",bitmaps,10,20,10);
-//        circles.add(circlew);
-//        circles.add(circlea);
-//        circles.add(circleb);
-//        circles.add(circlec);
-//        circles.add(circled);
-//        circles.add(circlee);
-//        circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
-//        listView.setAdapter(circleAdapter);
-//        //给每个item设置监听器
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                //跳转到对应的详情页
-//                Intent intent = new Intent(getContext(), CircleDetailActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        //从服务端获取动态信息
+        getCircleListInfo();
         //准备数据
         list.add(new PopWindowEntity(R.drawable.print,"发表"));
         list.add(new PopWindowEntity(R.drawable.image,"图片"));
@@ -112,6 +108,38 @@ public class ParentCircleFragment extends Fragment {
         freCircle.setOnClickListener(myListener);
         return view;
     }
+    /*
+    * 从服务端获取信息
+    * */
+    private void getCircleListInfo() {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetCircleListServlet")
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = new OkHttpClient().newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("123",str);
+                Type collectionType = new TypeToken<List<Circle>>(){}.getType();
+                circles = new Gson().fromJson(str,collectionType);
+                Message msg = new Message();
+                msg.what=1;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
     /*
     * 设置弹出框的数据listview
     * */
@@ -148,6 +176,8 @@ public class ParentCircleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //从服务端获取最新的动态
+        getCircleListInfo();
         Log.e("tag",publish.getTag(R.id.tag_first)+"");
         if(popupWindow.isShowing()){
             publish.setTag(R.id.tag_first,"close");
@@ -160,6 +190,11 @@ public class ParentCircleFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode==150){//接收到发表的动态信息
+            String str = data.getStringExtra("circle");
+            Log.e("接收到发表的动态信息",str);
+            Circle circle = new Gson().fromJson(str,Circle.class);
+            circles.add(0,circle);
+            circleAdapter.notifyDataSetChanged();
         }
         if(requestCode==200 && resultCode==250){//接收到发表的图片动态信息
 

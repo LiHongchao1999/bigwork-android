@@ -1,12 +1,13 @@
 package com.example.homeworkcorrect;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
         parentCircleFragment = new ParentCircleFragment();
         myFragment = new MyFragment();
         homeworkFragment = new HomeworkFragment();
+        // 获取Intent
+        Intent intent = getIntent();
+        String mime = intent.getStringExtra("mine");
+        Log.e("mime",mime+"52");
+        if(mime!=null && mime.equals("1")){
+            changeTeb(myFragment);
+            currentFragment = myFragment;
+            mineImg.setImageResource(R.drawable.my1);
+            mineText.setTextColor(Color.rgb(240,128,128));
+        }else{
+            //设置当前页
+            changeTeb(mainContent);
+            currentFragment = mainContent;
+            mainImg.setImageResource(R.drawable.main1);
+            mainText.setTextColor(Color.rgb(240,128,128));
+        }
         //设置当前页
         changeTeb(mainContent);
         currentFragment = mainContent;

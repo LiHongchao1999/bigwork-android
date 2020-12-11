@@ -14,7 +14,6 @@
             android:id="@+id/fre_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/my1"
             android:layout_marginLeft="10dp"/>
         <LinearLayout
             android:layout_marginLeft="5dp"
@@ -29,7 +28,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="清风制约"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"/>
             </RelativeLayout>
@@ -38,8 +36,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2020/02/03 12:05:06"/>
+                android:layout_height="wrap_content" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,8 +45,7 @@
                     android:layout_marginTop="2dp"
                     android:id="@+id/fre_send_content"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="今天天气真好"/>
+                    android:layout_height="wrap_content" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,8 +84,7 @@
             <TextView
                 android:id="@+id/fre_forward_size"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="99+"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/fre_comment"
@@ -104,8 +99,7 @@
             <TextView
                 android:id="@+id/fre_comment_size"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="99+"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/fre_like"
@@ -121,8 +115,7 @@
             <TextView
                 android:id="@+id/fre_like_size"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="99+"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

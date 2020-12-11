@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 
@@ -34,11 +35,33 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class LoginWithPasswordActivity extends AppCompatActivity {
-    EditText etphone;
-    EditText etpassword;
+    private EditText etphone; //手机号
+    private EditText etpassword; //密码
     private OkHttpClient okHttpClient;
-    User temUser;
-    TextView tvnickname;
+    private TextView tvnickname;
+    private Button login;//登录
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    String str = msg.obj.toString();
+                    User user = new Gson().fromJson(str,User.class);
+                    UserCache.userId = user.getId();
+                    UserCache.chat_token = user.getChat_token();
+                    UserCache.userName = user.getNickname();
+                    UserCache.userImg = user.getImage();
+                    UserCache.chat_id = user.getChat_id();
+                    //跳转到个人页面
+                    Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("mine",1+"");
+                    startActivity(intent);
+                    finish();
+                    break;
+            }
+        }
+    };
     int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,42 +70,9 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
 
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
-
-        final ImageView ivprotocol = findViewById(R.id.iv_protocol);
-        final Button btpassword = findViewById(R.id.bt_loginwithpass);
-        etphone = findViewById(R.id.et_numberwithpassword);
-        etpassword = findViewById(R.id.et_password);
-        ImageView ivclose = findViewById(R.id.iv_close);
-
-        ivclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        ivprotocol.setImageDrawable(getResources().getDrawable(R.drawable.circle));
-        btpassword.setBackground(getResources().getDrawable(R.drawable.button_style_invalid));
-        btpassword.setEnabled(false);
-
-        ivprotocol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("a","aaaa");
-                if(ivprotocol.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.circle).getConstantState())){
-                    Log.e("get","aaaa");
-                    ivprotocol.setImageDrawable(getResources().getDrawable(R.drawable.checked));
-                    btpassword.setBackground(getResources().getDrawable(R.drawable.button_style_normal));
-                    btpassword.setEnabled(true);
-                }else if(ivprotocol.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.checked).getConstantState())){
-                    ivprotocol.setImageDrawable(getResources().getDrawable(R.drawable.circle));
-                    btpassword.setBackground(getResources().getDrawable(R.drawable.button_style_invalid));
-                    btpassword.setEnabled(false);
-                }
-            }
-        });
-
-        btpassword.setOnClickListener(new View.OnClickListener() {
+        getViews();
+        login.setBackground(getResources().getDrawable(R.drawable.button_style_invalid));
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -93,6 +83,14 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             }
         });
 
+    }
+    /*
+    * 获取控件引用
+    * */
+    private void getViews() {
+        etphone = findViewById(R.id.et_numberwithpassword);
+        etpassword = findViewById(R.id.et_password);
+        login = findViewById(R.id.bt_loginwithpass);
     }
 
     private Handler mainHandler=new Handler(){
@@ -107,61 +105,14 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             }
         }
     };
-
-
-    //将对象转换为JSON类型数据
-    public String object2JSON(User user) throws JSONException{
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("phoneNumber",user.getPhoneNumber());
-        jsonObject.put("password",user.getPassword());
-        return jsonObject.toString();
-    }
-    //把JSON格式的字符串解析成boolean
-    public boolean json2Boolean(String jsonStr) throws JSONException {
-        boolean b = new Gson().fromJson(jsonStr,boolean.class);
-        return b;
-    }
-    //把JSON格式的字符串解析成用户对象
-    public User json2Object(String jsonStr) throws JSONException {
-        User user = new User();
-        JSONObject jsonObject = new JSONObject(jsonStr);
-        user.setId(jsonObject.getInt("id"));
-        user.setPhoneNumber(jsonObject.getString("phoneNumber"));
-        user.setPassword(jsonObject.getString("password"));
-        if(jsonObject.getString("nickname")!=null){
-            user.setNickname(jsonObject.getString("nickname"));
-        }
-        if(jsonObject.getString("image")!=null){
-            user.setImage(jsonObject.getString("nickname"));
-        }
-        if (jsonObject.getString("qqNumber")!=null){
-            user.setQqNumber(jsonObject.getString("qqNumber"));
-        }
-        if(jsonObject.getString("grade")!=null){
-            user.setGrade(jsonObject.getString("grade"));
-        }
-        if(jsonObject.getString("sex")!=null){
-            user.setSex(jsonObject.getString("sex"));
-        }
-        if(jsonObject.getString("chat_id")!=null){
-            user.setChat_id(jsonObject.getString("chat_id"));
-        }
-        if(jsonObject.getString("chat_token")!=null){
-            user.setChat_token(jsonObject.getString("chat_token"));
-        }
-        if(jsonObject.getString("weChatNumber")!=null){
-            user.setWeChatNumber(jsonObject.getString("weChatNumber"));
-        }
-        return user;
-    }
-
     //登录逻辑
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
         //请求体是字符串
-        User user = new User(etphone.getText().toString(),etpassword.getText().toString());
-        Log.e("PhoneAndPassword",etphone.getText().toString()+etpassword.getText().toString());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
+        User user = new User();
+        user.setPhoneNumber(etphone.getText().toString());
+        user.setPassword(etpassword.getText().toString());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
@@ -181,26 +132,12 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                 //请求成功时回调
                 Log.e("登录请求结果","成功");
                 //从服务器端获取到JSON格式字符串
-                String jsonString = response.body().string();
-                try {
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    Log.e("jsonString",jsonString);
-                    id = jsonObject.getInt("id");
-                    if (id!=0){
-                        Log.e("id",id+"");
-                        temUser = json2Object(jsonString);
-                        LoginActivity.user=temUser;
-                        Intent intent = new Intent(LoginWithPasswordActivity.this,
-                                MainActivity.class);
-                        startActivity(intent);
-                    }else if (id==0){
-                        Message message = new Message();
-                        message.what=0;
-                        mainHandler.sendMessage(message);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                String str = response.body().string();
+                Log.e("LoginWithPassword",str);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj=str;
+                handler.sendMessage(msg);
             }
         });
     }

@@ -28,7 +28,12 @@
             android:textColor="#ffffff"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
-
+<ImageView
+    android:id="@+id/send_msg_www"
+    android:onClick="onClicked"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/star"/>
     <FrameLayout
         android:gravity="center"
         android:layout_width="match_parent"

@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Circle {
     private int id;
+    private int userId;//用户id
+    private String chatId;//chatId
     private String userImg; //用户头像
     private String userName;  //用户名
     private String time;  //发表的时间
@@ -18,15 +20,28 @@ public class Circle {
     public Circle() {
     }
 
-    public Circle(String userImg, String userName, String time, String content, List<String> sendImg, int likeSize, int forwardSize, int commentSize) {
-        this.userImg = userImg;
-        this.userName = userName;
-        this.time = time;
-        this.content = content;
-        this.sendImg = sendImg;
-        this.likeSize = likeSize;
-        this.forwardSize = forwardSize;
-        this.commentSize = commentSize;
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserImg() {

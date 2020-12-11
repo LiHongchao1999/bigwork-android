@@ -3,9 +3,11 @@ package com.example.homeworkcorrect.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.lang.UCharacter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.ContactUsActivity;
 import com.example.homeworkcorrect.ErrorTopicBookActivity;
 import com.example.homeworkcorrect.LoginActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
+import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
 
@@ -82,10 +86,6 @@ public class MyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my, container, false);
         Toolbar toolbar = view.findViewById(R.id.tool);
-//        ImageView advertise = view.findViewById(R.id.advertise);
-//        RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.drawable.advertise));
-//        circularBitmapDrawable.setCornerRadius(150);
-//        advertise.setImageDrawable(circularBitmapDrawable);
         //点击分享
         RelativeLayout relativeLayout = view.findViewById(R.id.recommend);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -106,9 +106,10 @@ public class MyFragment extends Fragment {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(login.getText().toString().equals("") || login.getText().toString()==null) {
+                if(login.getText().toString()==null || login.getText().toString().equals("")) {
                     Intent intent = new Intent(getContext(), SelfInformationActivity.class);
                     startActivityForResult(intent,10);
+
                 }
             }
         });
@@ -151,13 +152,43 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        Log.e("onCreateView",UserCache.userId+"52");
+        if(UserCache.userId != 0 ){//表示当前用户已经登录
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
+            nickName.setText(UserCache.userName);
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            Log.e("用户头像",UserCache.userImg);
+            Glide.with(getContext())
+                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .into(img);
+        }
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("onStart",UserCache.userId+"48");
+        if(UserCache.userId != 0 ){//表示当前用户已经登录
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
+            nickName.setText(UserCache.userName);
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            Glide.with(getContext())
+                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .into(img);
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100 && resultCode == 150){
+        if(requestCode==100 && resultCode == 150){//QQ登录
             String name = data.getStringExtra("nickname");
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
@@ -166,6 +197,18 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             img.setImageDrawable(getResources().getDrawable(R.drawable.head));
+        }
+        if (requestCode==100 && resultCode==160){ //手机号+验证码登录
+            //设置个人信息
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
+            nickName.setText(UserCache.userName);
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            Glide.with(getContext())
+                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .into(img);
         }
         if (requestCode==100 && resultCode==200){
             String phone = data.getStringExtra("phone");
@@ -177,7 +220,8 @@ public class MyFragment extends Fragment {
             login.setVisibility(View.INVISIBLE);
             img.setImageDrawable(getResources().getDrawable(R.drawable.head));
         }
-        if (requestCode==10 && resultCode==20){
+        if (requestCode==10 && resultCode==20){//修改完个人信息返回的
+            //访问数据库获得个人最新数据
             Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
             img.setImageBitmap(bitmap);
         }
