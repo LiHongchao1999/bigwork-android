@@ -158,7 +158,6 @@ public class PublishCircleActivity extends AppCompatActivity {
                                 .capture(false)//是否提供拍照功能
                                 .forResult(100);//设置作为标记的请求码
                     }
-
                 }
             });
             new ShowLocalImageDialog(this,imgUrls,1);
@@ -190,6 +189,7 @@ public class PublishCircleActivity extends AppCompatActivity {
                 break;
             case R.id.ss_send://点击发表
                 imgUrls.remove(imgUrls.size()-1);
+                Log.e("图片个数",imgUrls.size()+"");
                 for(int i=0;i<imgUrls.size();i++){
                     uploadImagesOfPublicCircle(i);
                     try {
@@ -197,15 +197,17 @@ public class PublishCircleActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Log.e("执行了上传图片的方法","i="+i);
                 }
                 break;
         }
     }
     public void submitPublishCircle(){
+        Log.e("开始加载","上传圈子");
         circle = new Circle();
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
+        circle.setUserImg(UserCache.userImg);
+        circle.setUserName(UserCache.userName);
         circle.setTime(formatter.format(date));
         circle.setCommentSize(0);
         circle.setContent(content.getText().toString());
@@ -225,7 +227,9 @@ public class PublishCircleActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 String str = response.body().string();
+                Log.e("开始加载",str);
                 Gson gson = new Gson();
                 boolean a = gson.fromJson(str,boolean.class);
                 Message msg = new Message();
@@ -239,6 +243,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         long time = Calendar.getInstance().getTimeInMillis();
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(imgUrls.get(0)));
         Log.e("list的内容",imgUrls.get(0)+"");
+        Log.e("time",time+"");
         Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadCircleImageServlet?imgName="+time+".jpg").build();
         imgUrls.remove(0);
         imgUrls.add(time+".jpg");
@@ -251,11 +256,8 @@ public class PublishCircleActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
-                Log.e("i的值",i+"");
-                Log.e("size的值",imgUrls.size()+"");
-
-                if(i==imgUrls.size()-1){
+                Log.e("i",response.body().string());
+                if(i == imgUrls.size()-1){
                     submitPublishCircle();
                 }
             }
