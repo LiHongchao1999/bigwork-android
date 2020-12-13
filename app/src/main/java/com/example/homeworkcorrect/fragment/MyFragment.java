@@ -158,7 +158,7 @@ public class MyFragment extends Fragment {
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
-            Log.e("用户头像",UserCache.user.getImage());
+            Log.e("用户头像",UserCache.user.getImage()+"");
             Glide.with(getContext())
                     .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
                     .into(img);

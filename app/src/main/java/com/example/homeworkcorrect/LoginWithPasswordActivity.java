@@ -46,13 +46,18 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             switch (msg.what){
                 case 1:
                     String str = msg.obj.toString();
-                    UserCache.user = new Gson().fromJson(str,User.class);
-                    //跳转到个人页面
-                    Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("mine",1+"");
-                    startActivity(intent);
-                    finish();
+                    User user = new Gson().fromJson(str,User.class);
+                    if(user.getId()==0){//表示登录失败
+                        Toast.makeText(LoginWithPasswordActivity.this,"账号或密码错误",Toast.LENGTH_LONG).show();
+                    }else{
+                        UserCache.user = user;
+                        //跳转到个人页面
+                        Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("mine",1+"");
+                        startActivity(intent);
+                        finish();
+                    }
                     break;
             }
         }
@@ -124,8 +129,6 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                //请求成功时回调
-                Log.e("登录请求结果","成功");
                 //从服务器端获取到JSON格式字符串
                 String str = response.body().string();
                 Log.e("LoginWithPassword",str);

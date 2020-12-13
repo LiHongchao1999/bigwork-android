@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -38,7 +39,6 @@ import org.json.JSONObject;
 import com.mob.MobSDK;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -48,6 +48,8 @@ import java.util.Enumeration;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -87,12 +89,54 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case 2://手机号验证码登录
                     String str1 = msg.obj.toString();
-                    Gson gson = new Gson();
-                    UserCache.user = gson.fromJson(str1,User.class);
-                    //跳转到个人页面
-                    Intent intent1 = new Intent();
-                    setResult(160,intent1);
-                    finish();
+                    User user = new Gson().fromJson(str1,User.class);
+                    if(user.getId()==0){//表示登录失败
+                        Toast.makeText(LoginActivity.this,"账号或验证码错误",Toast.LENGTH_LONG).show();
+                    }else{
+                        UserCache.user = user;
+                        //获取数据库连接
+                        String token = UserCache.user.getChat_token();
+                        RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
+                            /**
+                             * 数据库回调
+                             * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
+                             */
+                            @Override
+                            public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+                                Log.e("OnDatabaseOpened","数据库打开");
+                            }
+                            /**
+                             * token 无效
+                             */
+                            @Override
+                            public void onTokenIncorrect() {
+                                Log.e("onTokenIncorrect","无效");
+                            }
+                            /**
+                             * 成功回调
+                             * @param userId 当前用户 ID
+                             */
+                            @Override
+                            public void onSuccess(String userId) {
+                                Log.e("onSuccess",userId+"xcy");
+                                //设置当前用户信息
+                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                                RongIM.getInstance().setCurrentUserInfo(userInfo);
+                            }
+                            /**
+                             * 错误回调
+                             * @param errorCode 错误码
+                             */
+                            @Override
+                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                Log.e("onError",errorCode+"");
+                            }
+                        });
+                        //跳转到个人页面
+                        Intent intent1 = new Intent();
+                        setResult(160,intent1);
+                        finish();
+                    }
                     break;
             }
         }

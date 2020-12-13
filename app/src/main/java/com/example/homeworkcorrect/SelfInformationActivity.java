@@ -105,22 +105,22 @@ public class SelfInformationActivity extends AppCompatActivity {
         getViews();
         //给控件赋值
         Glide.with(this).load(IP.CONSTANT+"userImage/"+UserCache.user.getImage()).into(headImg);
-        if(UserCache.user.getNickname()==null){
+        if(UserCache.user.getNickname()==null || UserCache.user.getSex().equals("")){
             nickName.setText("");
         }else{
             nickName.setText(UserCache.user.getNickname()+"");
         }
-        if(UserCache.user.getSex()==null){
+        if(UserCache.user.getSex()==null || UserCache.user.getSex().equals("")){
             sex.setText("");
         }else{
             sex.setText(UserCache.user.getSex()+"");
         }
-        if(UserCache.user.getPhoneNumber()==null){
+        if(UserCache.user.getPhoneNumber()==null || UserCache.user.getSex().equals("")){
             phone.setText("");
         }else{
             phone.setText(UserCache.user.getPhoneNumber()+"");
         }
-        if(UserCache.user.getPassword()==null){
+        if(UserCache.user.getPassword()==null || UserCache.user.getSex().equals("")){
             password.setText("");
         }else{
             String pass = "";
@@ -141,10 +141,14 @@ public class SelfInformationActivity extends AppCompatActivity {
         password = findViewById(R.id.tv_password);
     }
 
-    public void onClicked(View view){
+    public void onClicked(View view) throws JSONException {
         switch (view.getId()){
             case R.id.self_return://点击返回
-                uploadImage();
+                if(path==null || path.equals("")){//表示没有修改头像
+                    postChangeUserInfo();
+                }else{
+                    uploadImage();
+                }
                 break;
             case R.id.change_img://点击头像
                 showPopupWindow();
@@ -244,29 +248,41 @@ public class SelfInformationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){ //修改昵称
-            String nickName = data.getStringExtra("nickname");
-            if(nickName==null){
+            String nickName1 = data.getStringExtra("nickname");
+            if(nickName1==null){
                 UserCache.user.setNickname(null);
-            }else if(nickName.equals("")){
+                nickName.setText("");
+            }else if(nickName1.equals("")){
                 UserCache.user.setNickname("");
+                nickName.setText("");
             }else{
-                UserCache.user.setNickname(nickName);
+                UserCache.user.setNickname(nickName1);
+                nickName.setText(nickName1);
             }
         }else if(requestCode==1&&resultCode==4){//修改性别
-            String sex = data.getStringExtra("sex");
-            if(sex==null){
+            String sex1 = data.getStringExtra("sex");
+            if(sex1==null){
                 UserCache.user.setSex(null);
-            }else if(sex.equals("")){
+                sex.setText("");
+            }else if(sex1.equals("")){
                 UserCache.user.setSex("");
+                sex.setText("");
             }else{
-                UserCache.user.setSex(sex);
+                UserCache.user.setSex(sex1);
+                sex.setText(sex1);
             }
         }else if(requestCode==1&&resultCode==6){//修改手机号
-            String phone = data.getStringExtra("phonenum");
-            UserCache.user.setPhoneNumber(phone);
+            String phone1 = data.getStringExtra("phonenum");
+            UserCache.user.setPhoneNumber(phone1);
+            phone.setText(phone1);
         }else if(requestCode==1&&resultCode==10){//修改密码
-            String password = data.getStringExtra("pw");
-            UserCache.user.setPassword(password);
+            String password1 = data.getStringExtra("pw");
+            UserCache.user.setPassword(password1);
+            String str="";
+            for(int i=0;i<password1.length();i++){
+                str = str+"*";
+            }
+            password.setText(str);
         }
         if (requestCode==10 &&resultCode==RESULT_OK){
             //获取到图片

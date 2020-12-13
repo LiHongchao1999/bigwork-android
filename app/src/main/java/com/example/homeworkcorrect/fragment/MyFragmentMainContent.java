@@ -66,9 +66,6 @@ public class MyFragmentMainContent extends Fragment {
                     Conversation.ConversationType conversationType  = Conversation.ConversationType.PRIVATE;;
                     RongIM.getInstance().startConversation(getContext() , conversationType, info.getUserId(), info.getName(), null);
                     break;
-                case 2:
-                    RongIM.getInstance().setCurrentUserInfo(userInfo);
-                    break;
             }
         }
     };
@@ -100,44 +97,7 @@ public class MyFragmentMainContent extends Fragment {
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
             }
         });
-        String token = "S/olglFQAxeo50qVIHRbZiL3lCBdzczXPZajPzjH+183Tf0LYdgpSQ==@sknu.cn.rongnav.com;sknu.cn.rongcfg.com";
-        RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
-            /**
-             * 数据库回调
-             * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
-             */
-            @Override
-            public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
-                Log.e("OnDatabaseOpened","数据库打开");
-            }
-            /**
-             * token 无效
-             */
-            @Override
-            public void onTokenIncorrect() {
-                Log.e("onTokenIncorrect","无效");
-            }
-            /**
-             * 成功回调
-             * @param userId 当前用户 ID
-             */
-            @Override
-            public void onSuccess(String userId) {
-                Log.e("onSuccess",userId+"xcy");
-                //设置当前用户信息
-                findCurrentUserById(userId);
-                //获取用户token
-               /* showConversationList()*/;
-            }
-            /**
-             * 错误回调
-             * @param errorCode 错误码
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.e("onError",errorCode+"");
-            }
-        });
+
         return view;
     }
     /*
@@ -254,7 +214,7 @@ public class MyFragmentMainContent extends Fragment {
                 Message msg = new Message();
                 msg.what=1;
                 msg.obj=info;
-               handler.sendMessage(msg);
+                handler.sendMessage(msg);
             }
         });
     }
