@@ -27,7 +27,7 @@ public class SettingActivity extends AppCompatActivity {
         logoffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                UserCache.user = null;
                 Intent intent = new Intent();
                 setResult(666,intent);
                 finish();

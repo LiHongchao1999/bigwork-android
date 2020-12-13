@@ -68,6 +68,8 @@ public class SelfInformationActivity extends AppCompatActivity {
         okHttpClient = new OkHttpClient();
         //获取控件引用
         getViews();
+        //给控件赋值
+
     }
     /*
     * 获取控件引用
