@@ -1,9 +1,7 @@
 package com.example.homeworkcorrect.cache;
 
+import com.example.homeworkcorrect.entity.User;
+
 public class UserCache {
-    public static int userId;//用户id
-    public static String userName;//用户名
-    public static String userImg;
-    public static String chat_token;
-    public static String chat_id;
+    public static User user;
 }

@@ -85,15 +85,10 @@ public class LoginActivity extends AppCompatActivity {
                     setResult(150,intent);
                     finish();
                     break;
-                case 2://手机号登录
+                case 2://手机号验证码登录
                     String str1 = msg.obj.toString();
                     Gson gson = new Gson();
-                    User user = gson.fromJson(str1,User.class);
-                    UserCache.userId = user.getId();
-                    UserCache.chat_token = user.getChat_token();
-                    UserCache.userName = user.getNickname();
-                    UserCache.userImg = user.getImage();
-                    UserCache.chat_id = user.getChat_id();
+                    UserCache.user = gson.fromJson(str1,User.class);
                     //跳转到个人页面
                     Intent intent1 = new Intent();
                     setResult(160,intent1);

@@ -46,12 +46,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
             switch (msg.what){
                 case 1:
                     String str = msg.obj.toString();
-                    User user = new Gson().fromJson(str,User.class);
-                    UserCache.userId = user.getId();
-                    UserCache.chat_token = user.getChat_token();
-                    UserCache.userName = user.getNickname();
-                    UserCache.userImg = user.getImage();
-                    UserCache.chat_id = user.getChat_id();
+                    UserCache.user = new Gson().fromJson(str,User.class);
                     //跳转到个人页面
                     Intent intent = new Intent(LoginWithPasswordActivity.this,MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

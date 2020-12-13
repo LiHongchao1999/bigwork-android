@@ -66,8 +66,6 @@ public class SelfInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_information);
         okHttpClient = new OkHttpClient();
-        //从服务端获取信息
-        getUserInfo();
         //获取控件引用
         getViews();
     }
@@ -79,35 +77,6 @@ public class SelfInformationActivity extends AppCompatActivity {
         nickName = findViewById(R.id.tv_nickname);
         sex = findViewById(R.id.tv_sex);
         phone = findViewById(R.id.tv_phonenum);
-    }
-
-    /*
-    * 访问服务端获取信息
-    * */
-    private void getUserInfo() {
-        //请求体是普通的字符串
-        //3、创建请求对象
-        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetUserInfoServlet?id="+UserCache.userId)
-                .build();
-        //4、创建Call对象，发送请求，并接受响应
-        Call call = new OkHttpClient().newCall(request);
-        //如果使用异步请求，不需要手动使用子线程
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //请求失败时候回调
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //请求成功以后回调
-                String str = response.body().string();//字符串数据
-                Log.e("用户的个人信息",str);
-
-            }
-        });
     }
 
     public void onClicked(View view){
@@ -248,7 +217,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             //修改头像
             Bitmap bitmap = BitmapFactory.decodeFile(path);
             headImg.setImageBitmap(bitmap);
-            UserCache.userImg=path;
+
         }
         if (requestCode==20){
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
@@ -258,7 +227,7 @@ public class SelfInformationActivity extends AppCompatActivity {
             Log.e("获取到的图片地址",imgUrl);
             //修改头像
             headImg.setImageBitmap(bitmap);
-            UserCache.userImg=imgUrl;
+
         }
     }
     /*

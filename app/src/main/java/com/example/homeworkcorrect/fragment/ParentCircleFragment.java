@@ -79,6 +79,17 @@ public class ParentCircleFragment extends Fragment {
                 case 1:
                     circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
                     listView.setAdapter(circleAdapter);
+                    //给每个item绑定单机事件
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //点击跳转到圈子详情页
+                            Intent intent = new Intent(getContext(),CircleDetailActivity.class);
+                            String str = new Gson().toJson(circles.get(position));
+                            intent.putExtra("circle",str);
+                            startActivity(intent);
+                        }
+                    });
                     break;
             }
         }

@@ -74,12 +74,6 @@ public class MainActivity extends AppCompatActivity {
             mainImg.setImageResource(R.drawable.main1);
             mainText.setTextColor(Color.rgb(240,128,128));
         }
-        //设置当前页
-        changeTeb(mainContent);
-        currentFragment = mainContent;
-        mainImg.setImageResource(R.drawable.main1);
-        mainImg.startAnimation(translateAnimation);
-        mainText.setTextColor(Color.rgb(79,193,233));
     }
     private void getViews() {
         mainImg = findViewById(R.id.main_img);

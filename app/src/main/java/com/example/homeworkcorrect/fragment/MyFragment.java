@@ -151,17 +151,16 @@ public class MyFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Log.e("onCreateView",UserCache.userId+"52");
-        if(UserCache.userId != 0 ){//表示当前用户已经登录
+        if(UserCache.user != null){//表示当前用户已经登录
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
-            nickName.setText(UserCache.userName);
+            nickName.setText(UserCache.user.getNickname());
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
-            Log.e("用户头像",UserCache.userImg);
+            Log.e("用户头像",UserCache.user.getImage());
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
                     .into(img);
         }
         return view;
@@ -170,16 +169,15 @@ public class MyFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("onStart",UserCache.userId+"48");
-        if(UserCache.userId != 0 ){//表示当前用户已经登录
+        if(UserCache.user != null ){//表示当前用户已经登录
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
-            nickName.setText(UserCache.userName);
+            nickName.setText(UserCache.user.getNickname());
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
                     .into(img);
         }
     }
@@ -201,12 +199,12 @@ public class MyFragment extends Fragment {
             //设置个人信息
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
-            nickName.setText(UserCache.userName);
+            nickName.setText(UserCache.user.getNickname());
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.userImg)
+                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
                     .into(img);
         }
         if (requestCode==100 && resultCode==200){
@@ -221,7 +219,7 @@ public class MyFragment extends Fragment {
         }
         if (requestCode==10 && resultCode==20){//修改完个人信息返回的
             //访问数据库获得个人最新数据
-            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.userImg);
+            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.user.getImage());
             img.setImageBitmap(bitmap);
         }
         if(requestCode==66&&resultCode==666){
