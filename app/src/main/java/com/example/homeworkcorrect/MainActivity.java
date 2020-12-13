@@ -66,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
             changeTeb(myFragment);
             currentFragment = myFragment;
             mineImg.setImageResource(R.drawable.my1);
+            mineImg.startAnimation(translateAnimation);
             mineText.setTextColor(Color.rgb(79,193,233));
         }else{
             //设置当前页
             changeTeb(mainContent);
             currentFragment = mainContent;
             mainImg.setImageResource(R.drawable.main1);
+            mainImg.startAnimation(translateAnimation);
             mainText.setTextColor(Color.rgb(79,193,233));
         }
     }

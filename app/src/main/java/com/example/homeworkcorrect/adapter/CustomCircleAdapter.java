@@ -85,7 +85,7 @@ public class CustomCircleAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         //给控件赋值
-        Glide.with(mContext).load(IP.CONSTANT+"images/"+circles.get(position).getUserImg())
+        Glide.with(mContext).load(IP.CONSTANT+"userImage/"+circles.get(position).getUserImg())
                 .into(viewHolder.userImg);
         //给头像绑定单机事件
         viewHolder.userImg.setOnClickListener(new View.OnClickListener() {

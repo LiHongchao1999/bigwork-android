@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
@@ -39,8 +40,10 @@ import com.zhihu.matisse.filter.Filter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.List;
 
 import io.rong.imlib.model.UserInfo;
@@ -60,7 +63,39 @@ public class SelfInformationActivity extends AppCompatActivity {
     private TextView nickName;//昵称
     private TextView sex;//性别
     private TextView phone;//手机号
+    private TextView password;//密码
     private String imgUrl;//拍照后图片地址
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1://图片上传成功
+                    String str = msg.obj.toString();
+                    if(str.equals("true")){
+                        UserCache.user.setImage(path);
+                        try {
+                            //修改用户信息
+                            postChangeUserInfo();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(SelfInformationActivity.this,"上传失败",Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 2://修改成功
+                    String str1 = msg.obj.toString();
+                    if(str1.equals("true")){//跳转到个人页面
+                        Intent intent = new Intent();
+                        setResult(20,intent);
+                        finish();
+                    }else{
+                        Toast.makeText(SelfInformationActivity.this,"修改失败",Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +104,31 @@ public class SelfInformationActivity extends AppCompatActivity {
         //获取控件引用
         getViews();
         //给控件赋值
-
+        Glide.with(this).load(IP.CONSTANT+"userImage/"+UserCache.user.getImage()).into(headImg);
+        if(UserCache.user.getNickname()==null){
+            nickName.setText("");
+        }else{
+            nickName.setText(UserCache.user.getNickname()+"");
+        }
+        if(UserCache.user.getSex()==null){
+            sex.setText("");
+        }else{
+            sex.setText(UserCache.user.getSex()+"");
+        }
+        if(UserCache.user.getPhoneNumber()==null){
+            phone.setText("");
+        }else{
+            phone.setText(UserCache.user.getPhoneNumber()+"");
+        }
+        if(UserCache.user.getPassword()==null){
+            password.setText("");
+        }else{
+            String pass = "";
+            for(int i=0;i<UserCache.user.getPassword().length();i++){
+                pass = pass+"*";
+            }
+            password.setText(pass);
+        }
     }
     /*
     * 获取控件引用
@@ -79,14 +138,13 @@ public class SelfInformationActivity extends AppCompatActivity {
         nickName = findViewById(R.id.tv_nickname);
         sex = findViewById(R.id.tv_sex);
         phone = findViewById(R.id.tv_phonenum);
+        password = findViewById(R.id.tv_password);
     }
 
     public void onClicked(View view){
         switch (view.getId()){
             case R.id.self_return://点击返回
-                Intent intent8 = new Intent();
-                setResult(20,intent8);
-                finish();
+                uploadImage();
                 break;
             case R.id.change_img://点击头像
                 showPopupWindow();
@@ -106,12 +164,10 @@ public class SelfInformationActivity extends AppCompatActivity {
                 intent4.setClass(SelfInformationActivity.this,PhoneNumberActivity.class);
                 startActivityForResult(intent4,1);
                 break;
-            case R.id.bt_saveInfo://向服务器端提交一次性用户信息
-                try {
-                    postChangeUserInfo();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            case R.id.change_password://修改密码
+                Intent intent5 = new Intent();
+                intent5.setClass(SelfInformationActivity.this,ChangePasswordActivity.class);
+                startActivityForResult(intent5,1);
                 break;
         }
     }
@@ -158,19 +214,6 @@ public class SelfInformationActivity extends AppCompatActivity {
         popupWindow.showAtLocation(root,Gravity.NO_GRAVITY,0,0);
     }
 
-    private Handler mainHandler=new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            int i=msg.what;
-            switch(i){
-                case 0:
-                    Toast.makeText(getApplicationContext(), "保存成功",
-                            Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -201,13 +244,29 @@ public class SelfInformationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==2){ //修改昵称
-
+            String nickName = data.getStringExtra("nickname");
+            if(nickName==null){
+                UserCache.user.setNickname(null);
+            }else if(nickName.equals("")){
+                UserCache.user.setNickname("");
+            }else{
+                UserCache.user.setNickname(nickName);
+            }
         }else if(requestCode==1&&resultCode==4){//修改性别
-
-        }else if(requestCode==1&&resultCode==6){//修改点好
-
-        }else if(requestCode==1&&resultCode==7){//修改密码
-
+            String sex = data.getStringExtra("sex");
+            if(sex==null){
+                UserCache.user.setSex(null);
+            }else if(sex.equals("")){
+                UserCache.user.setSex("");
+            }else{
+                UserCache.user.setSex(sex);
+            }
+        }else if(requestCode==1&&resultCode==6){//修改手机号
+            String phone = data.getStringExtra("phonenum");
+            UserCache.user.setPhoneNumber(phone);
+        }else if(requestCode==1&&resultCode==10){//修改密码
+            String password = data.getStringExtra("pw");
+            UserCache.user.setPassword(password);
         }
         if (requestCode==10 &&resultCode==RESULT_OK){
             //获取到图片
@@ -227,23 +286,48 @@ public class SelfInformationActivity extends AppCompatActivity {
             Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null,null));
             imgUrl = ImageTool.getRealPathFromUri(this,uri);
             Log.e("获取到的图片地址",imgUrl);
+            path = imgUrl;
             //修改头像
             headImg.setImageBitmap(bitmap);
-
         }
+    }
+    /*
+    * 上传头像
+    * */
+    private void uploadImage() {
+        long time = Calendar.getInstance().getTimeInMillis();
+        Log.e("获取到的时间",time+"");
+        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(path));
+        Log.e("path",path+"");
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadUserImageServlet?imgName="+time+".jpg").build();
+        path = time+".jpg";
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String str = response.body().string();
+                Log.e("返回结果",str);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj = str;
+                handler.sendMessage(msg);
+            }
+        });
     }
     /*
     * 向服务器发送修改的内容
     * */
     public void postChangeUserInfo() throws JSONException {
-        //2.创建Request请求对象
-        //请求体是普通字符串
-
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),"");
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(UserCache.user));
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT)
+                .url(IP.CONSTANT+"UpdateUserInfoServlet")
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应
@@ -258,10 +342,10 @@ public class SelfInformationActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功时回调
                 Log.e("登录请求结果","成功");
-                Message message = new Message();
-                message.what=0;
-                mainHandler.sendMessage(message);
-
+                Message msg = new Message();
+                msg.what=2;
+                msg.obj=response.body().string();
+                handler.sendMessage(msg);
             }
         });
     }

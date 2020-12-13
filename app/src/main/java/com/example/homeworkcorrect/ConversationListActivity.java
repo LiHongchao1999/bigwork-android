@@ -120,7 +120,7 @@ public class ConversationListActivity extends FragmentActivity {
                 String str = response.body().string();//字符串数据
                 Log.e("123",str);
                 User user  = new Gson().fromJson(str,User.class);
-                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"userImage/"+user.getImage()));
                 Log.e("info",info.toString());
                 runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
             }

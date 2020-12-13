@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,12 +27,18 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.bt_finish4:
-                String phonenum = phonenumber.getText().toString();
-                Log.e("phonenum",phonenum);
-                Intent intent = new Intent();
-                intent.putExtra("phonenum",phonenum);
-                setResult(6,intent);
-                finish();
+                if(phonenumber.getText().equals("")){//输入的为空
+                    Toast.makeText(this,"手机号不能为空",Toast.LENGTH_LONG).show();
+                }else if(phonenumber.getText().toString().length()!=11){//不足11位
+                    Toast.makeText(this,"手机号不正确",Toast.LENGTH_LONG).show();
+                }else{
+                    String phonenum = phonenumber.getText().toString();
+                    Log.e("phonenum",phonenum);
+                    Intent intent = new Intent();
+                    intent.putExtra("phonenum",phonenum);
+                    setResult(6,intent);
+                    finish();
+                }
                 break;
         }
     }

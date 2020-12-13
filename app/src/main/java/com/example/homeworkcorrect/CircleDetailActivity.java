@@ -36,7 +36,7 @@ public class CircleDetailActivity extends AppCompatActivity {
         String str = intent.getStringExtra("circle");
         circle = new Gson().fromJson(str,Circle.class);
         //赋值
-        Glide.with(this).load(IP.CONSTANT+"images/"+circle.getUserImg()).into(headImg);
+        Glide.with(this).load(IP.CONSTANT+"userImage/"+circle.getUserImg()).into(headImg);
         adapter = new CircleImgListAdapter(this,circle.getSendImg(),R.layout.send_img_list_item);
         sendImg.setAdapter(adapter);
         nickName.setText(circle.getUserName());

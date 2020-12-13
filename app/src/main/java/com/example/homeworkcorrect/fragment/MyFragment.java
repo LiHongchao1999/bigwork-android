@@ -160,7 +160,7 @@ public class MyFragment extends Fragment {
             login.setVisibility(View.INVISIBLE);
             Log.e("用户头像",UserCache.user.getImage());
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
                     .into(img);
         }
         return view;
@@ -177,7 +177,7 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
                     .into(img);
         }
     }
@@ -204,7 +204,7 @@ public class MyFragment extends Fragment {
             login.setText("");
             login.setVisibility(View.INVISIBLE);
             Glide.with(getContext())
-                    .load(IP.CONSTANT+"images/"+ UserCache.user.getImage())
+                    .load(IP.CONSTANT+"userImage/"+ UserCache.user.getImage())
                     .into(img);
         }
         if (requestCode==100 && resultCode==200){
@@ -218,9 +218,14 @@ public class MyFragment extends Fragment {
             img.setImageDrawable(getResources().getDrawable(R.drawable.head));
         }
         if (requestCode==10 && resultCode==20){//修改完个人信息返回的
-            //访问数据库获得个人最新数据
-            Bitmap bitmap = BitmapFactory.decodeFile(UserCache.user.getImage());
-            img.setImageBitmap(bitmap);
+            lever.setVisibility(View.VISIBLE);
+            nickName.setVisibility(View.VISIBLE);
+            nickName.setText(UserCache.user.getNickname());
+            lever.setText("lv1");
+            login.setText("");
+            login.setVisibility(View.INVISIBLE);
+            Glide.with(getContext())
+                    .load(IP.CONSTANT+"userImage/"+UserCache.user.getImage());
         }
         if(requestCode==66&&resultCode==666){
             img.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.initial));
