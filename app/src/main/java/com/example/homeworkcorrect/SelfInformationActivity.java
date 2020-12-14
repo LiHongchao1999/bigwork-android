@@ -46,6 +46,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -105,7 +106,7 @@ public class SelfInformationActivity extends AppCompatActivity {
         getViews();
         //给控件赋值
         Glide.with(this).load(IP.CONSTANT+"userImage/"+UserCache.user.getImage()).into(headImg);
-        if(UserCache.user.getNickname()==null || UserCache.user.getSex().equals("")){
+        if(UserCache.user.getNickname()==null || UserCache.user.getNickname().equals("")){
             nickName.setText("");
         }else{
             nickName.setText(UserCache.user.getNickname()+"");
@@ -115,12 +116,12 @@ public class SelfInformationActivity extends AppCompatActivity {
         }else{
             sex.setText(UserCache.user.getSex()+"");
         }
-        if(UserCache.user.getPhoneNumber()==null || UserCache.user.getSex().equals("")){
+        if(UserCache.user.getPhoneNumber()==null || UserCache.user.getPhoneNumber().equals("")){
             phone.setText("");
         }else{
             phone.setText(UserCache.user.getPhoneNumber()+"");
         }
-        if(UserCache.user.getPassword()==null || UserCache.user.getSex().equals("")){
+        if(UserCache.user.getPassword()==null || UserCache.user.getPassword().equals("")){
             password.setText("");
         }else{
             String pass = "";
@@ -144,6 +145,9 @@ public class SelfInformationActivity extends AppCompatActivity {
     public void onClicked(View view) throws JSONException {
         switch (view.getId()){
             case R.id.self_return://点击返回
+                //修改用户用户名和头像
+                UserInfo userInfo = new UserInfo(UserCache.user.getChat_id(), UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                RongIM.getInstance().refreshUserInfoCache(userInfo);
                 if(path==null || path.equals("")){//表示没有修改头像
                     postChangeUserInfo();
                 }else{

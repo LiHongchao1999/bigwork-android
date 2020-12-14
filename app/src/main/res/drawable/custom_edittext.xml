@@ -2,7 +2,7 @@
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="#80A9A9A9"/>
+    <solid android:color="#CCf0f0f0"/>
     <!--设置边距-->
     <padding
         android:bottom="2dp"
@@ -15,5 +15,5 @@
     <!--设置边框粗细和颜色-->
     <stroke
         android:width="2px"
-        android:color="#838B8B"/>
+        android:color="#CCf0f0f0"/>
 </shape>

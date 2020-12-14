@@ -186,14 +186,13 @@ public class MyFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode == 150){//QQ登录
-            String name = data.getStringExtra("nickname");
             lever.setVisibility(View.VISIBLE);
             nickName.setVisibility(View.VISIBLE);
-            nickName.setText(name);
+            nickName.setText(UserCache.user.getNickname()+"");
             lever.setText("lv1");
             login.setText("");
             login.setVisibility(View.INVISIBLE);
-            img.setImageDrawable(getResources().getDrawable(R.drawable.head));
+            Glide.with(getContext()).load(IP.CONSTANT+"userImage/"+UserCache.user.getImage()).into(img);
         }
         if (requestCode==100 && resultCode==160){ //手机号+验证码登录
             //设置个人信息
@@ -227,7 +226,8 @@ public class MyFragment extends Fragment {
             Glide.with(getContext())
                     .load(IP.CONSTANT+"userImage/"+UserCache.user.getImage());
         }
-        if(requestCode==66&&resultCode==666){
+        if(requestCode==66&&resultCode==666){//注销登录
+            img.setVisibility(View.VISIBLE);
             img.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.initial));
             login.setVisibility(View.VISIBLE);
             login.setText("点击登录");

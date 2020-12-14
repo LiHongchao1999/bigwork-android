@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Homework;
 import com.google.gson.Gson;
 
@@ -239,6 +240,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         homework.setSubmitTime(tvDate.getText().toString());
         homework.setHomework_image(photoList);
         homework.setHomeworkType(spinner.getSelectedItem().toString());
+        homework.setChatId(UserCache.user.getChat_id());
         homework.setDeadline(dateText.getText().toString()+" "+timeText.getText().toString());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(homework));
         Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddHomeworkServlet").build();

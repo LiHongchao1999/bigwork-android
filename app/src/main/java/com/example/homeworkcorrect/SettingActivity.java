@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.homeworkcorrect.cache.UserCache;
 
+import io.rong.imkit.RongIM;
+
 public class SettingActivity extends AppCompatActivity {
     
     @Override
@@ -24,9 +26,11 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         Button logoffButton = findViewById(R.id.logoff);
-        logoffButton.setOnClickListener(new View.OnClickListener() {
+        logoffButton.setOnClickListener(new View.OnClickListener() {//点击注销登录
             @Override
             public void onClick(View view) {
+                //断开数据库连接
+                RongIM.getInstance().disconnect();
                 UserCache.user = null;
                 Intent intent = new Intent();
                 setResult(666,intent);

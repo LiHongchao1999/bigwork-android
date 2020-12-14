@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <RelativeLayout
+                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -32,32 +33,35 @@
                     android:textColor="@android:color/black"/>
             </RelativeLayout>
             <TextView
+                android:layout_marginTop="3dp"
                 android:id="@+id/fre_send_time"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="2dp"
+            android:id="@+id/fre_send_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.example.homeworkcorrect.ScrollableGridView
+                android:id="@+id/send_img_list"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/fre_send_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <com.example.homeworkcorrect.ScrollableGridView
-                        android:id="@+id/send_img_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:horizontalSpacing="3dp"
-                        android:numColumns="3"/>
-                </LinearLayout>
-            </LinearLayout>
+                android:horizontalSpacing="3dp"
+                android:numColumns="3"/>
         </LinearLayout>
     </LinearLayout>
     <TextView

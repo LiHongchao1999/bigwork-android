@@ -16,6 +16,12 @@
             android:src="@drawable/ring"
             android:id="@+id/iv_ring"
             android:layout_alignParentRight="true"/>
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star"
+            android:id="@+id/send_message" />
         <TextView
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -28,12 +34,6 @@
             android:textColor="#ffffff"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
-<ImageView
-    android:id="@+id/send_msg_www"
-    android:onClick="onClicked"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/star"/>
     <FrameLayout
         android:gravity="center"
         android:layout_width="match_parent"

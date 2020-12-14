@@ -6,6 +6,8 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Message;
 
 public class MyApplication extends Application {
     @Override

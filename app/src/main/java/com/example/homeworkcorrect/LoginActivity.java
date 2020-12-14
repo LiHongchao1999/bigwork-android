@@ -39,12 +39,12 @@ import org.json.JSONObject;
 import com.mob.MobSDK;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -73,70 +73,104 @@ public class LoginActivity extends AppCompatActivity {
     private Tencent tencent;
     private UserInfo userInfo;
     private BaseUiListener baseUiListener;
-    private String userIp;//用户ip
     private Handler handler1 = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
-                case 1://获取qq登录的用户名和性别
+                case 1://获取qq登录的用户
                     String str = msg.obj.toString();
-                    String nickName = str.split(":")[0];
-                    String gender = str.split(":")[1];
+                    User user1 = new Gson().fromJson(str,User.class);
+                    UserCache.user = user1;
+                    //获取数据库连接
+                    String token1 = UserCache.user.getChat_token();
+                    RongIMClient.connect(token1, new RongIMClient.ConnectCallbackEx() {
+                        /**
+                         * 数据库回调
+                         * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
+                         */
+                        @Override
+                        public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+                            Log.e("OnDatabaseOpened","数据库打开");
+                        }
+                        /**
+                         * token 无效
+                         */
+                        @Override
+                        public void onTokenIncorrect() {
+                            Log.e("onTokenIncorrect","无效");
+                        }
+                        /**
+                         * 成功回调
+                         * @param userId 当前用户 ID
+                         */
+                        @Override
+                        public void onSuccess(String userId) {
+                            Log.e("数据库连接成功",userId+"xcy");
+                            Log.e("当前用户",UserCache.user.getNickname()+UserCache.user.getChat_id());
+                            //设置当前用户信息
+                            io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                            RongIM.getInstance().setCurrentUserInfo(userInfo);
+                        }
+                        /**
+                         * 错误回调
+                         * @param errorCode 错误码
+                         */
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+                            Log.e("onError",errorCode+"");
+                        }
+                    });
+                    //跳转到个人页面
                     Intent intent = new Intent();
-                    intent.putExtra("nickname",nickName);
                     setResult(150,intent);
                     finish();
                     break;
                 case 2://手机号验证码登录
                     String str1 = msg.obj.toString();
                     User user = new Gson().fromJson(str1,User.class);
-                    if(user.getId()==0){//表示登录失败
-                        Toast.makeText(LoginActivity.this,"账号或验证码错误",Toast.LENGTH_LONG).show();
-                    }else{
-                        UserCache.user = user;
-                        //获取数据库连接
-                        String token = UserCache.user.getChat_token();
-                        RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
-                            /**
-                             * 数据库回调
-                             * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
-                             */
-                            @Override
-                            public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
-                                Log.e("OnDatabaseOpened","数据库打开");
-                            }
-                            /**
-                             * token 无效
-                             */
-                            @Override
-                            public void onTokenIncorrect() {
-                                Log.e("onTokenIncorrect","无效");
-                            }
-                            /**
-                             * 成功回调
-                             * @param userId 当前用户 ID
-                             */
-                            @Override
-                            public void onSuccess(String userId) {
-                                Log.e("onSuccess",userId+"xcy");
-                                //设置当前用户信息
-                                io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
-                                RongIM.getInstance().setCurrentUserInfo(userInfo);
-                            }
-                            /**
-                             * 错误回调
-                             * @param errorCode 错误码
-                             */
-                            @Override
-                            public void onError(RongIMClient.ErrorCode errorCode) {
-                                Log.e("onError",errorCode+"");
-                            }
-                        });
-                        //跳转到个人页面
-                        Intent intent1 = new Intent();
-                        setResult(160,intent1);
-                        finish();
-                    }
+                    UserCache.user = user;
+                    //获取数据库连接
+                    String token = UserCache.user.getChat_token();
+                    RongIMClient.connect(token, new RongIMClient.ConnectCallbackEx() {
+                        /**
+                         * 数据库回调
+                         * @param code 数据库打开状态. DATABASE_OPEN_SUCCESS 数据库打开成功; DATABASE_OPEN_ERROR 数据库打开失败
+                         */
+                        @Override
+                        public void OnDatabaseOpened(RongIMClient.DatabaseOpenStatus code) {
+                            Log.e("OnDatabaseOpened","数据库打开");
+                        }
+                        /**
+                         * token 无效
+                         */
+                        @Override
+                        public void onTokenIncorrect() {
+                            Log.e("onTokenIncorrect","无效");
+                        }
+                        /**
+                         * 成功回调
+                         * @param userId 当前用户 ID
+                         */
+                        @Override
+                        public void onSuccess(String userId) {
+                            Log.e("onSuccess",userId+"xcy");
+                            //设置当前用户信息
+                            io.rong.imlib.model.UserInfo userInfo = new io.rong.imlib.model.UserInfo(userId,UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+                            RongIM.getInstance().setCurrentUserInfo(userInfo);
+                        }
+                        /**
+                         * 错误回调
+                         * @param errorCode 错误码
+                         */
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+                            Log.e("onError",errorCode+"");
+                        }
+                    });
+                    //跳转到个人页面
+                    Intent intent1 = new Intent();
+                    setResult(160,intent1);
+                    finish();
                     break;
             }
         }
@@ -149,19 +183,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
-
-        /*//获取用户的ip
-        userIp = getIPAddress();
-        Log.e("ip",userIp);*/
         //获取控件
         getViews();
         btCode.setText("获取验证码");
-//        调用mob开发者服务
+//      调用mob开发者服务
         MobSDK.submitPolicyGrantResult(true, null);
 
 //        初始化短信SDK
         initSDK();
-        tvlogin.setOnClickListener(new View.OnClickListener() {//跳转到账号密码登录页面
+        //跳转到账号密码登录页面
+        tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, LoginWithPasswordActivity.class);
@@ -216,10 +247,8 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             String nickName = jsonObject.getString("nickname");
                             String gender = jsonObject.getString("gender");
-                            Message msg = new Message();
-                            msg.obj = nickName+":"+gender;
-                            msg.what=1;
-                            handler1.sendMessage(msg);
+                            //将信息发送给服务端进行验证
+                            postLoginByQQ(nickName,gender);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -267,7 +296,35 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+    /*
+    * qq登录，发送到服务端进行注册或者判断
+    * */
+    public void postLoginByQQ(String a,String b) throws JSONException {
+        //3.创建Call对象
+        Request request = new Request.Builder()
+                .url(IP.CONSTANT+"UserLoginByQQServlet?nickName="+a+"&sex="+b)
+                .build();
+        final Call call = okHttpClient.newCall(request);
+        //4.提交请求并返回响应
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时回调
+                Log.e("登录请求结果","失败");
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //从服务器端获取到JSON格式字符串
+                String str = response.body().string();
+                Log.e("qq登录",str);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj = str;
+                handler1.sendMessage(msg);
+            }
+        });
+    }
     /**
      * 初始化短信SDK
      */
@@ -289,7 +346,7 @@ public class LoginActivity extends AppCompatActivity {
             public void afterEvent(int event, int result, Object data) {
                 Message msg = new Message();
                 msg.arg1 = event;
-                msg.arg2 = result;
+                msg.arg2 = result; //-1：成功  0：失败
                 msg.obj = data;
                 handler.sendMessage(msg);
             }
@@ -360,6 +417,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("result",result+"");
                 Object data = msg.obj;
                 Log.e("event", "event=" + event);
+                Log.e("data",data.toString());
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     // 短信注册成功后，返回MainActivity,然后提示新好友
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
@@ -378,7 +436,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
                         ((Throwable) data).printStackTrace();
                     }
-                }else if(result==SMSSDK.RESULT_ERROR){
+                }else if(result == SMSSDK.RESULT_ERROR){
                     Toast.makeText(getApplicationContext(), "验证码错误",
                             Toast.LENGTH_SHORT).show();
                 }

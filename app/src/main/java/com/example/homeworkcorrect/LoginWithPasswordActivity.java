@@ -42,7 +42,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
     private EditText etpassword; //密码
     private OkHttpClient okHttpClient;
     private TextView tvnickname;
-    private Button login;//登录
+    private TextView login;//登录
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -112,7 +112,6 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         //1.创建OkHttpClient对象
         okHttpClient = new OkHttpClient();
         getViews();
-        login.setBackground(getResources().getDrawable(R.drawable.button_style_invalid));
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

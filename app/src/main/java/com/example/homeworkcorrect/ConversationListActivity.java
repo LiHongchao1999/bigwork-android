@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.entity.Teacher;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 
@@ -36,23 +37,12 @@ public class ConversationListActivity extends FragmentActivity {
     private OkHttpClient okHttpClient;
     private boolean isSelect;//判断是否查询成功
     private UserInfo userInfo;
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            switch (msg.what){
-                case 1:
-                    RongIM.getInstance().setCurrentUserInfo(userInfo);
-                    break;
-            }
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation_list);
         okHttpClient = new OkHttpClient();
-    showConversationList();
-
+        showConversationList();
     }
     private void showConversationList() {
         // 是否缓存用户信息. true 缓存, false 不缓存
@@ -68,10 +58,14 @@ public class ConversationListActivity extends FragmentActivity {
             public UserInfo getUserInfo(String userId) {
                 //根据userId去获取服务端的用户的昵称和头像
                 Log.e("123",userId);
-                findUserById(userId);
+                String sub = userId.split("_")[0];
+                if(sub.equals("user")){//表明对方是家长
+                    findUserById(userId);
+                }else{//表明对方是老师
+                    findTeacherById(userId);
+                }
                 return null;
             }
-
         }, isCacheUserInfo);
         //修改用户用户名和头像
         /*UserInfo userInfo = new UserInfo(2+"", "薛程元", null);
@@ -119,7 +113,37 @@ public class ConversationListActivity extends FragmentActivity {
                 String str = response.body().string();//字符串数据
                 Log.e("123",str);
                 User user  = new Gson().fromJson(str,User.class);
-                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"userImage/"+user.getImage()));
+                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"teacherImage/"+user.getImage()));
+                Log.e("info",info.toString());
+                runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
+            }
+        });
+    }
+    /*
+     * 从服务端获取教师昵称和头像
+     * */
+    private void findTeacherById(String userId) {
+        //请求体是普通的字符串
+        //3、创建请求对象
+        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .build();
+        //4、创建Call对象，发送请求，并接受响应
+        Call call = okHttpClient.newCall(request);
+        //如果使用异步请求，不需要手动使用子线程
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时候回调
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //请求成功以后回调
+                String str = response.body().string();//字符串数据
+                Log.e("123",str);
+                Teacher teacher  = new Gson().fromJson(str,Teacher.class);
+                UserInfo info= new UserInfo(userId,teacher.getNickname(),Uri.parse(IP.CONSTANT+"userImage/"+teacher.getImage()));
                 Log.e("info",info.toString());
                 runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
             }

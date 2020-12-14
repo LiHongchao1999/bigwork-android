@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,15 +29,19 @@ import com.example.homeworkcorrect.Camera2Activity;
 import com.example.homeworkcorrect.ConversationListActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.message.TextMessage;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -54,11 +57,11 @@ public class MyFragmentMainContent extends Fragment {
     private ImageView rotate;
     private ImageView advertise;
     private TextView mUnreadNumView;//消息个数
-    private ImageView sendMsg;//发送消息
     private UserInfo userInfo;
+    private ImageView sendMsg;//发送消息
     private Handler handler = new Handler(){
         @Override
-        public void handleMessage(@NonNull Message msg) {
+        public void handleMessage(@NonNull android.os.Message msg) {
             switch (msg.what){
                 case 1:
                     UserInfo info = (UserInfo) msg.obj;
@@ -75,15 +78,16 @@ public class MyFragmentMainContent extends Fragment {
         view=inflater.inflate(R.layout.fragment_mymaincontent,
                 container,
                 false);
+        getViews();
         //初始化融云
         initRongMessage();
-        getViews();
+        mUnreadNumView.setVisibility(View.INVISIBLE);
         combineChange();
         MyListener listener=new MyListener();
         llcamera.setOnClickListener(listener);
         llrecommand.setOnClickListener(listener);
-        ring.setOnClickListener(listener);
         sendMsg.setOnClickListener(listener);
+        ring.setOnClickListener(listener);
         llrecommand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,40 +101,7 @@ public class MyFragmentMainContent extends Fragment {
                 startActivity(Intent.createChooser(shareIntent, "分享到"));
             }
         });
-
         return view;
-    }
-    /*
-     * 从服务端获取当前用户昵称和头像
-     * */
-    private void findCurrentUserById(String userId) {
-        //请求体是普通的字符串
-        //3、创建请求对象
-        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
-                .build();
-        //4、创建Call对象，发送请求，并接受响应
-        Call call = new OkHttpClient().newCall(request);
-        //如果使用异步请求，不需要手动使用子线程
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //请求失败时候回调
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //请求成功以后回调
-                String str = response.body().string();//字符串数据
-                Log.e("123",str);
-                User user  = new Gson().fromJson(str,User.class);
-                userInfo = new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
-                Message msg = new Message();
-                msg.what=2;
-                handler.sendMessage(msg);
-            }
-        });
     }
     /*
      * 融云消息接收，及初始化
@@ -149,7 +120,7 @@ public class MyFragmentMainContent extends Fragment {
         }, 500);
     }
     /*
-    * 设置接收到消息的个数
+    * 设置接收到未读消息的数量
     * */
     public RongIM.OnReceiveUnreadCountChangedListener mCountListener = new RongIM.OnReceiveUnreadCountChangedListener() {
         @Override
@@ -178,8 +149,29 @@ public class MyFragmentMainContent extends Fragment {
                     Intent intent = new Intent(getContext(), ConversationListActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.send_msg_www:
-                    findUserById("user_1607506987137");
+                case R.id.send_message://发送消息
+                    String content="你好";
+                    Conversation.ConversationType type = Conversation.ConversationType.PRIVATE;
+                    //构建消息
+                    TextMessage message = TextMessage.obtain(content);
+                    Message message1 = Message.obtain("user_1607871028976",type,message);
+                    //发送消息
+                    RongIMClient.getInstance().sendMessage(message1, null, null, new IRongCallback.ISendMessageCallback() {
+                        @Override
+                        public void onAttached(Message message) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(Message message) {
+                            Log.e("onSuccess","消息发送成功");
+                        }
+
+                        @Override
+                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                            Log.e("onError","消息发送失败");
+                        }
+                    });
                     break;
             }
         }
@@ -211,7 +203,7 @@ public class MyFragmentMainContent extends Fragment {
                 User user  = new Gson().fromJson(str,User.class);
                 UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
                 Log.e("info",info.toString());
-                Message msg = new Message();
+                android.os.Message msg = new android.os.Message();
                 msg.what=1;
                 msg.obj=info;
                 handler.sendMessage(msg);
@@ -228,7 +220,7 @@ public class MyFragmentMainContent extends Fragment {
        circularBitmapDrawable.setCornerRadius(200);
        advertise.setImageDrawable(circularBitmapDrawable);
        mUnreadNumView = view.findViewById(R.id.num_msg);
-       sendMsg = view.findViewById(R.id.send_msg_www);
+       sendMsg = view.findViewById(R.id.send_message);
     }
     public void combineChange(){
 

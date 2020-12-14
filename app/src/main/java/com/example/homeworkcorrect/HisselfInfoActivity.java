@@ -10,9 +10,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.cache.IP;
-import com.example.homeworkcorrect.cache.UserCache;
+import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
@@ -32,11 +34,19 @@ public class HisselfInfoActivity extends AppCompatActivity {
     private Gson gson;
     private Circle circle;
     private User user;
+    private CircleImageView headImg;//头像
+    private TextView nickName;//昵称
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
-
+                case 1:
+                    String str = msg.obj.toString();
+                    user = gson.fromJson(str,User.class);
+                    //给控件赋值
+                    Glide.with(HisselfInfoActivity.this).load(IP.CONSTANT+"userImage/"+user.getImage()).into(headImg);
+                    nickName.setText(user.getNickname());
+                    break;
             }
         }
     };
@@ -44,6 +54,8 @@ public class HisselfInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hisself_info);
+        //获取控件引用
+        getViews();
         gson = new Gson();
         //获取信息
         Intent intent = getIntent();
@@ -51,6 +63,11 @@ public class HisselfInfoActivity extends AppCompatActivity {
         circle = gson.fromJson(str,Circle.class);
         //从服务端获取其信息
         getUserInfo();
+    }
+
+    private void getViews() {
+        headImg = findViewById(R.id.his_img);
+        nickName = findViewById(R.id.nick_name);
     }
     /*
      * 访问服务端获取信息
@@ -76,7 +93,10 @@ public class HisselfInfoActivity extends AppCompatActivity {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
                 Log.e("用户的个人信息",str);
-                user = gson.fromJson(str,User.class);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj= str;
+                handler.sendMessage(msg);
             }
         });
     }
@@ -87,7 +107,7 @@ public class HisselfInfoActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.start_chat://点击聊天
-                UserInfo info= new UserInfo(user.getChat_id(),user.getNickname(), Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
+                UserInfo info= new UserInfo(user.getChat_id(),user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+user.getImage()));
                 RongIM.getInstance().refreshUserInfoCache(info);
                 Conversation.ConversationType conversationType  = Conversation.ConversationType.PRIVATE;;
                 RongIM.getInstance().startConversation(this, conversationType, info.getUserId(), info.getName(), null);

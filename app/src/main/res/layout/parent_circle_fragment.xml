@@ -28,7 +28,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="附近圈子"
+                        android:text="推荐圈子"
                         android:layout_marginLeft="12dp"
                         android:textColor="#000000" />
                 </LinearLayout>
@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
-                        android:text="好友圈子"/>
+                        android:text="关注圈子"/>
                 </LinearLayout>
             </LinearLayout>
             <ImageView

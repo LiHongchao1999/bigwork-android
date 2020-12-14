@@ -2,65 +2,190 @@
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCF0F0F0"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
         android:id="@+id/w1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="200dp"
         android:orientation="horizontal"
-        android:background="@drawable/bottom"
-        android:gravity="center_vertical">
+        android:background="@drawable/your_name"
+        android:scaleType="centerCrop">
         <ImageView
+            android:layout_marginTop="10dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
             android:onClick="onClicked"
-            android:layout_gravity="center"
             android:id="@+id/info_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@drawable/back"/>
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:text="用户信息"
+            android:background="@drawable/back" />
+        <LinearLayout
+            android:id="@+id/imagewww"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="-20dp"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
             android:gravity="center"
-            android:textSize="18sp"
+            android:background="@drawable/image_background">
+            <com.example.homeworkcorrect.chat.CircleImageView
+                android:id="@+id/his_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/nick_name"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/imagewww"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            android:textSize="18sp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/w2"
         android:layout_below="@+id/w1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/circle_image_background">
-        <com.example.homeworkcorrect.chat.CircleImageView
-            android:id="@+id/his_img"
-            android:layout_width="40dp"
+        android:layout_marginTop="30dp">
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_image_background"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:src="@drawable/homework1"/>
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:layout_toRightOf="@+id/his_img"
-            android:layout_marginLeft="10dp"
-            android:text="张子华"/>
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/peo"/>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19岁"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/w3"
+        android:layout_below="@+id/w2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@drawable/lev"/>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="lv1"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/w4"
+        android:layout_below="@+id/w3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/edit"/>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热爱生活，热爱生命"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/w5"
+        android:layout_below="@+id/w4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/circle_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/birth"/>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000-07-18   巨蟹座"
+                android:textSize="17sp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/w5"
         android:id="@+id/start_chat"
         android:onClick="onClicked"
-        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/circle_image_background"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
+        android:layout_height="40dp">
         <LinearLayout
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
@@ -71,15 +196,15 @@
             <ImageView
                 android:id="@+id/main_img"
                 android:src="@drawable/chat_self"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="5dp"/>
             <TextView
                 android:id="@+id/main_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="聊天"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textColor="@android:color/black" />
         </LinearLayout>
     </RelativeLayout>

@@ -25,8 +25,6 @@ public class ConversationActivity extends AppCompatActivity {
         Log.e("title",title);
         String targetId = getIntent().getData().getQueryParameter("targetId");
         Log.e("targetId",targetId);
-        /*String conversation = getIntent().getData().getQueryParameter("conversation");
-        Log.e("conversation",conversation);*/
         userName = findViewById(R.id.fre_user_name);
         userName.setText(title);
         ConversationFragment conversationFragment=new ConversationFragment();
