@@ -17,17 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(String nickname, String phoneNumber, String image, String sex,String password) {
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
-        this.image = image;
-        this.sex = sex;
-        this.password = password;
-    }
-
     public String getChat_id() {
         return chat_id;
     }
+
 
     public void setChat_id(String chat_id) {
         this.chat_id = chat_id;
@@ -101,14 +94,6 @@ public class User {
         this.grade = grade;
     }
 
-
-    public String getSex() {
-        return sex;
-    }
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -121,9 +106,23 @@ public class User {
                 ", weChatNumber='" + weChatNumber + '\'' +
                 ", grade='" + grade + '\'' +
                 ", sex='" + sex + '\'' +
-                ", chat_id='" + chat_id +'\''+
+                ", chat_id=" + chat_id +
                 ", chat_token='" + chat_token + '\'' +
                 '}';
+    }
+    public User(String nickname, String phoneNumber, String image, String sex,String password) {
+        this.nickname = nickname;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.sex = sex;
+        this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
 }

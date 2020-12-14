@@ -107,4 +107,22 @@ public class Circle {
     public void setCommentSize(int commentSize) {
         this.commentSize = commentSize;
     }
+
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", chatId='" + chatId + '\'' +
+                ", userImg='" + userImg + '\'' +
+                ", userName='" + userName + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", sendImg=" + sendImg +
+                ", likeSize=" + likeSize +
+                ", forwardSize=" + forwardSize +
+                ", commentSize=" + commentSize +
+                '}';
+    }
 }
