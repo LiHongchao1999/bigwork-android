@@ -242,6 +242,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         homework.setHomeworkType(spinner.getSelectedItem().toString());
         homework.setChatId(UserCache.user.getChat_id());
         homework.setDeadline(dateText.getText().toString()+" "+timeText.getText().toString());
+        homework.setUser_id(UserCache.user.getId());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(homework));
         Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddHomeworkServlet").build();
         //3、创建Call对象，发送请求，并且接受响应数据
