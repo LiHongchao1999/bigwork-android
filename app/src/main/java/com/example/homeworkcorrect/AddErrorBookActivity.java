@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.homeworkcorrect.adapter.CustomAdapterResult;
 import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.WrongQuestion;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -76,6 +77,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
         //获取数据
         Intent intent = getIntent();
         int id = intent.getIntExtra("id",-1);
+        question.setUser_id(UserCache.user.getId());
         question.setWrong_id(id);
         String str = intent.getStringExtra("result_img");
         Gson gson = new GsonBuilder()
@@ -87,8 +89,6 @@ public class AddErrorBookActivity extends AppCompatActivity {
         question.setHomework_image(imgs);
         question.setQuestion_Type(intent.getStringExtra("type"));
         question.setResult_text_teacher(intent.getStringExtra("teacher_result"));
-        //用户id默认为1
-        question.setUser_id(1);
         //老师返回的
         adapter = new CustomAdapterResult(this,imgs,R.layout.send_img_list_item);
         gridView.setAdapter(adapter);

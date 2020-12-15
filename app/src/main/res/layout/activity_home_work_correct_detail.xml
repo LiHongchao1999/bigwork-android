@@ -162,7 +162,6 @@
                         android:background="@drawable/image_background_style"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="这次作业做得很好"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"/>
                 </RelativeLayout>
