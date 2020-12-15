@@ -176,40 +176,6 @@ public class MyFragmentMainContent extends Fragment {
             }
         }
     }
-    /*
-     * 从服务端获取用户昵称和头像
-     * */
-    private void findUserById(String userId) {
-        //请求体是普通的字符串
-        //3、创建请求对象
-        Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
-                .build();
-        //4、创建Call对象，发送请求，并接受响应
-        Call call = new OkHttpClient().newCall(request);
-        //如果使用异步请求，不需要手动使用子线程
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //请求失败时候回调
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                //请求成功以后回调
-                String str = response.body().string();//字符串数据
-                Log.e("123",str);
-                User user  = new Gson().fromJson(str,User.class);
-                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"images/"+user.getImage()));
-                Log.e("info",info.toString());
-                android.os.Message msg = new android.os.Message();
-                msg.what=1;
-                msg.obj=info;
-                handler.sendMessage(msg);
-            }
-        });
-    }
     public void getViews(){
        llcamera=view.findViewById(R.id.ll_camera);
        llrecommand=view.findViewById(R.id.ll_recommand);
@@ -223,7 +189,6 @@ public class MyFragmentMainContent extends Fragment {
        sendMsg = view.findViewById(R.id.send_message);
     }
     public void combineChange(){
-
         RotateAnimation rotateAnimation = new RotateAnimation(0.0f,360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setRepeatMode(Animation.RESTART);
         rotateAnimation.setDuration(20000);
