@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,9 @@ import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.R;
 
 import com.example.homeworkcorrect.ScrollableGridView;
+import com.example.homeworkcorrect.ShowCircleImagesDialog;
+import com.example.homeworkcorrect.ShowImagesDialog;
+import com.example.homeworkcorrect.WrongQuestionDetailActivity;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
@@ -61,6 +65,7 @@ public class CustomCircleAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        int current = position;
         ViewHolder viewHolder;
         //convertView每个item的视图对象
         //加载item的布局文件
@@ -104,6 +109,13 @@ public class CustomCircleAdapter extends BaseAdapter {
         viewHolder.sendTime.setText(circles.get(position).getTime());
         viewHolder.content.setText(circles.get(position).getContent());
         viewHolder.gridView.setAdapter(new CircleImgListAdapter(mContext,circles.get(position).getSendImg(),R.layout.send_img_list_item));
+        //给图片绑定单击事件
+        viewHolder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new ShowCircleImagesDialog(mContext,circles.get(current).getSendImg(),position).show();
+            }
+        });
         viewHolder.forwardSize.setText(circles.get(position).getForwardSize()+"");
         viewHolder.commentSize.setText(circles.get(position).getCommentSize()+"");
         viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");

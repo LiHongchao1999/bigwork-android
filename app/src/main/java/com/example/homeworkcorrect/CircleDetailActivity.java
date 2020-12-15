@@ -2,6 +2,8 @@ package com.example.homeworkcorrect;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +41,12 @@ public class CircleDetailActivity extends AppCompatActivity {
         Glide.with(this).load(IP.CONSTANT+"userImage/"+circle.getUserImg()).into(headImg);
         adapter = new CircleImgListAdapter(this,circle.getSendImg(),R.layout.send_img_list_item);
         sendImg.setAdapter(adapter);
+        sendImg.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new ShowCircleImagesDialog(CircleDetailActivity.this,circle.getSendImg(),position).show();
+            }
+        });
         nickName.setText(circle.getUserName());
         sendTime.setText(circle.getTime());
         sendContent.setText(circle.getContent());
