@@ -58,7 +58,6 @@ public class MyFragmentMainContent extends Fragment {
     private ImageView advertise;
     private TextView mUnreadNumView;//消息个数
     private UserInfo userInfo;
-    private ImageView sendMsg;//发送消息
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull android.os.Message msg) {
@@ -86,7 +85,6 @@ public class MyFragmentMainContent extends Fragment {
         MyListener listener=new MyListener();
         llcamera.setOnClickListener(listener);
         llrecommand.setOnClickListener(listener);
-        sendMsg.setOnClickListener(listener);
         ring.setOnClickListener(listener);
         llrecommand.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,30 +147,6 @@ public class MyFragmentMainContent extends Fragment {
                     Intent intent = new Intent(getContext(), ConversationListActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.send_message://发送消息
-                    String content="你好";
-                    Conversation.ConversationType type = Conversation.ConversationType.PRIVATE;
-                    //构建消息
-                    TextMessage message = TextMessage.obtain(content);
-                    Message message1 = Message.obtain("user_1607871028976",type,message);
-                    //发送消息
-                    RongIMClient.getInstance().sendMessage(message1, null, null, new IRongCallback.ISendMessageCallback() {
-                        @Override
-                        public void onAttached(Message message) {
-
-                        }
-
-                        @Override
-                        public void onSuccess(Message message) {
-                            Log.e("onSuccess","消息发送成功");
-                        }
-
-                        @Override
-                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                            Log.e("onError","消息发送失败");
-                        }
-                    });
-                    break;
             }
         }
     }
@@ -186,7 +160,6 @@ public class MyFragmentMainContent extends Fragment {
        circularBitmapDrawable.setCornerRadius(200);
        advertise.setImageDrawable(circularBitmapDrawable);
        mUnreadNumView = view.findViewById(R.id.num_msg);
-       sendMsg = view.findViewById(R.id.send_message);
     }
     public void combineChange(){
         RotateAnimation rotateAnimation = new RotateAnimation(0.0f,360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

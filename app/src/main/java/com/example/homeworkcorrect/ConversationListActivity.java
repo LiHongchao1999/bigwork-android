@@ -111,10 +111,9 @@ public class ConversationListActivity extends FragmentActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
-                Log.e("123",str);
+                Log.e("user",str);
                 User user  = new Gson().fromJson(str,User.class);
-                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"teacherImage/"+user.getImage()));
-                Log.e("info",info.toString());
+                UserInfo info= new UserInfo(userId,user.getNickname(),Uri.parse(IP.CONSTANT+"userImage/"+user.getImage()));
                 runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
             }
         });
@@ -126,7 +125,7 @@ public class ConversationListActivity extends FragmentActivity {
         //请求体是普通的字符串
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .url(IP.CONSTANT+"GetTeacherChatInfoServlet?chat_id="+userId)
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = okHttpClient.newCall(request);
@@ -141,10 +140,9 @@ public class ConversationListActivity extends FragmentActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
-                Log.e("123",str);
+                Log.e("teacher",str);
                 Teacher teacher  = new Gson().fromJson(str,Teacher.class);
-                UserInfo info= new UserInfo(userId,teacher.getNickname(),Uri.parse(IP.CONSTANT+"userImage/"+teacher.getImage()));
-                Log.e("info",info.toString());
+                UserInfo info= new UserInfo(userId,teacher.getNickname(),Uri.parse(IP.CONSTANT+"teacherImage/"+teacher.getImage()));
                 runOnUiThread(() -> RongIM.getInstance().refreshUserInfoCache(info));
             }
         });
