@@ -65,7 +65,7 @@ public class CustomAdapterResult extends BaseAdapter {
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(ObjectAnimator.INFINITE);
         anim.start();
-        Glide.with(convertView).load(IP.CONSTANT+"images/"+imgs.get(position)).placeholder(R.drawable.rotate_loading).error(R.drawable.fail).apply(options).into(imageView);
+        Glide.with(mContext).load(IP.CONSTANT+"images/"+imgs.get(position)).placeholder(R.drawable.rotate_loading).error(R.drawable.fail).apply(options).into(imageView);
         return convertView;
     }
 }

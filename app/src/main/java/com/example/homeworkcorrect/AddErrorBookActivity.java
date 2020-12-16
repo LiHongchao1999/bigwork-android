@@ -77,8 +77,8 @@ public class AddErrorBookActivity extends AppCompatActivity {
         //获取数据
         Intent intent = getIntent();
         int id = intent.getIntExtra("id",-1);
-        question.setUser_id(UserCache.user.getId());
-        question.setWrong_id(id);
+        question.setUser_id(UserCache.user.getId());//用户id
+        question.setWrong_id(id); //作业id
         String str = intent.getStringExtra("result_img");
         Gson gson = new GsonBuilder()
                 .serializeNulls()//允许导出null值
@@ -86,9 +86,9 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 .create();
         Type collectionType = new TypeToken<List<String>>(){}.getType();
         List<String> imgs = gson.fromJson(str,collectionType);
-        question.setHomework_image(imgs);
-        question.setQuestion_Type(intent.getStringExtra("type"));
-        question.setResult_text_teacher(intent.getStringExtra("teacher_result"));
+        question.setHomework_image(imgs);//批改后的图片
+        question.setQuestion_Type(intent.getStringExtra("type")); //作业类型
+        question.setResult_text_teacher(intent.getStringExtra("teacher_result"));//老师的批语
         //老师返回的
         adapter = new CustomAdapterResult(this,imgs,R.layout.send_img_list_item);
         gridView.setAdapter(adapter);
@@ -135,7 +135,8 @@ public class AddErrorBookActivity extends AppCompatActivity {
                     selfResult.notifyDataSetChanged();
                 }else {
                     String path = ImageTool.getRealPathFromUri(this,pictureBean.getUri());
-                    Log.e("路径1",pictureBean.getPath());
+                    Log.e("路径1",path);
+                    selfSend.add(path);
                     selfSend.add(IMG_ADD);
                     selfResult.notifyDataSetChanged();
                 }
@@ -167,13 +168,14 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 if(editText.getText().toString() == null|| editText.getText().toString().equals("") ){
                     question.setResult_text_student("");
                 }else{
-                    question.setResult_image(selfSend);
+                    question.setResult_text_student(editText.getText().toString());
                 }
                 SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date curDate1 =  new Date(System.currentTimeMillis());
                 question.setUpdate_time(formatter1.format(curDate1)+"");
                 Log.e("当前时间",formatter1.format(curDate1));
-                question.setResult_text_student(editText.getText().toString());
+                //移除掉add
+                removeItem();
                 //上传图片到服务器
                 for(int i=0;i<selfSend.size();i++){
                     uploadImagesOfHomework(i);
@@ -182,6 +184,8 @@ public class AddErrorBookActivity extends AppCompatActivity {
         }
     }
     private void submitErrorInformation() {
+        question.setResult_image(selfSend);
+        Log.e("上传的错题内容",new Gson().toJson(question));
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(question));
         Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddWrongQuestionServlet").build();
         //3、创建Call对象，发送请求，并且接受响应数据
@@ -196,10 +200,12 @@ public class AddErrorBookActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                String str = response.body().string();
+                Log.e("返回的结果",str);
                 //请求成功时回调的方法
                 Message msg = new Message();
                 msg.what=1;
-                msg.obj = response.body().string();
+                msg.obj =str ;
                 handler.sendMessage(msg);
             }
         });
@@ -225,7 +231,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
                 Log.e("i的值",i+"");
                 Log.e("size的值",selfSend.size()+"");
 
-                if(i==selfSend.size()-2){
+                if(i == selfSend.size()-1){
                     //上传错题本信息
                     submitErrorInformation();
                 }

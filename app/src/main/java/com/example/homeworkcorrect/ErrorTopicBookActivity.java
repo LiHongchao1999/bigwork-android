@@ -143,6 +143,7 @@ public class ErrorTopicBookActivity extends AppCompatActivity implements View.On
                 WrongQuestion question = questionList.get(position);
                 Gson gson = new Gson();
                 String str = gson.toJson(question);
+                Log.e("错题本详情",str);
                 intent.putExtra("question",str);
                 startActivity(intent);
             }

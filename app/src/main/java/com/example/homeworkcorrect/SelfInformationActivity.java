@@ -12,6 +12,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -74,12 +75,8 @@ public class SelfInformationActivity extends AppCompatActivity {
                     String str = msg.obj.toString();
                     if(str.equals("true")){
                         UserCache.user.setImage(path);
-                        try {
-                            //修改用户信息
-                            postChangeUserInfo();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        //修改用户信息
+                        postChangeUserInfo();
                     }else{
                         Toast.makeText(SelfInformationActivity.this,"上传失败",Toast.LENGTH_LONG).show();
                     }
@@ -342,7 +339,7 @@ public class SelfInformationActivity extends AppCompatActivity {
     /*
     * 向服务器发送修改的内容
     * */
-    public void postChangeUserInfo() throws JSONException {
+    public void postChangeUserInfo(){
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(UserCache.user));
         //3.创建Call对象
         Request request = new Request.Builder()
@@ -368,5 +365,21 @@ public class SelfInformationActivity extends AppCompatActivity {
                 handler.sendMessage(msg);
             }
         });
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            //修改用户用户名和头像
+            UserInfo userInfo = new UserInfo(UserCache.user.getChat_id(), UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
+            RongIM.getInstance().refreshUserInfoCache(userInfo);
+            if(path==null || path.equals("")){//表示没有修改头像
+                postChangeUserInfo();
+            }else{
+                uploadImage();
+            }
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }
