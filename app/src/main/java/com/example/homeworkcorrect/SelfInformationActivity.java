@@ -39,11 +39,9 @@ import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.List;
 
@@ -339,7 +337,7 @@ public class SelfInformationActivity extends AppCompatActivity {
     /*
     * 向服务器发送修改的内容
     * */
-    public void postChangeUserInfo(){
+    public void postChangeUserInfo() throws JSONException {
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(UserCache.user));
         //3.创建Call对象
         Request request = new Request.Builder()

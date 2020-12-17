@@ -42,34 +42,41 @@
                         android:layout_marginRight="10dp"
                         android:layout_centerVertical="true"
                         android:id="@+id/image_user"/>
+
                     <TextView
                         android:id="@+id/login_kip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="点击登录"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/image_user"
                         android:layout_marginLeft="3dp"
-                        android:layout_centerVertical="true"
-                        android:textSize="18sp" />
-                    <TextView
-                        android:id="@+id/user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/image_user"
-                        android:layout_alignTop="@id/image_user"
-                        android:paddingBottom="10dp"
-                        android:textColor="@android:color/white"
                         android:textSize="20sp" />
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_alignBottom="@id/image_user"
-                        android:gravity="center"
-                        android:textColor="@android:color/white"
                         android:layout_toRightOf="@id/image_user"
-                        android:layout_below="@id/user_name"
-                        android:id="@+id/user_lever"/>
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/image_user"
+                            android:gravity="bottom"
+                            android:textColor="@android:color/white"
+                            android:textSize="20sp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textColor="@android:color/white"
+                            android:layout_toRightOf="@id/image_user"
+                            android:layout_below="@id/login_kip"
+                            android:id="@+id/user_lever"/>
+                    </LinearLayout>
+
                     <ImageView
                         android:layout_width="200dp"
                         android:layout_height="100dp"
