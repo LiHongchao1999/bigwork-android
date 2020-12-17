@@ -21,6 +21,7 @@ import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.ScrollableGridView;
 import com.example.homeworkcorrect.adapter.HomeworkAdapter;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Homework;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -49,8 +50,7 @@ public class HomeworkFragment extends Fragment {
         view = inflater.inflate(R.layout.homework_fragment, container,false);
         //获取控件
         getViews();
-        this.okHttpClient = new OkHttpClient();
-        getAllHomework();
+        okHttpClient = new OkHttpClient();
         lvHomework.setHorizontalSpacing(20);
         lvHomework.setVerticalSpacing(20);
         lvHomework.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,11 +68,17 @@ public class HomeworkFragment extends Fragment {
                     Homework homework = list.get(position);
                     Gson gson = new Gson();
                     String work = gson.toJson(homework);
+                    Log.e("作业详情",work);
                     intent.putExtra("homework",work);
                     startActivity(intent);
                 }
             }
         });
+        if (UserCache.user != null){//表示用户登录
+            getAllHomeworkById();
+        }else{
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_LONG).show();
+        }
 //        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 //            @Override
 //            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
@@ -91,7 +97,12 @@ public class HomeworkFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getAllHomework();
+        if (UserCache.user != null){
+            Log.e("获取",""+UserCache.user.getId());
+            getAllHomeworkById();
+        }else{
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_LONG).show();
+        }
     }
 
     /*
@@ -105,11 +116,15 @@ public class HomeworkFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getAllHomework();
+        if (UserCache.user != null){
+            getAllHomeworkById();
+        }else{
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void getAllHomework(){
-        Request request = new Request.Builder().url(IP.CONSTANT+"GetHomeworkListServlet").build();
+    public void getAllHomeworkById(){
+        Request request = new Request.Builder().url(IP.CONSTANT+"GetHomeworkListServlet?id="+UserCache.user.getId()).build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程

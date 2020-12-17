@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.homeworkcorrect.adapter.ErrorTopicAdapter;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.WrongQuestion;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -62,20 +63,8 @@ public class ErrorTopicBookActivity extends AppCompatActivity implements View.On
         viewPager = findViewById(R.id.viewpager);
         okHttpClient = new OkHttpClient();
         getViews();
-        //获取从添加错题传来的数据
-        Intent intent = getIntent();
-        String type = intent.getStringExtra("type");
-        if(type!=null && !type.equals("")){
-            if (type.equals("math")){
-                viewPager.setCurrentItem(0);
-            }else{
-                viewPager.setCurrentItem(1);
-            }
-            getQuestionOfSpecificSubject(type);
-        }else{
-            viewPager.setCurrentItem(0);
-            getQuestionOfSpecificSubject("math");
-        }
+        viewPager.setCurrentItem(0);
+        getQuestionOfSpecificSubject("math");
         //查找布局文件用LayoutInflater.inflate
         LayoutInflater mInflater = LayoutInflater.from(this);
         english = mInflater.inflate(R.layout.view_english, null);
@@ -273,7 +262,7 @@ public class ErrorTopicBookActivity extends AppCompatActivity implements View.On
 
 
     public void getQuestionOfSpecificSubject(String subject){
-        final Request request = new Request.Builder().url(IP.CONSTANT+"GetWrongQuestionListServlet?questionType="+subject).build();
+        final Request request = new Request.Builder().url(IP.CONSTANT+"GetWrongQuestionListServlet?questionType="+subject+"&id="+ UserCache.user.getId()).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override

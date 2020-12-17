@@ -45,8 +45,10 @@ import okhttp3.Response;
 public class AddErrorBookActivity extends AppCompatActivity {
     private ScrollableGridView gridView;//老师的
     private ScrollableGridView gridView1;//自己上传的
+    private ScrollableGridView gridView2;//老师解析
     private CustomAdapterResult adapter;
     private CustomImgListAdapter selfResult;
+    private CustomAdapterResult adapterResult;
     private List<String> selfSend;//自己上传的
     private static final String IMG_ADD= "add"; //添加图片
     private WrongQuestion question = new WrongQuestion();
@@ -89,6 +91,8 @@ public class AddErrorBookActivity extends AppCompatActivity {
         question.setHomework_image(imgs);//批改后的图片
         question.setQuestion_Type(intent.getStringExtra("type")); //作业类型
         question.setResult_text_teacher(intent.getStringExtra("teacher_result"));//老师的批语
+        List<String> teacher_img = gson.fromJson(intent.getStringExtra("teacher_image"),collectionType);
+        question.setResult_image_teacher(teacher_img);//老师的解析
         //老师返回的
         adapter = new CustomAdapterResult(this,imgs,R.layout.send_img_list_item);
         gridView.setAdapter(adapter);
@@ -118,6 +122,14 @@ public class AddErrorBookActivity extends AppCompatActivity {
                     }
                     new ShowLocalImageDialog(AddErrorBookActivity.this,urls,position).show();
                 }
+            }
+        });
+        adapterResult = new CustomAdapterResult(this,teacher_img,R.layout.send_img_list_item);
+        gridView2.setAdapter(adapterResult);
+        gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new ShowImagesDialog(AddErrorBookActivity.this,teacher_img,position).show();
             }
         });
     }
@@ -155,6 +167,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
     private void getViews() {
         gridView = findViewById(R.id.teacher_result_img);
         gridView1 = findViewById(R.id.self_result_img);
+        gridView2 = findViewById(R.id.explain_image);
         editText = findViewById(R.id.correct_self_text);
     }
 

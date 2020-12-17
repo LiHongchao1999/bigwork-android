@@ -37,7 +37,7 @@ import okhttp3.Response;
 
 public class HomeWorkCorrectDetail extends AppCompatActivity {
     private ScrollableGridView gridView;//图片列表
-    private ScrollableGridView gridViewExplained;
+    private ScrollableGridView gridViewExplained;//老师解析
     private TextView comment;//评语
     private Homework homework;
     private CustomAdapterResult adapter;
@@ -120,6 +120,7 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
                 intent.putExtra("submitTime",homework.getSubmitTime());
                 intent.putExtra("teacher_result",homework.getResult_text());
                 intent.putExtra("result_img",str);
+                intent.putExtra("teacher_image",gson.toJson(homework.getResult_image_teacher()));
                 startActivity(intent);
                 break;
             case R.id.user_comment://进行评分

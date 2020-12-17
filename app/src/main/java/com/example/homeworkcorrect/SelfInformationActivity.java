@@ -74,7 +74,11 @@ public class SelfInformationActivity extends AppCompatActivity {
                     if(str.equals("true")){
                         UserCache.user.setImage(path);
                         //修改用户信息
-                        postChangeUserInfo();
+                        try {
+                            postChangeUserInfo();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }else{
                         Toast.makeText(SelfInformationActivity.this,"上传失败",Toast.LENGTH_LONG).show();
                     }
@@ -371,7 +375,11 @@ public class SelfInformationActivity extends AppCompatActivity {
             UserInfo userInfo = new UserInfo(UserCache.user.getChat_id(), UserCache.user.getNickname(), Uri.parse(IP.CONSTANT+"userImage/"+UserCache.user.getImage()));
             RongIM.getInstance().refreshUserInfoCache(userInfo);
             if(path==null || path.equals("")){//表示没有修改头像
-                postChangeUserInfo();
+                try {
+                    postChangeUserInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }else{
                 uploadImage();
             }

@@ -13,6 +13,16 @@ public class WrongQuestion {
 	private List<String> result_image;//用户上传图片
 	private String result_text_teacher;//老师注释
 	private String result_text_student;//学生注释
+	private List<String> result_image_teacher;//老师解析
+
+	public List<String> getResult_image_teacher() {
+		return result_image_teacher;
+	}
+
+	public void setResult_image_teacher(List<String> result_image_teacher) {
+		this.result_image_teacher = result_image_teacher;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -68,17 +78,20 @@ public class WrongQuestion {
 	public void setResult_text_student(String result_text_student) {
 		this.result_text_student = result_text_student;
 	}
+
 	@Override
 	public String toString() {
-		return "WrongQuestion [id=" + id + ", wrong_id=" + wrong_id + ", user_id=" + user_id + ", question_Type="
-				+ question_Type + ", update_time=" + update_time + ", homework_image=" + homework_image
-				+ ", result_image=" + result_image + ", result_text_teacher=" + result_text_teacher
-				+ ", result_text_student=" + result_text_student + "]";
+		return "WrongQuestion{" +
+				"id=" + id +
+				", wrong_id=" + wrong_id +
+				", user_id=" + user_id +
+				", question_Type='" + question_Type + '\'' +
+				", update_time='" + update_time + '\'' +
+				", homework_image=" + homework_image +
+				", result_image=" + result_image +
+				", result_text_teacher='" + result_text_teacher + '\'' +
+				", result_text_student='" + result_text_student + '\'' +
+				", result_image_teacher=" + result_image_teacher +
+				'}';
 	}
-	
-	
-	
-	
-	
-
 }
