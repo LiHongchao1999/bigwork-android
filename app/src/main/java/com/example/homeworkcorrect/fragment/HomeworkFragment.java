@@ -101,7 +101,7 @@ public class HomeworkFragment extends Fragment {
             Log.e("获取",""+UserCache.user.getId());
             getAllHomeworkById();
         }else{
-            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -119,7 +119,21 @@ public class HomeworkFragment extends Fragment {
         if (UserCache.user != null){
             getAllHomeworkById();
         }else{
-            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+
+        }else{
+            if (UserCache.user != null){
+                getAllHomeworkById();
+            }else{
+                Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -198,6 +198,19 @@ public class ParentCircleFragment extends Fragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        //从服务端获取最新的动态
+        getCircleListInfo();
+        Log.e("tag",publish.getTag(R.id.tag_first)+"");
+        if(popupWindow.isShowing()){
+            publish.setTag(R.id.tag_first,"close");
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode==150){//接收到发表的动态信息
