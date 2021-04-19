@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     String str = msg.obj.toString();
                     User user1 = new Gson().fromJson(str,User.class);
                     UserCache.user = user1;
+                    Log.e("用户信息",user1.toString());
                     //获取数据库连接
                     String token1 = UserCache.user.getChat_token();
                     RongIMClient.connect(token1, new RongIMClient.ConnectCallbackEx() {
