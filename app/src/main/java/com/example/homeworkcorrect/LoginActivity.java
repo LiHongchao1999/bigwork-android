@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                     //跳转到个人页面
+                    Log.e("跳转","跳转");
                     Intent intent = new Intent();
                     setResult(150,intent);
                     finish();
