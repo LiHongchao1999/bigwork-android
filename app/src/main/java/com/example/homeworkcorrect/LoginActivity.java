@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.User;
+import com.example.homeworkcorrect.fragment.MyFragment;
 import com.google.gson.Gson;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
@@ -429,6 +430,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         Toast.makeText(getApplicationContext(), "提交验证码成功",
                                 Toast.LENGTH_SHORT).show();
+                        Message msg2 = new Message();
+                        msg.what=2;
+                        handler1.sendMessage(msg2);
                         //验证码成功，向服务器进行发送，获取当前用户信息
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
