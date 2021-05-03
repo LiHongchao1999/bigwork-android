@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.adapter.CustomCircleAdapter;
 import com.example.homeworkcorrect.adapter.CustomSelectAdapter;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Circle;
 import com.example.homeworkcorrect.entity.PopWindowEntity;
 import com.example.homeworkcorrect.entity.User;
@@ -104,8 +106,13 @@ public class ParentCircleFragment extends Fragment {
         list = new ArrayList<>();
         //设置弹出框绑定的listview以及初始化popupwindow
         setListView();
-        //从服务端获取动态信息
-        getCircleListInfo();
+        if (UserCache.user != null){
+            Log.e("获取",""+UserCache.user.getId());
+            //从服务端获取最新的动态
+            getCircleListInfo();
+        }else {
+            Toast.makeText(getContext(), "您还未登录", Toast.LENGTH_SHORT).show();
+        }
         //准备数据
         list.add(new PopWindowEntity(R.drawable.print,"发表"));
         list.add(new PopWindowEntity(R.drawable.image,"图片"));
@@ -187,13 +194,18 @@ public class ParentCircleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //从服务端获取最新的动态
-        getCircleListInfo();
         Log.e("tag",publish.getTag(R.id.tag_first)+"");
         if(popupWindow.isShowing()){
             publish.setTag(R.id.tag_first,"close");
             popupWindow.dismiss();
             backgroundAlpha(1.0f);
+        }
+        if (UserCache.user != null){
+            Log.e("获取",""+UserCache.user.getId());
+            //从服务端获取最新的动态
+            getCircleListInfo();
+        }else{
+            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
         }
     }
 

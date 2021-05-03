@@ -23,7 +23,6 @@
                 android:id="@+id/search_layout"
                 android:layout_width="match_parent"
                 android:layout_height="44dp">
-
                 <TextView
                     android:id="@+id/search_tv_title"
                     android:layout_width="wrap_content"

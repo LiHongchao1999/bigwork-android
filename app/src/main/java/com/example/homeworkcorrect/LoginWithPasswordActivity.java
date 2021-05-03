@@ -50,6 +50,7 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
                 case 1:
                     String str = msg.obj.toString();
                     User user = new Gson().fromJson(str,User.class);
+                    Log.e("登录用户的信息",user.toString());
                     if(user.getId()==0){//表示登录失败
                         Toast.makeText(LoginWithPasswordActivity.this,"账号或密码错误",Toast.LENGTH_LONG).show();
                     }else{
@@ -156,7 +157,8 @@ public class LoginWithPasswordActivity extends AppCompatActivity {
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserLoginServlet")
+                .url(IP.CONSTANT+"user/login/"+null)
+                //.url(IP.CONSTANT+"UserLoginServlet")
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应

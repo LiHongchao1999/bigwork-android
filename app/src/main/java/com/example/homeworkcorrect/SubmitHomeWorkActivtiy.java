@@ -3,6 +3,8 @@ package com.example.homeworkcorrect;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,14 +16,20 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.homeworkcorrect.adapter.CustomImgListAdapter;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Homework;
+import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +64,20 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
     private int hour;
     private int minute;
     private OkHttpClient okHttpClient;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    String str = msg.obj.toString();
+                    Log.e("修改拍拍币返回的结果",str);
+                    Toast.makeText(SubmitHomeWorkActivtiy.this,str,Toast.LENGTH_SHORT).show();
+                    //修改拍拍币数量
+                    UserCache.user.setClapping_money(UserCache.user.getClapping_money()-10);
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -198,30 +220,54 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InfoDialog infoDialog = new InfoDialog.Builder(SubmitHomeWorkActivtiy.this,R.layout.info_dialog_green)
-                        .setTitle("Done")
-                        .setMessage("提交成功")
-                        .setButton("OK", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intent = new Intent(SubmitHomeWorkActivtiy.this,MainActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
-                        ).create();
-                infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
-                infoDialog.show();
-                for(int i=0;i<photoList.size();i++){
-                    uploadImagesOfHomework(i);
-                    Log.e("执行了上传图片的方法","i="+i);
-                    try {
-                        Thread.sleep(1);//主线程休眠1ms，防止图片重名
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                //进行扣除拍拍币
+                AlertDialog.Builder dialog = new AlertDialog.Builder(SubmitHomeWorkActivtiy.this);
+                dialog.setIcon(R.drawable.work12);
+                dialog.setTitle("温馨提示");
+                dialog.setMessage("本次作业需要扣除10拍拍币");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //发送给服务端进行修改
+                        try {
+                            updateMoney();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //然后进行提交
+                        InfoDialog infoDialog = new InfoDialog.Builder(SubmitHomeWorkActivtiy.this,R.layout.info_dialog_green)
+                                .setTitle("Done")
+                                .setMessage("提交成功")
+                                .setButton("OK", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(SubmitHomeWorkActivtiy.this,MainActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+                                ).create();
+                        infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
+                        infoDialog.show();
+                        for(int i=0;i<photoList.size();i++){
+                            uploadImagesOfHomework(i);
+                            Log.e("执行了上传图片的方法","i="+i);
+                            try {
+                                Thread.sleep(1);//主线程休眠1ms，防止图片重名
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
-                }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
 //        again.setOnClickListener(new View.OnClickListener() {
@@ -234,7 +280,40 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         Date date = new Date(System.currentTimeMillis());
         tvDate.setText(formatter.format(date));
     }
+    //修改逻辑
+    public void updateMoney() throws JSONException {
+        //2.创建Request请求对象
+        //请求体是字符串
+        User user = new User();
+        user.setId(UserCache.user.getId());
+        user.setClapping_money(UserCache.user.getClapping_money()-10);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
+        //3.创建Call对象
+        Request request = new Request.Builder()
+                .post(requestBody)//请求方式为POST
+                .url(IP.CONSTANT+"user/money")
+                .build();
+        final Call call = okHttpClient.newCall(request);
+        //4.提交请求并返回响应
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                //请求失败时回调
+                Log.e("修改请求结果","失败");
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //从服务器端获取到JSON格式字符串
+                String str = response.body().string();
+                Log.e("Money",str);
+                Message msg = new Message();
+                msg.what=1;
+                msg.obj=str;
+                handler.sendMessage(msg);
+            }
+        });
+    }
     private void submitHomeworkInformation() {
         Homework homework = new Homework();
         homework.setSubmitTime(tvDate.getText().toString());
@@ -256,6 +335,8 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
             }
 
             @Override
+
+
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功时回调的方法
                 Log.e("异步请求的结果",response.body().string());

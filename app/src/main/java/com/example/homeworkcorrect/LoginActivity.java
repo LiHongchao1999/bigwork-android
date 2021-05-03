@@ -559,13 +559,15 @@ public class LoginActivity extends AppCompatActivity {
     public void postLogin() throws JSONException {
         //2.创建Request请求对象
         //请求体是普通字符串
-        User user = new User(etphone.getText().toString());
-        Log.e("etphone",etphone.getText().toString());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),this.object2JSON(user));
+        User user = new User();
+        user.setPhoneNumber(etphone.getText().toString());
+        Log.e("etphone手机号",etphone.getText().toString());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
         //3.创建Call对象
         Request request = new Request.Builder()
                 .post(requestBody)//请求方式为POST
-                .url(IP.CONSTANT+"UserLoginServlet?phoneNumber="+etphone.getText().toString())
+                .url(IP.CONSTANT+"user/login/"+user.getPhoneNumber())
+                //.url(IP.CONSTANT+"UserLoginServlet?phoneName="+etphone.getText().toString())
                 .build();
         final Call call = okHttpClient.newCall(request);
         //4.提交请求并返回响应

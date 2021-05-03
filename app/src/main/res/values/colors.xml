@@ -16,4 +16,5 @@
     <color name="orangehao">#FFFFA500</color>
     <color name="brownhao">#FF8B4513</color>
     <color name="lightgray">#F5F5F5</color>
+    <color name="btn_select">#FF8800</color>
 </resources>

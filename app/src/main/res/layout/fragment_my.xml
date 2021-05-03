@@ -182,6 +182,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:padding="10dp"
+                android:id="@+id/clap_money"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/border_bottom"
                 android:layout_height="wrap_content">
@@ -197,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:layout_toRightOf="@id/integral"
-                    android:text="我的积分"/>
+                    android:text="我的拍拍币"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

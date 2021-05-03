@@ -13,6 +13,7 @@ public class User {
     private String sex;//性别
     private String chat_id;//聊天id
     private String chat_token;//聊天token
+    private int clapping_money;//拍拍币数量
 
     public User() {
     }
@@ -94,6 +95,14 @@ public class User {
         this.grade = grade;
     }
 
+    public int getClapping_money() {
+        return clapping_money;
+    }
+
+    public void setClapping_money(int clapping_money) {
+        this.clapping_money = clapping_money;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -106,11 +115,13 @@ public class User {
                 ", weChatNumber='" + weChatNumber + '\'' +
                 ", grade='" + grade + '\'' +
                 ", sex='" + sex + '\'' +
-                ", chat_id=" + chat_id +
+                ", chat_id='" + chat_id + '\'' +
                 ", chat_token='" + chat_token + '\'' +
+                ", clapping_money=" + clapping_money +
                 '}';
     }
-    public User(String nickname, String phoneNumber, String image, String sex,String password) {
+
+    public User(String nickname, String phoneNumber, String image, String sex, String password) {
         this.nickname = nickname;
         this.phoneNumber = phoneNumber;
         this.image = image;

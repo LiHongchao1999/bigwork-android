@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.ContactUsActivity;
 import com.example.homeworkcorrect.ErrorTopicBookActivity;
 import com.example.homeworkcorrect.LoginActivity;
+import com.example.homeworkcorrect.MoneyActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
@@ -86,6 +87,17 @@ public class MyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my, container, false);
         Toolbar toolbar = view.findViewById(R.id.tool);
+        //点击我的拍拍币
+        RelativeLayout money = view.findViewById(R.id.clap_money);
+        money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(login.getText().toString()==null || login.getText().toString().equals("")) {
+                    Intent intent = new Intent(getContext(), MoneyActivity.class);
+                    startActivityForResult(intent,210);
+                }
+            }
+        });
         //点击分享
         RelativeLayout relativeLayout = view.findViewById(R.id.recommend);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
