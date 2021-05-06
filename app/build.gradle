@@ -109,6 +109,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.commit451:PhotoView:1.2.4'
+    //支付宝SDK
+    implementation files('libs\\alipaysdk-15.8.03.210428205839.aar')
 }
 allprojects{
     repositories {

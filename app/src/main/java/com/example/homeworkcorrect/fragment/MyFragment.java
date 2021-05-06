@@ -26,6 +26,7 @@ import com.example.homeworkcorrect.MoneyActivity;
 import com.example.homeworkcorrect.R;
 import com.example.homeworkcorrect.SelfInformationActivity;
 import com.example.homeworkcorrect.SettingActivity;
+import com.example.homeworkcorrect.alipay.PayActivity;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;

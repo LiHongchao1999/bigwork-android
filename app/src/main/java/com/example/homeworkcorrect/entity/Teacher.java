@@ -12,7 +12,15 @@ public class Teacher {
     private String weNumber;//微信账号
     private String chat_id;//聊天id
     private String chat_token;//聊天token
+    private int clapping_money;//拍拍币数量
 
+    public int getClapping_money() {
+        return clapping_money;
+    }
+
+    public void setClapping_money(int clapping_money) {
+        this.clapping_money = clapping_money;
+    }
     public String getNickname() {
         return nickname;
     }
@@ -80,9 +88,10 @@ public class Teacher {
         this.weNumber = weNumber;
     }
 
-    public Teacher(int teacherId, String nickname, String image, String pNumber, String password, String fSchool,
-                   int rank, String qqNumber, String weNumber, String chat_id, String chat_token) {
-        super();
+    public Teacher() {
+    }
+
+    public Teacher(int teacherId, String nickname, String image, String pNumber, String password, String fSchool, int rank, String qqNumber, String weNumber, String chat_id, String chat_token, int clapping_money) {
         this.teacherId = teacherId;
         this.nickname = nickname;
         this.image = image;
@@ -94,14 +103,24 @@ public class Teacher {
         this.weNumber = weNumber;
         this.chat_id = chat_id;
         this.chat_token = chat_token;
+        this.clapping_money = clapping_money;
     }
-    public Teacher() {
-        super();
-    }
+
     @Override
     public String toString() {
-        return "Teacher [teacherId=" + teacherId + ", nickname=" + nickname + ", image=" + image + ", pNumber="
-                + pNumber + ", password=" + password + ", fSchool=" + fSchool + ", rank=" + rank + ", qqNumber="
-                + qqNumber + ", weNumber=" + weNumber + ", chat_id=" + chat_id + ", chat_token=" + chat_token + "]";
+        return "Teacher{" +
+                "teacherId=" + teacherId +
+                ", nickname='" + nickname + '\'' +
+                ", image='" + image + '\'' +
+                ", pNumber='" + pNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", fSchool='" + fSchool + '\'' +
+                ", rank=" + rank +
+                ", qqNumber='" + qqNumber + '\'' +
+                ", weNumber='" + weNumber + '\'' +
+                ", chat_id='" + chat_id + '\'' +
+                ", chat_token='" + chat_token + '\'' +
+                ", clapping_money=" + clapping_money +
+                '}';
     }
 }

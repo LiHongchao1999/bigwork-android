@@ -31,7 +31,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MoneyActivity"></activity>
+        <activity android:name=".alipay.PayActivity"></activity>
+        <activity android:name=".MoneyActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".HisselfInfoActivity" />
 
