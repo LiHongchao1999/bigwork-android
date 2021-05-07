@@ -1,9 +1,12 @@
 package com.example.homeworkcorrect.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import androidx.annotation.RequiresApi;
+
 import com.bumptech.glide.Glide;
 import com.example.homeworkcorrect.HisselfInfoActivity;
 import com.example.homeworkcorrect.MyListView;
@@ -25,22 +30,42 @@ import com.example.homeworkcorrect.ShowCircleImagesDialog;
 import com.example.homeworkcorrect.ShowImagesDialog;
 import com.example.homeworkcorrect.WrongQuestionDetailActivity;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.chat.CircleImageView;
 import com.example.homeworkcorrect.entity.Circle;
+import com.example.homeworkcorrect.entity.Like;
+import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import io.rong.imageloader.utils.L;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class CustomCircleAdapter extends BaseAdapter {
+    private List<Like> like=new ArrayList<>();
     private Context mContext;
     private List<Circle> circles = new ArrayList<>();
     private int itemLayoutRes;
-    public CustomCircleAdapter(Context mContext, List<Circle> circles, int msg_list_item) {
+    private int count;
+    public CustomCircleAdapter(Context mContext, List<Circle> circles, int msg_list_item,List<Like> like) {
         this.mContext = mContext;
         this.circles = circles;
         Log.e("jsad ",circles.size()+"");
         this.itemLayoutRes = msg_list_item;
+        this.like=like;
     }
     @Override
     public int getCount() {//获取数据的条数
@@ -67,6 +92,7 @@ public class CustomCircleAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         int current = position;
         ViewHolder viewHolder;
+        final boolean[] flags = {false,true};
         //convertView每个item的视图对象
         //加载item的布局文件
         if(convertView==null) {
@@ -116,6 +142,19 @@ public class CustomCircleAdapter extends BaseAdapter {
                 new ShowCircleImagesDialog(mContext,circles.get(current).getSendImg(),position).show();
             }
         });
+        //判断是否点过赞
+        if(UserCache.user!=null) {
+            for (int j = 0; j < like.size(); j++) {
+                if (UserCache.user.getId() == like.get(j).getUserid()) {
+                    if (circles.get(position).getId() == like.get(j).getCircleid()) {
+                        viewHolder.likeSize.setText(circles.get(position).getLikeSize() + "");
+                        viewHolder.likeSize.setTextColor(convertView.getResources().getColor(android.R.color.holo_red_light));
+                        viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(convertView.getResources(), R.drawable.like1));
+                        flags[0] = true;
+                    }
+                }
+            }
+        }
         viewHolder.forwardSize.setText(circles.get(position).getForwardSize()+"");
         viewHolder.commentSize.setText(circles.get(position).getCommentSize()+"");
         viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");
@@ -136,12 +175,126 @@ public class CustomCircleAdapter extends BaseAdapter {
         });
         final View finalConvertView = convertView;
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                int count = circles.get(position).getLikeSize() +1;
-                viewHolder.likeSize.setText(count+"");
+                if(flags[0] ==true){ //已点赞 点击取消
+                    flags[0] =false;
+                    if (flags[1]=false){
+                        count= circles.get(position).getLikeSize()+1 ;
+                        viewHolder.likeSize.setText(count+"");
+                        flags[1]=true;
+
+                    }else if(flags[1]=true){
+                        count=circles.get(position).getLikeSize();
+                        viewHolder.likeSize.setText(count+"");
+                        flags[1]=false;
+                    }
+                    viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like));
+                    viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.black));
+                    RequestBody requestBody= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),String.valueOf(circles.get(position).getId()));
+                    Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                            .post(requestBody)
+                            .url(IP.CONSTANT+"CancelLike")
+                            .build();
+                    //4、创建Call对象，发送请求，并接受响应
+                    Call call = new OkHttpClient().newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String res = response.body().string();
+
+                        }
+                    });
+                    List<String> list= new ArrayList<String>();
+                    list.add(circles.get(position).getId()+"");
+                    list.add(count+1+"");
+                    String a=String.join(",",list);
+                    RequestBody requestBody1= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),a);
+                    Request request1 = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                            .post(requestBody1)
+                            .url(IP.CONSTANT+"AddLikeCircle")
+                            .build();
+                    //4、创建Call对象，发送请求，并接受响应
+                    Call call1 = new OkHttpClient().newCall(request1);
+                    call1.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String res = response.body().string();
+
+                        }
+                    });
+                }else {//未点赞 点击点赞
+                     flags[0] =true;
+                     flags[1]=false;
+                int coun = circles.get(position).getLikeSize() +1;
+                viewHolder.likeSize.setText(coun+"");
                 viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.holo_red_light));
                 viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like1));
+                List<String> list= new ArrayList<String>();
+                list.add(UserCache.user.getId()+"");
+                list.add(circles.get(position).getId()+"");
+                String s=String.join(",",list);
+                Log.e("acac",s);
+
+                    RequestBody requestBody= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),s);
+                    Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                            .post(requestBody)
+                            .url(IP.CONSTANT+"AddLikeServlet")
+                            .build();
+                    //4、创建Call对象，发送请求，并接受响应
+                    Call call = new OkHttpClient().newCall(request);
+                    call.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String res = response.body().string();
+
+                        }
+                    });
+                    List<String> list1= new ArrayList<String>();
+                    list1.add(circles.get(position).getId()+"");
+                    list1.add(coun+"");
+                    String bb=String.join(",",list1);
+                    RequestBody requestBody1= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),bb);
+                    Request request1 = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
+                            .post(requestBody1)
+                            .url(IP.CONSTANT+"AddLikeCircle")
+                            .build();
+                    //4、创建Call对象，发送请求，并接受响应
+                    Call call1 = new OkHttpClient().newCall(request1);
+                    call1.enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            e.printStackTrace();
+
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String res = response.body().string();
+
+                        }
+                    });
+
+                }
             }
         });
         return convertView;
@@ -160,4 +313,7 @@ public class CustomCircleAdapter extends BaseAdapter {
         public TextView likeSize;  //点赞数
         public ImageView likeImg; //点赞图片
     }
+
+
+
 }
