@@ -195,7 +195,7 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
     private void uploadGradeOfHomework() {
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),"");
         Log.e("上传的评分",homework.getGrade()+"::"+homework.getId());
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UpdateHomeWorkInfo?id="+homework.getId()+"&grade="+homework.getGrade()+"&tag="+0).build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"homework/updateHomeworkInfo/"+homework.getId()+"/"+homework.getGrade()+"/"+0).build();
         Log.e("上传的评分",homework.getGrade()+"::"+homework.getId());
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

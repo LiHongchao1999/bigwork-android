@@ -133,7 +133,7 @@ public class ParentCircleFragment extends Fragment {
         //请求体是普通的字符串
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetCircleListServlet")
+                .url(IP.CONSTANT+"circle/getCircles")
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = new OkHttpClient().newCall(request);

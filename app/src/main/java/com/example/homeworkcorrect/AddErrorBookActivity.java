@@ -200,7 +200,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
         question.setResult_image(selfSend);
         Log.e("上传的错题内容",new Gson().toJson(question));
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(question));
-        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddWrongQuestionServlet").build();
+        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"/wrongquestion/addWrongQuestion").build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程
@@ -228,7 +228,7 @@ public class AddErrorBookActivity extends AppCompatActivity {
         long time = Calendar.getInstance().getTimeInMillis();
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(selfSend.get(0)));
         Log.e("list的内容",selfSend.get(0)+"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"homework/uploadHomeworkImage/"+time+".jpg").build();
         selfSend.remove(0);
         selfSend.add(time+".jpg");
         Call call = okHttpClient.newCall(request);

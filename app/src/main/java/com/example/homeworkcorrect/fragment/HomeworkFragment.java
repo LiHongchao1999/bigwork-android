@@ -138,7 +138,7 @@ public class HomeworkFragment extends Fragment {
     }
 
     public void getAllHomeworkById(){
-        Request request = new Request.Builder().url(IP.CONSTANT+"GetHomeworkListServlet?id="+UserCache.user.getId()).build();
+        Request request = new Request.Builder().url(IP.CONSTANT+"homework/getHomeworks/"+UserCache.user.getId()).build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程

@@ -262,7 +262,7 @@ public class ErrorTopicBookActivity extends AppCompatActivity implements View.On
 
 
     public void getQuestionOfSpecificSubject(String subject){
-        final Request request = new Request.Builder().url(IP.CONSTANT+"GetWrongQuestionListServlet?questionType="+subject+"&id="+ UserCache.user.getId()).build();
+        final Request request = new Request.Builder().url(IP.CONSTANT+"/wrongquestion/getWrongQuestionList/"+subject+"/"+ UserCache.user.getId()).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override

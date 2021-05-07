@@ -217,7 +217,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         circle.setUserId(UserCache.user.getId());
         circle.setChatId(UserCache.user.getChat_id());
         RequestBody requestBody=RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circle));
-        Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddCircleServlet").build();
+        Request request=new Request.Builder().post(requestBody).url(IP.CONSTANT+"circle/addCircle").build();
         Call call=okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -244,7 +244,7 @@ public class PublishCircleActivity extends AppCompatActivity {
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(imgUrls.get(0)));
         Log.e("list的内容",imgUrls.get(0)+"");
         Log.e("time",time+"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadCircleImageServlet?imgName="+time+".jpg").build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"circle/uploadCircleImage/"+time+".jpg").build();
         imgUrls.remove(0);
         imgUrls.add(time+".jpg");
         Call call = okHttpClient.newCall(request);

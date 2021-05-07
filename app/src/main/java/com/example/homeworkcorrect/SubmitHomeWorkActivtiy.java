@@ -323,7 +323,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         homework.setDeadline(dateText.getText().toString()+" "+timeText.getText().toString());
         homework.setUser_id(UserCache.user.getId());
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(homework));
-        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"AddHomeworkServlet").build();
+        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"homework/addHomework").build();
         //3、创建Call对象，发送请求，并且接受响应数据
         final Call call = okHttpClient.newCall(request);
         //不需要手动创建多线程
@@ -349,7 +349,7 @@ public class SubmitHomeWorkActivtiy extends AppCompatActivity {
         Log.e("获取到的时间",time+"");
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(photoList.get(0)));
         Log.e("list的内容",photoList.get(0)+"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadHomeworkImageServlet?imgName="+time+".jpg").build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"homework/uploadHomeworkImage/"+time+".jpg").build();
         photoList.remove(0);
         photoList.add(time+".jpg");
         Call call = okHttpClient.newCall(request);

@@ -115,6 +115,7 @@
         <activity android:name=".SexActivity" />
         <activity android:name=".PhoneNumberActivity" />
         <activity android:name=".IdentityNumberActivity" />
+        <activity android:name=".HeadPortraitActivity" />
         <activity android:name=".RealNameActivity" />
         <activity android:name=".NickNameActivity" />
         <activity android:name=".MainActivity">
