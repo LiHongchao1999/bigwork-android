@@ -56,8 +56,7 @@ public class OnlineShopFragment extends Fragment {
     private ViewGroup.MarginLayoutParams searchLayoutParams, titleLayoutParams;
     //资源文件
     private Integer[] images = {R.drawable.inclass1, R.drawable.cake02, R.drawable.cake03, R.drawable.cake04, R.drawable.cake05};
-
-
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

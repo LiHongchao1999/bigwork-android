@@ -1,0 +1,36 @@
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 263109f5e5efc9725cf47dadba4c3aff97adaf22)
++++ .idea/gradle.xml	(date 1618987248007)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/java/com/example/homeworkcorrect/cache/IP.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.homeworkcorrect.cache;\r\n\r\npublic class IP {\r\n//    public static final String CONSTANT = \"http://192.168.137.1:8080/HomeworkCorrect_server/\";\r\n    //public static final String CONSTANT = \"http://35.220.214.53:8080/HomeworkCorrect_server/\";\r\n    public static final String CONSTANT = \"http://39.101.204.220:8080/HomeworkCorrect_server/\";\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/homeworkcorrect/cache/IP.java	(revision 263109f5e5efc9725cf47dadba4c3aff97adaf22)
++++ app/src/main/java/com/example/homeworkcorrect/cache/IP.java	(date 1619771409830)
+@@ -1,7 +1,7 @@
+ package com.example.homeworkcorrect.cache;
+ 
+ public class IP {
+-//    public static final String CONSTANT = "http://192.168.137.1:8080/HomeworkCorrect_server/";
++    public static final String CONSTANT = "http://192.168.137.1:8080/HomeworkCorrect_server/";
+     //public static final String CONSTANT = "http://35.220.214.53:8080/HomeworkCorrect_server/";
+-    public static final String CONSTANT = "http://39.101.204.220:8080/HomeworkCorrect_server/";
++   /* public static final String CONSTANT = "http://39.101.204.220:8080/HomeworkCorrect_server/";*/
+ }
