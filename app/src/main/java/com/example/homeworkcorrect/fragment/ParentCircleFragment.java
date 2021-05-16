@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
 import io.rong.imageloader.utils.L;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
