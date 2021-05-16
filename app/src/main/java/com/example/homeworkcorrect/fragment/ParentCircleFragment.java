@@ -64,8 +64,10 @@ import okhttp3.Response;
 
 
 public class ParentCircleFragment extends Fragment {
+    
     private OkHttpClient client;
     private View view;
+    private List like = new ArrayList();
     private LinearLayout nearCircle; //附近圈子
     private LinearLayout freCircle;  //好友圈子
     private TextView publicSection;
@@ -81,7 +83,7 @@ public class ParentCircleFragment extends Fragment {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
                 case 1:
-                    circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout);
+                    circleAdapter = new CustomCircleAdapter(getContext(),circles,R.layout.circle_item_list_layout,like);
                     listView.setAdapter(circleAdapter);
                     //给每个item绑定单机事件
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,7 +152,7 @@ public class ParentCircleFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
-                Log.e("123",str);
+                Log.e("朋友圈",str);
                 Type collectionType = new TypeToken<List<Circle>>(){}.getType();
                 circles = new Gson().fromJson(str,collectionType);
                 Message msg = new Message();
@@ -159,13 +161,14 @@ public class ParentCircleFragment extends Fragment {
             }
         });
     }
-    private void getLikelist() {
+    /*private void getLikelist() {
         //请求体是普通的字符串
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetLikeServlet")
+                .url(IP.CONSTANT+"like/getLikes")
                 .build();
         //4、创建Call对象，发送请求，并接受响应
+        Log.e("执行getLikeList","mmm");
         Call call = new OkHttpClient().newCall(request);
         //如果使用异步请求，不需要手动使用子线程
         call.enqueue(new Callback() {
@@ -174,15 +177,20 @@ public class ParentCircleFragment extends Fragment {
                 //请求失败时候回调
                 e.printStackTrace();
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
-                Log.e("123",str);
-                Type collectionType = new TypeToken<List<Like>>(){}.getType();
-                like= new Gson().fromJson(str,collectionType);
-                Log.e("cccc",like.toString());
-
+                Log.e("点赞", str);
+                Type collectionType = new TypeToken<List<Like>>() {
+                }.getType();
+                like = new Gson().fromJson(str, collectionType);
+                Log.e("点赞信息", like.toString());
+            }
+        });
+    }
+*/
     /*
     * 设置弹出框的数据listview
     * */
@@ -219,8 +227,6 @@ public class ParentCircleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //从服务端获取最新的动态
-        getCircleListInfo();
         Log.e("tag",publish.getTag(R.id.tag_first)+"");
         if(popupWindow.isShowing()){
             publish.setTag(R.id.tag_first,"close");
@@ -239,13 +245,13 @@ public class ParentCircleFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(hidden){
+        /*if(hidden){
         return;
         }else { circles=null;
             like=null;
             getLikelist();
             getCircleListInfo();
-        }
+        }*/
         //从服务端获取最新的动态
         getCircleListInfo();
         Log.e("tag",publish.getTag(R.id.tag_first)+"");

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.homeworkcorrect.cache.IP;
+import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Teacher;
 import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
@@ -25,8 +26,10 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /*
@@ -94,9 +97,15 @@ public class ConversationListActivity extends FragmentActivity {
     * */
     private void findUserById(String userId) {
         //请求体是普通的字符串
+        //请求体是字符串
+        User user = new User();
+        user.setChat_id(userId);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                //.url(IP.CONSTANT+"GetChatInfoServlet?chat_id="+userId)
+                .post(requestBody)
+                .url(IP.CONSTANT+"user/getChatInfo")
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = okHttpClient.newCall(request);
@@ -123,9 +132,13 @@ public class ConversationListActivity extends FragmentActivity {
      * */
     private void findTeacherById(String userId) {
         //请求体是普通的字符串
+        Teacher user = new Teacher();
+        user.setChat_id(userId);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=utf-8"),new Gson().toJson(user));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetTeacherChatInfoServlet?chat_id="+userId)
+                .post(requestBody)
+                .url(IP.CONSTANT+"teacher/getChatInfo")
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = okHttpClient.newCall(request);

@@ -318,7 +318,7 @@ public class SelfInformationActivity extends AppCompatActivity {
         Log.e("获取到的时间",time+"");
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(path));
         Log.e("path",path+"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadUserImageServlet?imgName="+time+".jpg").build();
+        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"user/uploadUserImage/"+time+".jpg").build();
         path = time+".jpg";
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {

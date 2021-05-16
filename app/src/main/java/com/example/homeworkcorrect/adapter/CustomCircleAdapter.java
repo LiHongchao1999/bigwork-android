@@ -195,7 +195,7 @@ public class CustomCircleAdapter extends BaseAdapter {
                     RequestBody requestBody= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),String.valueOf(circles.get(position).getId()));
                     Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
                             .post(requestBody)
-                            .url(IP.CONSTANT+"CancelLike")
+                            .url(IP.CONSTANT+"like/delteLike")
                             .build();
                     //4、创建Call对象，发送请求，并接受响应
                     Call call = new OkHttpClient().newCall(request);
@@ -219,7 +219,7 @@ public class CustomCircleAdapter extends BaseAdapter {
                     RequestBody requestBody1= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),a);
                     Request request1 = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
                             .post(requestBody1)
-                            .url(IP.CONSTANT+"AddLikeCircle")
+                            .url(IP.CONSTANT+"like/addLikeCircle")
                             .build();
                     //4、创建Call对象，发送请求，并接受响应
                     Call call1 = new OkHttpClient().newCall(request1);
@@ -252,7 +252,7 @@ public class CustomCircleAdapter extends BaseAdapter {
                     RequestBody requestBody= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),s);
                     Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
                             .post(requestBody)
-                            .url(IP.CONSTANT+"AddLikeServlet")
+                            .url(IP.CONSTANT+"like/addLike")
                             .build();
                     //4、创建Call对象，发送请求，并接受响应
                     Call call = new OkHttpClient().newCall(request);
@@ -276,7 +276,7 @@ public class CustomCircleAdapter extends BaseAdapter {
                     RequestBody requestBody1= RequestBody.create(MediaType.parse("text/plain;chaset=utf-8"),bb);
                     Request request1 = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
                             .post(requestBody1)
-                            .url(IP.CONSTANT+"AddLikeCircle")
+                            .url(IP.CONSTANT+"like/addLikeCircle")
                             .build();
                     //4、创建Call对象，发送请求，并接受响应
                     Call call1 = new OkHttpClient().newCall(request1);

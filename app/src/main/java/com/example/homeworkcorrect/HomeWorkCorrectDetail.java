@@ -149,9 +149,11 @@ public class HomeWorkCorrectDetail extends AppCompatActivity {
         RatingBar bar = view.findViewById(R.id.ratingBar);
         Button btn = view.findViewById(R.id.comment_commit);
         if(homework.getScored().equals("true")){//表示用户已经评分
+            Log.e("评分","已经评分");
             bar.setRating(homework.getGrade()); //设置评分结果
             btn.setText("已提交");
         }else{
+            Log.e("评分","未评分");
             bar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
