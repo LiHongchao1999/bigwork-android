@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
+import com.example.homeworkcorrect.CircleDetailActivity;
 import com.example.homeworkcorrect.HisselfInfoActivity;
 import com.example.homeworkcorrect.MyListView;
 import com.example.homeworkcorrect.R;
@@ -166,11 +167,18 @@ public class CustomCircleAdapter extends BaseAdapter {
                 viewHolder.forwardSize.setText(count+"");
             }
         });
+
         viewHolder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int count = circles.get(position).getCommentSize() +1;
+                int count = circles.get(position).getCommentSize();
                 viewHolder.commentSize.setText(count+"");
+                //点击跳转到详情
+                Intent intent =new Intent(mContext, CircleDetailActivity.class);
+                Gson gson = new Gson();
+                String str = gson.toJson(circles.get(position));
+                intent.putExtra("circle",str);
+                mContext.startActivity(intent);
             }
         });
         final View finalConvertView = convertView;
