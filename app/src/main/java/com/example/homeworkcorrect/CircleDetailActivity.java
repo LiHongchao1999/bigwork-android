@@ -275,6 +275,4 @@ public class CircleDetailActivity extends AppCompatActivity {
         submit=findViewById(R.id.btn_submit);
 
     }
-
-
 }
