@@ -68,6 +68,8 @@ public class CircleDetailActivity extends AppCompatActivity {
                     String str = msg.obj.toString();
                     if(str.equals("true")){
                         Toast.makeText(CircleDetailActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
+                        getAllComments();
+                        commentSize.setText(circle.getCommentSize()+1+"");
                     }else{
                         Toast.makeText(CircleDetailActivity.this,"评论失败",Toast.LENGTH_SHORT).show();
                     }
@@ -82,6 +84,8 @@ public class CircleDetailActivity extends AppCompatActivity {
                         Toast.makeText(CircleDetailActivity.this,"删除失败",Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(CircleDetailActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
+                        commentSize.setText(circle.getCommentSize()-1+"");
+                        getAllComments();
                     }
                     break;
             }
@@ -125,7 +129,6 @@ public class CircleDetailActivity extends AppCompatActivity {
                 sendComment.getText().toString();
                 uploadComment();
                 sendComment.setText("");
-                commentSize.setText(circle.getCommentSize()+1+"");
             }
         });
         //listview长按点击事件
@@ -140,8 +143,8 @@ public class CircleDetailActivity extends AppCompatActivity {
                             .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    //服务端进行删除该条评论
                                     deleteComment(position);
-                                    commentSize.setText(circle.getCommentSize()-1+"");
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -165,8 +168,12 @@ public class CircleDetailActivity extends AppCompatActivity {
      * 上传评论
      * */
     private void uploadComment() {
-        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),"");
-        Request request = new Request.Builder().post(body).url(IP.CONSTANT+"UploadCircleCommentServlet?id="+circle.getId()+"&comment="+sendComment.getText().toString()+"&userId="+ UserCache.user.getId()).build();
+        CircleComment circleComment = new CircleComment();
+        circleComment.setCircle_id(circle.getId());
+        circleComment.setContent(sendComment.getText().toString());
+        circleComment.setComment_id(UserCache.user.getId());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circleComment));
+        Request request = new Request.Builder().post(requestBody).url(IP.CONSTANT+"circle/uploadCircleComment").build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -190,10 +197,13 @@ public class CircleDetailActivity extends AppCompatActivity {
      * 获取所有评论
      * */
     private void getAllComments(){
-        //请求体是普通的字符串
+        //请求体是普通的字符
+        CircleComment circleComment = new CircleComment();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circleComment));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetCircleComment?id="+circle.getId())
+                .post(requestBody)
+                .url(IP.CONSTANT+"circle/comments/"+circle.getId())
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = new OkHttpClient().newCall(request);
@@ -223,9 +233,12 @@ public class CircleDetailActivity extends AppCompatActivity {
      * */
     private void deleteComment(int position) {
         //请求体是普通的字符串
+        CircleComment circleComment = new CircleComment();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(circleComment));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT + "DeleteCommentServlet?id=" + comments.get(position).getId())
+                .post(requestBody)
+                .url(IP.CONSTANT + "circle/deleteComment/" + comments.get(position).getId())
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = new OkHttpClient().newCall(request);
@@ -257,7 +270,7 @@ public class CircleDetailActivity extends AppCompatActivity {
             commentAdapter.notifyDataSetChanged();
         }
 
-        }
+    }
     /*
     * 获取控件
     * */

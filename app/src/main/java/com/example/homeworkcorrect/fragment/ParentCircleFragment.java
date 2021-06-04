@@ -43,6 +43,7 @@ import com.example.homeworkcorrect.adapter.CustomSelectAdapter;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Circle;
+import com.example.homeworkcorrect.entity.CircleComment;
 import com.example.homeworkcorrect.entity.Like;
 import com.example.homeworkcorrect.entity.PopWindowEntity;
 import com.example.homeworkcorrect.entity.User;
@@ -58,8 +59,10 @@ import io.rong.imageloader.utils.L;
 import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -113,6 +116,7 @@ public class ParentCircleFragment extends Fragment {
             Log.e("获取",""+UserCache.user.getId());
             //从服务端获取最新的动态
             getCircleListInfo();
+            getLikelist();
         }else {
             Toast.makeText(getContext(), "您还未登录", Toast.LENGTH_SHORT).show();
         }
@@ -162,9 +166,12 @@ public class ParentCircleFragment extends Fragment {
     }
     private void getLikelist() {
         //请求体是普通的字符串
+        Like like2 = new Like();
+        RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(like2));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
-                .url(IP.CONSTANT+"GetLikeServlet")
+                .post(requestBody)
+                .url(IP.CONSTANT+"like/getLikes")
                 .build();
         //4、创建Call对象，发送请求，并接受响应
         Call call = new OkHttpClient().newCall(request);
@@ -181,9 +188,13 @@ public class ParentCircleFragment extends Fragment {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
                 Log.e("点赞", str);
-                Type collectionType = new TypeToken<List<Like>>() {
-                }.getType();
-                like = new Gson().fromJson(str, collectionType);
+                if(str==null){
+                    Log.e("likes","无点赞信息");
+                }else{
+                    Type collectionType = new TypeToken<List<Like>>() {
+                    }.getType();
+                    like = new Gson().fromJson(str, collectionType);
+                }
                 Log.e("点赞信息", like.toString());
             }
         });
@@ -221,38 +232,23 @@ public class ParentCircleFragment extends Fragment {
         int height= ViewGroup.LayoutParams.WRAP_CONTENT;
         popupWindow = new PopupWindow(listView,width,height);
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        //从服务端获取最新的动态
-        getCircleListInfo();
-        Log.e("tag",publish.getTag(R.id.tag_first)+"");
-        if(popupWindow.isShowing()){
-            publish.setTag(R.id.tag_first,"close");
-            popupWindow.dismiss();
-            backgroundAlpha(1.0f);
-        }
-        if (UserCache.user != null){
-            Log.e("获取",""+UserCache.user.getId());
-            //从服务端获取最新的动态
-            getCircleListInfo();
-        }else{
-            Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
-        }
-    }
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if(hidden){
-        return;
-        }else { circles=null;
-            like=null;
-            getLikelist();
-            getCircleListInfo();
+            return;
+        }else {
+            if (UserCache.user != null){
+                circles=null;
+                like=null;
+                getLikelist();
+                getCircleListInfo();
+            }else{
+                Toast.makeText(getContext(),"您还未登录",Toast.LENGTH_SHORT).show();
+            }
         }
-        //从服务端获取最新的动态
-        getCircleListInfo();
         Log.e("tag",publish.getTag(R.id.tag_first)+"");
         if(popupWindow.isShowing()){
             publish.setTag(R.id.tag_first,"close");
