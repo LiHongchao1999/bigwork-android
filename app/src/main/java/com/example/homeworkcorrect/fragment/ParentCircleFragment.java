@@ -1,24 +1,16 @@
 package com.example.homeworkcorrect.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,10 +35,8 @@ import com.example.homeworkcorrect.adapter.CustomSelectAdapter;
 import com.example.homeworkcorrect.cache.IP;
 import com.example.homeworkcorrect.cache.UserCache;
 import com.example.homeworkcorrect.entity.Circle;
-import com.example.homeworkcorrect.entity.CircleComment;
-import com.example.homeworkcorrect.entity.Like;
+import com.example.homeworkcorrect.entity.LikeInfo;
 import com.example.homeworkcorrect.entity.PopWindowEntity;
-import com.example.homeworkcorrect.entity.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -55,8 +45,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.rong.imageloader.utils.L;
-import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -166,7 +154,7 @@ public class ParentCircleFragment extends Fragment {
     }
     private void getLikelist() {
         //请求体是普通的字符串
-        Like like2 = new Like();
+        LikeInfo like2 = new LikeInfo();
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain;charset=UTF-8"),new Gson().toJson(like2));
         //3、创建请求对象
         Request request = new Request.Builder()//调用post方法表示请求方式为post请求   put（.put）
@@ -191,7 +179,7 @@ public class ParentCircleFragment extends Fragment {
                 if(str==null){
                     Log.e("likes","无点赞信息");
                 }else{
-                    Type collectionType = new TypeToken<List<Like>>() {
+                    Type collectionType = new TypeToken<List<LikeInfo>>() {
                     }.getType();
                     like = new Gson().fromJson(str, collectionType);
                 }

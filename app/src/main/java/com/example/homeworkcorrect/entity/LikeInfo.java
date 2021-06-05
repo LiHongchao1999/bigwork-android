@@ -1,15 +1,15 @@
 package com.example.homeworkcorrect.entity;
 
-public class Like {
+public class LikeInfo {
 	private int userid;
 	private int circleid;
 	private int id;
-	public Like(int id,int userid,int circleid) {
+	public LikeInfo(int id, int userid, int circleid) {
 		this.userid=userid;
 		this.circleid=circleid;
 		this.id=id;
 	}
-	public Like(){}
+	public LikeInfo(){}
 	public int getId() {
 		return id;
 	}
