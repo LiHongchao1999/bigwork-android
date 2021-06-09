@@ -50,7 +50,6 @@ public class WrongQuestionDetailActivity extends AppCompatActivity {
                 new ShowImagesDialog(WrongQuestionDetailActivity.this,question.getResult_image(),i).show();
             }
         });
-        Log.e("老师解析",question.getResult_image_teacher().toString());
         result2 = new CustomAdapterResult(this,question.getResult_image_teacher(),R.layout.send_img_list_item);
         gridView2.setAdapter(result2);
         gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {

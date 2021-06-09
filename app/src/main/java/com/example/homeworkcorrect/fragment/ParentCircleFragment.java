@@ -57,7 +57,7 @@ import okhttp3.Response;
 public class ParentCircleFragment extends Fragment {
     private OkHttpClient client;
     private View view;
-    private List like = new ArrayList();
+    private List<LikeInfo> like = new ArrayList<>();
     private LinearLayout nearCircle; //附近圈子
     private LinearLayout freCircle;  //好友圈子
     private TextView publicSection;
@@ -83,9 +83,18 @@ public class ParentCircleFragment extends Fragment {
                             Intent intent = new Intent(getContext(),CircleDetailActivity.class);
                             String str = new Gson().toJson(circles.get(position));
                             intent.putExtra("circle",str);
-                            startActivity(intent);
+                            startActivityForResult(intent,500);
                         }
                     });
+                    break;
+                case 2:
+                    String str1 = msg.obj.toString();
+                    if(str1==null){
+                        Log.e("likes","无点赞信息");
+                    }else{
+                        like = new Gson().fromJson(str1,  new TypeToken<ArrayList<LikeInfo>>() {}.getType());
+                    }
+                    Log.e("点赞信息", like.toString());
                     break;
             }
         }
@@ -101,10 +110,9 @@ public class ParentCircleFragment extends Fragment {
         //设置弹出框绑定的listview以及初始化popupwindow
         setListView();
         if (UserCache.user != null){
-            Log.e("获取",""+UserCache.user.getId());
             //从服务端获取最新的动态
-            getCircleListInfo();
             getLikelist();
+            getCircleListInfo();
         }else {
             Toast.makeText(getContext(), "您还未登录", Toast.LENGTH_SHORT).show();
         }
@@ -176,14 +184,10 @@ public class ParentCircleFragment extends Fragment {
                 //请求成功以后回调
                 String str = response.body().string();//字符串数据
                 Log.e("点赞", str);
-                if(str==null){
-                    Log.e("likes","无点赞信息");
-                }else{
-                    Type collectionType = new TypeToken<List<LikeInfo>>() {
-                    }.getType();
-                    like = new Gson().fromJson(str, collectionType);
-                }
-                Log.e("点赞信息", like.toString());
+                Message msg = new Message();
+                msg.what=2;
+                msg.obj=str;
+                handler.sendMessage(msg);
             }
         });
     }
@@ -225,6 +229,7 @@ public class ParentCircleFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        Log.e("刷新","开始");
         if(hidden){
             return;
         }else {
@@ -249,21 +254,47 @@ public class ParentCircleFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==100 && resultCode==150){//接收到发表的动态信息
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+            publish.setTag(R.id.tag_first,"close");
             String str = data.getStringExtra("circle");
             Log.e("接收到发表的动态信息",str);
             Circle circle = new Gson().fromJson(str,Circle.class);
-            circles.add(circle);
+            circles.add(0,circle);
             circleAdapter.notifyDataSetChanged();
         }
         if(requestCode==200 && resultCode==250){//接收到发表的图片动态信息
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+            publish.setTag(R.id.tag_first,"close");
             String str = data.getStringExtra("circle");
             Log.e("接收到发表的图片信息",str);
             Circle circle = new Gson().fromJson(str,Circle.class);
-            circles.add(circle);
+            circles.add(0,circle);
             circleAdapter.notifyDataSetChanged();
         }
         if(requestCode==300 && resultCode==350){//接收到发表的视频动态信息
 
+        }
+        if(requestCode==100 && resultCode==160){//点击取消
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+            publish.setTag(R.id.tag_first,"close");
+        }
+        if(requestCode==100 && resultCode==170){//点击物理返回取消
+            popupWindow.dismiss();
+            backgroundAlpha(1.0f);
+            publish.setTag(R.id.tag_first,"close");
+        }
+        if(requestCode==500 && resultCode==510){//修改某条朋友圈
+            String str = data.getStringExtra("circle");
+            Circle circle = new Gson().fromJson(str,Circle.class);
+            for(int i=0; i<circles.size();i++){
+                if(circles.get(i).getId() == circle.getId()){
+                    circles.set(i,circle);
+                }
+            }
+            circleAdapter.notifyDataSetChanged();
         }
     }
 

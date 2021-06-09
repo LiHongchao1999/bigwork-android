@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="批改"
+                    android:text="拍照"
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <LinearLayout
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="家长圈"
+                    android:text="学生圈"
                     android:layout_gravity="center_horizontal"/>
             </LinearLayout>
             <LinearLayout

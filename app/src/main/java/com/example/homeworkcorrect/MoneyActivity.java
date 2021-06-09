@@ -118,10 +118,10 @@ public class MoneyActivity extends AppCompatActivity {
                                 ).create();
                         infoDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_white);
                         infoDialog.show();
-                    } else {
+                    } /*else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(MoneyActivity.this, "失败", Toast.LENGTH_SHORT).show();
-                    }
+                    }*/
                     break;
                 }
                 default:

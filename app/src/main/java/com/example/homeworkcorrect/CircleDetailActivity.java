@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -54,7 +55,7 @@ public class CircleDetailActivity extends AppCompatActivity {
     private TextView likedSize;  //点赞数
     private EditText sendComment;//发布评论
     private Button submit;//提交评论
-    private Circle circle;
+    private Circle circle;//用来存储更新后的信息
     private CircleImgListAdapter adapter;
     private CustomCommentAdapter commentAdapter;
     private List<CircleComment> comments;//所有评论
@@ -69,7 +70,9 @@ public class CircleDetailActivity extends AppCompatActivity {
                     if(str.equals("true")){
                         Toast.makeText(CircleDetailActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
                         getAllComments();
-                        commentSize.setText(circle.getCommentSize()+1+"");
+                        int count = circle.getCommentSize();
+                        commentSize.setText(count+1+"");
+                        circle.setCommentSize(count+1);
                     }else{
                         Toast.makeText(CircleDetailActivity.this,"评论失败",Toast.LENGTH_SHORT).show();
                     }
@@ -84,7 +87,9 @@ public class CircleDetailActivity extends AppCompatActivity {
                         Toast.makeText(CircleDetailActivity.this,"删除失败",Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(CircleDetailActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
+                        int count = circle.getCommentSize();
                         commentSize.setText(circle.getCommentSize()-1+"");
+                        circle.setCommentSize(count-1);
                         getAllComments();
                     }
                     break;
@@ -102,8 +107,6 @@ public class CircleDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String str = intent.getStringExtra("circle");
         circle = new Gson().fromJson(str,Circle.class);
-
-
         //赋值
         Glide.with(this).load(IP.CONSTANT+"userImage/"+circle.getUserImg()).into(headImg);
         adapter = new CircleImgListAdapter(this,circle.getSendImg(),R.layout.send_img_list_item);
@@ -270,6 +273,20 @@ public class CircleDetailActivity extends AppCompatActivity {
             commentAdapter.notifyDataSetChanged();
         }
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent();
+            String str = new Gson().toJson(circle);
+            //设置返回数据
+            intent.putExtra("circle",str);
+            setResult(510,intent);
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
     /*
     * 获取控件

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -30,6 +31,8 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -38,6 +41,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -62,10 +67,11 @@ public class PublishCircleActivity extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
                 case 1:
-                    boolean a = (boolean) msg.obj;
-                    if(a){//发表成功
+                    int a = Integer.parseInt(msg.obj.toString());
+                    if(a!=0){//发表成功
                         Intent intent = new Intent();
                         Gson gson =new Gson();
+                        circle.setId(a);
                         String str = gson.toJson(circle);
                         intent.putExtra("circle",str);
                         //设置返回数据
@@ -101,9 +107,29 @@ public class PublishCircleActivity extends AppCompatActivity {
                 }
             }
         });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                //设置返回数据
+                setResult(160,intent);
+                finish();
+            }
+        });
 
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Intent intent = new Intent();
+            //设置返回数据
+            setResult(170,intent);
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -161,7 +187,6 @@ public class PublishCircleActivity extends AppCompatActivity {
                 }
             });
             new ShowLocalImageDialog(this,imgUrls,1);
-            Log.e("所有图片地址",imgUrls.toString());
             customAdapter.notifyDataSetChanged();
         }
     }
@@ -189,7 +214,6 @@ public class PublishCircleActivity extends AppCompatActivity {
                 break;
             case R.id.ss_send://点击发表
                 imgUrls.remove(imgUrls.size()-1);
-                Log.e("图片个数",imgUrls.size()+"");
                 for(int i=0;i<imgUrls.size();i++){
                     uploadImagesOfPublicCircle(i);
                     try {
@@ -231,7 +255,7 @@ public class PublishCircleActivity extends AppCompatActivity {
                 String str = response.body().string();
                 Log.e("开始加载",str);
                 Gson gson = new Gson();
-                boolean a = gson.fromJson(str,boolean.class);
+                int a = gson.fromJson(str,Integer.class);
                 Message msg = new Message();
                 msg.what=1;
                 msg.obj=a;
@@ -242,7 +266,6 @@ public class PublishCircleActivity extends AppCompatActivity {
     private void uploadImagesOfPublicCircle(int i) {
         long time = Calendar.getInstance().getTimeInMillis();
         RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"),new File(imgUrls.get(0)));
-        Log.e("list的内容",imgUrls.get(0)+"");
         Log.e("time",time+"");
         Request request = new Request.Builder().post(body).url(IP.CONSTANT+"circle/uploadCircleImage/"+time+".jpg").build();
         imgUrls.remove(0);

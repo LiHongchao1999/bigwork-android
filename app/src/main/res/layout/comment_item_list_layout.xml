@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:padding="10dp"
+    android:layout_marginBottom="2dp"
+    android:padding="5dp"
     android:background="@drawable/bg_comment"
     android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <com.example.homeworkcorrect.chat.CircleImageView
         android:id="@+id/fre_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_alignTop="@id/tv_comment_name"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/touxiang1"
         android:layout_marginLeft="5dp"/>
   <TextView
       android:id="@+id/tv_comment_name"
       android:layout_toRightOf="@id/fre_img"
-      android:layout_marginLeft="5dp"
-      android:layout_marginTop="10dp"
-      android:textSize="14sp"
-      android:layout_marginBottom="10dp"
-      android:layout_width="match_parent"
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="12dp"
+      android:textSize="15sp"
+      android:text="追梦少年"
+      android:textColor="@color/btn_select"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/tv_comment_content"
         android:layout_marginTop="10dp"
+        android:text="哈哈"
         android:layout_marginLeft="5dp"
         android:layout_below="@+id/tv_comment_name"
-        android:textSize="18sp"
+        android:layout_alignLeft="@id/tv_comment_name"
+        android:textSize="17sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <ImageView
+    <RelativeLayout
         android:layout_below="@+id/tv_comment_content"
-        android:layout_toLeftOf="@+id/fre_comment"
-        android:layout_marginRight="10dp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/forward"/>
-    <ImageView
-        android:layout_below="@+id/tv_comment_content"
-        android:id="@+id/fre_comment"
-        android:layout_toLeftOf="@id/fre_like_one"
-        android:layout_marginRight="10dp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/comment"/>
-    <ImageView
-        android:layout_below="@+id/tv_comment_content"
-        android:layout_alignParentRight="true"
-        android:id="@+id/fre_like_one"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/like"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+      <ImageView
+          android:layout_toLeftOf="@+id/like123"
+          android:layout_marginRight="10dp"
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:layout_marginTop="2dp"
+          android:background="@drawable/forward"/>
+      <ImageView
+          android:id="@+id/like123"
+          android:layout_toLeftOf="@+id/like12"
+          android:layout_marginRight="10dp"
+          android:layout_marginTop="3dp"
+          android:layout_width="23dp"
+          android:layout_height="23dp"
+          android:background="@drawable/comment"/>
+      <ImageView
+          android:id="@+id/like12"
+          android:layout_alignParentRight="true"
+          android:layout_width="28dp"
+          android:layout_height="28dp"
+          android:layout_marginBottom="4dp"
+          android:background="@drawable/like"/>
+    </RelativeLayout>
 </RelativeLayout>

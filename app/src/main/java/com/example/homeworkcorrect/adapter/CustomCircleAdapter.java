@@ -52,7 +52,7 @@ public class CustomCircleAdapter extends BaseAdapter {
     private List<Circle> circles = new ArrayList<>();
     private int itemLayoutRes;
     private int count;
-    private Handler handler = new Handler(){
+   /* private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             switch (msg.what){
@@ -70,7 +70,7 @@ public class CustomCircleAdapter extends BaseAdapter {
                     break;
                 case 2:
                     String str1 = msg.obj.toString();
-                    if(!str1.equals("2")) {//
+                    if(!str1.equals("0")) {//
                         LikeInfo like2 = new Gson().fromJson(str1, LikeInfo.class);
                         like.remove(like2);
                         notifyDataSetChanged();
@@ -107,11 +107,16 @@ public class CustomCircleAdapter extends BaseAdapter {
                     break;
             }
         }
-    };
+    };*/
     public CustomCircleAdapter(Context mContext, List<Circle> circles, int msg_list_item,List<LikeInfo> like) {
         this.mContext = mContext;
         this.circles = circles;
-        Log.e("jsad ",circles.size()+"");
+        if(like!=null){
+            Log.e("点赞Adapter 1",like.toString());
+        }else{
+            Log.e("点赞Adapter ","1111");
+        }
+
         this.itemLayoutRes = msg_list_item;
         this.like=like;
     }
@@ -140,9 +145,9 @@ public class CustomCircleAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         int current = position;
         ViewHolder viewHolder;
-        final boolean[] flags = {false,true};
         //convertView每个item的视图对象
         //加载item的布局文件
+        final boolean[] flags = new boolean[2];
         if(convertView==null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);//布局填充器
             convertView = inflater.inflate(itemLayoutRes, null);
@@ -159,10 +164,17 @@ public class CustomCircleAdapter extends BaseAdapter {
             viewHolder.commentSize=convertView.findViewById(R.id.fre_comment_size);
             viewHolder.likeSize=convertView.findViewById(R.id.fre_like_size);
             viewHolder.likeImg=convertView.findViewById(R.id.fre_like_one);
+            viewHolder.flags = new boolean[2];
+            viewHolder.flags[0] = false;
+            viewHolder.flags[1] = true;
             convertView.setTag(viewHolder);
+
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        final View finalConvertView = convertView;
+        viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like));
+        viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.black));
         //给控件赋值
         Glide.with(mContext).load(IP.CONSTANT+"userImage/"+circles.get(position).getUserImg())
                 .into(viewHolder.userImg);
@@ -192,13 +204,16 @@ public class CustomCircleAdapter extends BaseAdapter {
         });
         //判断是否点过赞
         if(like!=null && like.size()!=0) {
+            Log.e("点赞like",position+"："+like.toString());
             for (int j = 0; j < like.size(); j++) {
                 if (UserCache.user.getId() == like.get(j).getUserid()) {
-                    if (circles.get(position).getId() == like.get(j).getCircleid()) {
-                        viewHolder.likeSize.setText(circles.get(position).getLikeSize() + "");
+                    if (circles.get(current).getId() == like.get(j).getCircleid()) {
+                        Log.e("点赞个人信息",like.get(j).toString());
+                        viewHolder.likeSize.setText(circles.get(position).getLikeSize()+"");
                         viewHolder.likeSize.setTextColor(convertView.getResources().getColor(android.R.color.holo_red_light));
                         viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(convertView.getResources(), R.drawable.like1));
                         flags[0] = true;
+                        break;
                     }
                 }
             }
@@ -228,53 +243,25 @@ public class CustomCircleAdapter extends BaseAdapter {
                 mContext.startActivity(intent);
             }
         });
-        final View finalConvertView = convertView;
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                //false true初始
-                //flag[1]是来判断该用户是
-                /*int coun = like.size();
-                Log.e("当前coun",coun+"");
-                if(flags[0] == true){//表示是已经点赞
-                    Log.e("点赞取消11coun",coun+"");
-                    flags[0] = false;
-                    coun = coun-1;
-                    viewHolder.likeSize.setText(count+"");
-                    viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like));
-                    viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.black));
-                    //将数据返回给服务端进行修改
-                    deleteLikeInfo(position);
-                    Log.e("点赞取消coun",coun+"");
-                    //点赞数-1
-                    reduceLikeSize(position,coun);
-                }else{//表示是为点赞
-                    flags[0] = true;
-                    coun = coun+1;
-                    viewHolder.likeSize.setText(coun+"");
-                    viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.holo_red_light));
-                    viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like1));
-                    //添加点赞信息
-                    addLikeInfo(position);
-                    Log.e("进行点赞coun",coun+"");
-                    //点赞数+1
-                    addLikeSize(position,coun);
-                }*/
-                int coun = circles.get(position).getLikeSize();
-                if(flags[0] ==true){ //已点赞 点击取消
-                    flags[0] =false;
-                    if (flags[1]=false){
-                        //未点赞后点赞在取消
-                        Log.e("点赞，点击取消",count+"");
-                        viewHolder.likeSize.setText(count+"");
-                        flags[1]=true;
-                    }else if(flags[1]=true){//点赞未取消，直接会点赞数-1
+                int coun = Integer.parseInt(viewHolder.likeSize.getText().toString());
+                Log.e("当前coun",coun+":");
+                if(viewHolder.flags[0] ==true){ //已点赞 点击取消
+                    viewHolder.flags[0] =false;
+                    if (viewHolder.flags[1]=false){
+                        Log.e("当前coun 点赞取消",coun+":");
+                        viewHolder.likeSize.setText(coun+"");
+                        viewHolder.flags[1]=true;
+                    }else if(viewHolder.flags[1]=true){//点赞未取消，直接会点赞数-1
                         //已点赞直接取消
+                        Log.e("当前coun 点赞-1",coun+":");
                         coun = coun-1;
-                        Log.e("已点赞，点击取消",count+"");
-                        viewHolder.likeSize.setText(count+"");
-                        flags[1]=false;
+                        viewHolder.likeSize.setText(coun+"");
+                        viewHolder.flags[1]=false;
+                        Log.e("当前coun 点赞-1 1",coun+":");
                     }
                     viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like));
                     viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.black));
@@ -283,20 +270,23 @@ public class CustomCircleAdapter extends BaseAdapter {
                     //点赞数-1
                     reduceLikeSize(position,coun);
                 }else {//未点赞 点击点赞
-                    if(flags[1]==true){
+                    if(viewHolder.flags[1]==true){
                         //未点赞直接点赞
+                        Log.e("当前coun 直接点赞",coun+":");
                         coun=coun+1;
-                        Log.e("为点赞",coun+"");
+                        Log.e("当前coun 为点赞",coun+"");
                         viewHolder.likeSize.setText(coun+"");
-                        flags[1]=false;
+                        Log.e("当前coun 为点赞1",coun+"");
+                        viewHolder.flags[1]=false;
                     }else {
                         //已点赞取消后再点赞
+                        Log.e("coun 取消后在点赞",coun+"");
+                        coun = coun+1;
                         viewHolder.likeSize.setText(coun+"");
-                        flags[1]=true;
+                        viewHolder.flags[1]=true;
 
                     }
-                    flags[0] =true;
-                     viewHolder.likeSize.setText(coun+"");
+                    viewHolder.flags[0] =true;
                      viewHolder.likeSize.setTextColor(finalConvertView.getResources().getColor(android.R.color.holo_red_light));
                      viewHolder.likeImg.setImageBitmap(BitmapFactory.decodeResource(finalConvertView.getResources(),R.drawable.like1));
                      //添加点赞信息
@@ -363,7 +353,7 @@ public class CustomCircleAdapter extends BaseAdapter {
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
                 Log.e("新增的点赞信息",res);
-                /*Message message = new Message();
+               /* Message message = new Message();
                 message.what=1;
                 message.obj =res;
                 handler.sendMessage(message);*/
@@ -446,6 +436,7 @@ public class CustomCircleAdapter extends BaseAdapter {
         public TextView commentSize;  //评论数
         public TextView likeSize;  //点赞数
         public ImageView likeImg; //点赞图片
+        public boolean[] flags;
     }
 
 

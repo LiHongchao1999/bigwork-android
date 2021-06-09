@@ -29,5 +29,13 @@ public class LikeInfo {
 	public void setCircleid(int circleid) {
 		this.circleid = circleid;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "LikeInfo{" +
+				"userid=" + userid +
+				", circleid=" + circleid +
+				", id=" + id +
+				'}';
+	}
 }
