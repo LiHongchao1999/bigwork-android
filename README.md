@@ -26,17 +26,31 @@
 
 - 张子华（项目经理）
   - Email：[1324088931@qq.com]
-  - Github：[https://github.com/zhangzihua](https://github.com/zhangzihua)
+  - Github：[https://github.com/ZihuaZhang]
 - 薛程元（开发工程师）
   - Email：[871356438@qq.com]
-  - Github：[https://github.com/xuechengyuan](https://github.com/xuechengyuan)
+  - Github：[https://github.com/xuechengyuan]
 - 丁萌阳（UI设计师）
   - Email：[1826466183@qq.com]
-  - Github：[https://github.com/dingmengyang](https://github.com/dingmengyang)
+  - Github：[https://github.com/irvingding]
 - 张嘉豪（测试工程师）
   - Email：[731526545@qq.com]
-  - Github：[https://github.com/zhangjiahao](https://github.com/zhangjiahao)
-
+  - Github：[https://github.com/zhanggahao]
+- 李宏超（后端开发工程师）
+  - Email：[1437518093@qq.com]
+  - Github：[https://github.com/LiHongchao1999]
+- 龚秋锦（开发工程师）
+  - Email：[2811018487@qq.com]
+  - Github：[https://github.com/QJhappy]
+- 马奕扬（开发工程师）
+  - Email：[1007330548@qq.com]
+  - Github：[https://github.com/myylujiu]
+- 高嘉欣（开发工程师）
+  - Email：[1831339473@qq.com]
+  - Github：[https://github.com/sunshinejiaxin]
+- 李晴（开发工程师）
+  - Email：[943046052@qq.com]
+  - Github：[https://github.com/liqing]
 
 ### 项目截图
 
