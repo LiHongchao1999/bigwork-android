@@ -5,4 +5,5 @@ public class IP {
      // public static final String CONSTANT = "http://10.7.89.222:8080/HomeworkCorrect_server/";
       //public static final String CONSTANT = "http://10.7.84.40:8080/HomeworkCorrect_server/";
       public static final String CONSTANT = "http://39.101.204.220:8080/HomeworkCorrect_server/";
+        //public static final String CONSTANT = "http://34.92.146.242:8080/HomeworkCorrect_server/";
 }
