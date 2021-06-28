@@ -16,7 +16,7 @@
 
 - Github：
 - 家长端：https://github.com/LiHongchao1999/bigwork-android
-- gitee：
+- Gitee：
 - 项目汇总仓库：https://gitee.com/lihongchao1999/zuo-ye-pi
 - 服务器端：https://gitee.com/lihongchao1999/bigwork-server
 - 教师端：https://gitee.com/lihongchao1999/bigwork-android-teacher
