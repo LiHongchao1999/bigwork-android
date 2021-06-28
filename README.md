@@ -16,8 +16,8 @@
 
 - Github：
 - 家长端：https://github.com/LiHongchao1999/bigwork-android
-
 - gitee：
+- 项目汇总仓库：https://gitee.com/lihongchao1999/zuo-ye-pi
 - 服务器端：https://gitee.com/lihongchao1999/bigwork-server
 - 教师端：https://gitee.com/lihongchao1999/bigwork-android-teacher
 
@@ -25,32 +25,32 @@
 ### 项目成员
 
 - 张子华（项目经理）
-  - Email：[1324088931@qq.com]
-  - Github：[https://github.com/ZihuaZhang]
+  - Email：1324088931@qq.com
+  - Github：https://github.com/ZihuaZhang
 - 薛程元（开发工程师）
-  - Email：[871356438@qq.com]
-  - Github：[https://github.com/xuechengyuan]
+  - Email：871356438@qq.com
+  - Github：https://github.com/xuechengyuan
 - 丁萌阳（UI设计师）
-  - Email：[1826466183@qq.com]
-  - Github：[https://github.com/irvingding]
+  - Email：1826466183@qq.com
+  - Github：https://github.com/irvingding
 - 张嘉豪（测试工程师）
-  - Email：[731526545@qq.com]
-  - Github：[https://github.com/zhanggahao]
+  - Email：731526545@qq.com
+  - Github：https://github.com/zhanggahao
 - 李宏超（后端开发工程师）
-  - Email：[1437518093@qq.com]
-  - Github：[https://github.com/LiHongchao1999]
+  - Email：1437518093@qq.com
+  - Github：https://github.com/LiHongchao1999
 - 龚秋锦（开发工程师）
-  - Email：[2811018487@qq.com]
-  - Github：[https://github.com/QJhappy]
+  - Email：2811018487@qq.com
+  - Github：https://github.com/QJhappy
 - 马奕扬（开发工程师）
-  - Email：[1007330548@qq.com]
-  - Github：[https://github.com/myylujiu]
+  - Email：1007330548@qq.com
+  - Github：https://github.com/myylujiu
 - 高嘉欣（开发工程师）
-  - Email：[1831339473@qq.com]
-  - Github：[https://github.com/sunshinejiaxin]
+  - Email：1831339473@qq.com
+  - Github：https://github.com/sunshinejiaxin
 - 李晴（开发工程师）
-  - Email：[943046052@qq.com]
-  - Github：[https://github.com/liqing]
+  - Email：943046052@qq.com
+  - Github：https://github.com/liqing
 
 ### 项目截图
 
